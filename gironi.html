@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html class="dark" lang="it">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="theme-color" content="#0E2044"/>
+<link rel="manifest" href="manifest.json"/>
+<link rel="icon" href="icon.svg" type="image/svg+xml"/>
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png"/>
+<title>Gironi – ARETUSA LEAGUE</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script>
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "outline": "#889487", "on-surface": "#dfe3e7",
+          "surface-container-lowest": "#071530", "surface-container-low": "#152040",
+          "on-primary": "#003918", "surface-container": "#1e3368",
+          "secondary": "#71ff74", "tertiary-container": "#f36238",
+          "background": "#0E2044", "surface-container-highest": "#2d5aa0",
+          "primary-container": "#3fa35f", "surface": "#0E2044",
+          "on-surface-variant": "#becabc", "primary": "#77db90",
+          "surface-container-high": "#254E8F", "outline-variant": "#3f4a3f",
+          "on-secondary": "#003909"
+        },
+        borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+        fontFamily: { "headline": ["Space Grotesk"], "body": ["Inter"], "label": ["Inter"] }
+      }
+    }
+  }
+</script>
+<style>
+  .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+  body { min-height: 100dvh; background-color: #0E2044; font-family: 'Inter', sans-serif; }
+</style>
+</head>
+<body class="text-on-surface antialiased">
+
+<header class="fixed top-0 w-full z-50 bg-[#0E2044]/80 backdrop-blur-xl shadow-2xl shadow-[#000000]/40 flex items-center justify-between px-6 h-16">
+  <img src="logo-white.png" alt="Aretusa League" class="h-9 w-auto object-contain"/>
+  <span class="material-symbols-outlined text-on-surface-variant">account_circle</span>
+</header>
+
+<main class="pt-24 pb-32 px-4 max-w-5xl mx-auto">
+
+  <section class="mb-8">
+    <div class="relative h-48 w-full rounded-xl overflow-hidden shadow-2xl">
+      <div class="absolute inset-0 bg-gradient-to-br from-[#003918] to-[#071530]"></div>
+      <div class="absolute inset-0 opacity-5" style="background:repeating-linear-gradient(45deg,#77db90 0,#77db90 1px,transparent 1px,transparent 40px);"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-[#0E2044] to-transparent"></div>
+      <div class="absolute bottom-6 left-6">
+        <h2 class="font-headline text-4xl font-black italic uppercase tracking-tighter text-white">GIRONI</h2>
+        <p class="text-secondary font-bold tracking-widest text-xs uppercase mt-1">Fase a Gironi • 4 Gruppi • 16 Squadre</p>
+      </div>
+    </div>
+  </section>
+
+  <nav id="group-tabs" class="flex gap-2 mb-8 bg-surface-container-low p-1.5 rounded-xl border border-white/5">
+    <button onclick="switchGroup('A')" id="tab-A" class="flex-1 py-3 px-4 rounded-lg bg-surface-container-high text-secondary font-headline font-bold text-sm tracking-tight transition-all">Girone A</button>
+    <button onclick="switchGroup('B')" id="tab-B" class="flex-1 py-3 px-4 rounded-lg text-on-surface/60 hover:bg-surface-container hover:text-on-surface font-headline font-bold text-sm tracking-tight transition-all">Girone B</button>
+    <button onclick="switchGroup('C')" id="tab-C" class="flex-1 py-3 px-4 rounded-lg text-on-surface/60 hover:bg-surface-container hover:text-on-surface font-headline font-bold text-sm tracking-tight transition-all">Girone C</button>
+    <button onclick="switchGroup('D')" id="tab-D" class="flex-1 py-3 px-4 rounded-lg text-on-surface/60 hover:bg-surface-container hover:text-on-surface font-headline font-bold text-sm tracking-tight transition-all">Girone D</button>
+  </nav>
+
+  <div id="group-A"></div>
+  <div id="group-B" class="hidden"></div>
+  <div id="group-C" class="hidden"></div>
+  <div id="group-D" class="hidden"></div>
+
+  <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div class="bg-surface-container-low p-6 rounded-2xl flex items-center gap-4 border border-secondary/10">
+      <div class="w-1.5 h-12 bg-secondary rounded-full"></div>
+      <div>
+        <h4 class="font-headline font-black text-sm uppercase tracking-tight text-secondary">Promozione</h4>
+        <p class="text-on-surface-variant text-xs font-medium">I primi due di ogni girone accedono alla fase a eliminazione diretta.</p>
+      </div>
+    </div>
+    <div class="bg-surface-container-low p-6 rounded-2xl flex items-center gap-4 border border-white/5">
+      <div class="w-1.5 h-12 bg-on-surface-variant/30 rounded-full"></div>
+      <div>
+        <h4 class="font-headline font-black text-sm uppercase tracking-tight text-on-surface-variant">Consolazione</h4>
+        <p class="text-on-surface-variant text-xs font-medium">I restanti accedono al tabellone Silver del torneo.</p>
+      </div>
+    </div>
+  </div>
+</main>
+
+<nav class="fixed bottom-0 left-0 w-full z-50 rounded-t-2xl bg-[#0E2044]/90 backdrop-blur-2xl shadow-[0_-8px_30px_rgb(0,0,0,0.5)]">
+  <div class="flex justify-around items-center pt-3 pb-6 px-4">
+    <a class="flex flex-col items-center justify-center text-[#dfe3e7]/60 hover:text-[#77db90] transition-all" href="index.html">
+      <span class="material-symbols-outlined">home</span>
+      <span class="font-label text-[10px] uppercase tracking-widest font-semibold mt-1">Home</span>
+    </a>
+    <a class="flex flex-col items-center justify-center text-[#71ff74] scale-110" href="gironi.html">
+      <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">groups</span>
+      <span class="font-label text-[10px] uppercase tracking-widest font-semibold mt-1">Gironi</span>
+    </a>
+    <a class="flex flex-col items-center justify-center text-[#dfe3e7]/60 hover:text-[#77db90] transition-all" href="calendario.html">
+      <span class="material-symbols-outlined">calendar_today</span>
+      <span class="font-label text-[10px] uppercase tracking-widest font-semibold mt-1">Calendario</span>
+    </a>
+    <a class="flex flex-col items-center justify-center text-[#dfe3e7]/60 hover:text-[#77db90] transition-all" href="tabellone.html">
+      <span class="material-symbols-outlined">account_tree</span>
+      <span class="font-label text-[10px] uppercase tracking-widest font-semibold mt-1">Tabellone</span>
+    </a>
+  </div>
+</nav>
+
+<script>
+const gironi = {
+  A: [
+    { pos:1, name:"Calvo / Bosco",      abbr:"CB", club:"TC Aretusa",           pg:3, v:3, p:0, sp:6, sm:1, pts:9,  promo:true },
+    { pos:2, name:"Rossi / Bianchi",    abbr:"RB", club:"Padel Club Siracusa",  pg:3, v:2, p:1, sp:4, sm:3, pts:6,  promo:true },
+    { pos:3, name:"Ferrari / Martini",  abbr:"FM", club:"ASD Ortigia Padel",    pg:3, v:1, p:2, sp:3, sm:4, pts:3,  promo:false },
+    { pos:4, name:"Gallo / Esposito",   abbr:"GE", club:"TC Belvedere",         pg:3, v:0, p:3, sp:1, sm:6, pts:0,  promo:false }
+  ],
+  B: [
+    { pos:1, name:"Moretti / De Luca",  abbr:"MD", club:"Padel Club Siracusa",  pg:2, v:2, p:0, sp:4, sm:1, pts:6,  promo:true },
+    { pos:2, name:"Colombo / Farina",   abbr:"CF", club:"TC Aretusa",           pg:2, v:1, p:1, sp:3, sm:2, pts:3,  promo:false },
+    { pos:3, name:"Bruno / Greco",      abbr:"BG", club:"ASD Ortigia Padel",    pg:2, v:1, p:1, sp:2, sm:3, pts:3,  promo:false },
+    { pos:4, name:"Vitale / Serra",     abbr:"VS", club:"TC Belvedere",         pg:2, v:0, p:2, sp:1, sm:4, pts:0,  promo:false }
+  ],
+  C: [
+    { pos:1, name:"Russo / Conti",          abbr:"RC", club:"TC Aretusa",           pg:1, v:1, p:0, sp:2, sm:0, pts:3, promo:false },
+    { pos:2, name:"Mancini / Ricci",        abbr:"MR", club:"Padel Club Siracusa",  pg:1, v:1, p:0, sp:2, sm:1, pts:3, promo:false },
+    { pos:3, name:"Lombardi / De Santis",   abbr:"LD", club:"TC Belvedere",         pg:1, v:0, p:1, sp:1, sm:2, pts:0, promo:false },
+    { pos:4, name:"Pellegrino / Caruso",    abbr:"PC", club:"ASD Ortigia Padel",    pg:1, v:0, p:1, sp:0, sm:2, pts:0, promo:false }
+  ],
+  D: [
+    { pos:1, name:"Messina / Grasso",       abbr:"MG", club:"ASD Ortigia Padel",    pg:0, v:0, p:0, sp:0, sm:0, pts:0, promo:false },
+    { pos:2, name:"Randazzo / Amato",       abbr:"RA", club:"TC Aretusa",           pg:0, v:0, p:0, sp:0, sm:0, pts:0, promo:false },
+    { pos:3, name:"Barbera / Lo Presti",    abbr:"BL", club:"Padel Club Siracusa",  pg:0, v:0, p:0, sp:0, sm:0, pts:0, promo:false },
+    { pos:4, name:"Fontana / Martino",      abbr:"FM", club:"TC Belvedere",         pg:0, v:0, p:0, sp:0, sm:0, pts:0, promo:false }
+  ]
+};
+
+function buildTable(letter) {
+  const rows = gironi[letter];
+  let html = `<div class="bg-surface-container-low rounded-2xl overflow-hidden shadow-xl"><div class="overflow-x-auto"><table class="w-full text-left border-separate border-spacing-y-2 px-4 py-4"><thead><tr class="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold"><th class="px-4 py-2">#</th><th class="px-4 py-2">Coppia</th><th class="px-4 py-2 text-center">PG</th><th class="px-4 py-2 text-center">V</th><th class="px-4 py-2 text-center">P</th><th class="px-4 py-2 text-center">S+</th><th class="px-4 py-2 text-center">S-</th><th class="px-4 py-2 text-center text-secondary">Pts</th></tr></thead><tbody class="text-sm font-medium">`;
+  rows.forEach(r => {
+    const promo = r.promo;
+    const rowCls = promo
+      ? 'bg-surface-container hover:bg-surface-container-high transition-colors border-l-4 border-secondary shadow-lg'
+      : 'bg-surface-container-lowest/40 hover:bg-surface-container transition-colors';
+    const posCol = promo
+      ? `<td class="px-4 py-4 font-headline font-bold text-secondary italic text-lg">${r.pos}</td>`
+      : `<td class="px-4 py-4 font-headline font-bold text-on-surface-variant italic">${r.pos}</td>`;
+    const avatarCls = promo
+      ? 'w-10 h-10 rounded-full bg-secondary/10 flex items-center justify-center border border-secondary/30'
+      : 'w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center';
+    const iconColor = promo ? 'text-secondary' : 'text-on-surface-variant';
+    const iconFill = promo ? "style=\"font-variation-settings:'FILL' 1;\"" : '';
+    const nameCls = promo ? 'text-white font-headline font-bold tracking-tight' : 'text-on-surface/80 font-headline font-semibold tracking-tight';
+    const ptsCls = promo ? 'text-center font-headline font-black text-secondary text-lg' : 'text-center font-headline font-bold text-on-surface';
+    html += `<tr class="${rowCls}">${posCol}<td class="px-4 py-4"><div class="flex items-center gap-3"><div class="${avatarCls}"><span class="material-symbols-outlined ${iconColor} text-sm" ${iconFill}>groups</span></div><div><span class="${nameCls}">${r.name}</span><p class="text-[10px] text-on-surface-variant/70 font-medium mt-0.5">${r.club}</p></div></div></td><td class="px-4 py-4 text-center text-on-surface-variant">${r.pg}</td><td class="px-4 py-4 text-center text-on-surface-variant">${r.v}</td><td class="px-4 py-4 text-center text-on-surface-variant">${r.p}</td><td class="px-4 py-4 text-center text-on-surface-variant">${r.sp}</td><td class="px-4 py-4 text-center text-on-surface-variant">${r.sm}</td><td class="px-4 py-4 ${ptsCls}">${r.pts}</td></tr>`;
+  });
+  html += '</tbody></table></div></div>';
+  return html;
+}
+
+['A','B','C','D'].forEach(g => {
+  document.getElementById('group-' + g).innerHTML = buildTable(g);
+});
+
+function switchGroup(group) {
+  ['A','B','C','D'].forEach(g => {
+    document.getElementById('group-' + g).classList.toggle('hidden', g !== group);
+    const tab = document.getElementById('tab-' + g);
+    if (g === group) {
+      tab.classList.add('bg-surface-container-high','text-secondary');
+      tab.classList.remove('text-on-surface/60');
+    } else {
+      tab.classList.remove('bg-surface-container-high','text-secondary');
+      tab.classList.add('text-on-surface/60');
+    }
+  });
+}
+</script>
+</body>
+</html>
