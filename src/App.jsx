@@ -5,6 +5,7 @@ import Gironi from './pages/Gironi'
 import Calendario from './pages/Calendario'
 import Tabellone from './pages/Tabellone'
 import Admin from './pages/Admin'
+import Regolamento from './pages/Regolamento'
 import { initialMatches } from './data/matches'
 
 const EMPTY_TEAMS = { A: [], B: [], C: [] }
@@ -93,6 +94,7 @@ export default function App() {
       <Route path="/gironi" element={<Gironi gironi={gironi} isAdmin={isAdmin} />} />
       <Route path="/calendario" element={<Calendario matches={matches} setMatches={setMatches} teams={teams} isAdmin={isAdmin} />} />
       <Route path="/tabellone" element={<Tabellone isAdmin={isAdmin} />} />
+      <Route path="/regolamento" element={<Regolamento isAdmin={isAdmin} />} />
       <Route path="/admin" element={<Admin teams={teams} setTeams={setTeams} matches={matches} setMatches={setMatches} isAdmin={isAdmin} login={login} logout={logout} />} />
     </Routes>
   )
