@@ -3,5 +3,4 @@ export const teams = {
   A: [],
   B: [],
   C: [],
-  D: [],
 }

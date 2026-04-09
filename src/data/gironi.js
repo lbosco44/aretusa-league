@@ -3,5 +3,4 @@ export const gironiData = {
   A: [],
   B: [],
   C: [],
-  D: [],
 }

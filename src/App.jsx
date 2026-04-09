@@ -7,7 +7,7 @@ import Tabellone from './pages/Tabellone'
 import Admin from './pages/Admin'
 import { initialMatches } from './data/matches'
 
-const EMPTY_TEAMS = { A: [], B: [], C: [], D: [] }
+const EMPTY_TEAMS = { A: [], B: [], C: [] }
 
 function loadTeams() {
   try {

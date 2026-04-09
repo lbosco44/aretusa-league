@@ -2,7 +2,7 @@ import { useState } from 'react'
 import TopAppBar from '../components/TopAppBar'
 import BottomNav from '../components/BottomNav'
 
-const GIRONI = ['A', 'B', 'C', 'D']
+const GIRONI = ['A', 'B', 'C']
 
 export default function Admin({ teams, setTeams, matches, setMatches }) {
   const [player1, setPlayer1] = useState('')
