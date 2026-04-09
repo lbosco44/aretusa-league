@@ -60,8 +60,7 @@ export default function Home({ matches, teams, isAdmin }) {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {[{ to:'/gironi', img:'/gironi-bg.png', t:'Gironi', s:'Classifiche & Gruppi' },
               { to:'/calendario', img:'/calendario-bg.png', t:'Calendario', s:'Partite & Campi' },
-              { to:'/tabellone', img:'/court-sunset.png', t:'Tabellone', s:'Eliminazione Diretta' },
-              { to:'/regolamento', img:'/hero-ball.png', t:'Regolamento', s:'Regole & Premiazioni' }
+              { to:'/tabellone', img:'/court-sunset.png', t:'Tabellone', s:'Eliminazione Diretta' }
             ].map(({ to, img, t, s }) => (
               <Link key={to} to={to} className="group relative overflow-hidden rounded-2xl aspect-[16/10] md:aspect-square block">
                 <img src={img} alt={t} loading="lazy" className="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:opacity-65 group-hover:scale-105 transition-all duration-500" />
