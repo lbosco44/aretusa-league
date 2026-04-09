@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import TopAppBar from '../components/TopAppBar'
 import BottomNav from '../components/BottomNav'
 
@@ -15,9 +15,10 @@ export default function Admin({ teams, setTeams, matches, setMatches, isAdmin, l
   const [pwd, setPwd] = useState('')
   const [loginError, setLoginError] = useState(false)
 
-  function handleLogin(e) {
+  async function handleLogin(e) {
     e.preventDefault()
-    if (login(pwd)) {
+    const ok = await login(pwd)
+    if (ok) {
       setLoginError(false)
     } else {
       setLoginError(true)
@@ -32,10 +33,18 @@ export default function Admin({ teams, setTeams, matches, setMatches, isAdmin, l
     if (teams[girone].length >= 4) { setError(`Il girone ${girone} è pieno (max 4 coppie)`); return }
 
     const name = `${p1} / ${p2}`
-    const abbr = (p1[0] + p2[0]).toUpperCase()
+    let abbr = (p1[0] + p2[0]).toUpperCase()
 
     const allTeams = Object.values(teams).flat()
-    if (allTeams.some(t => t.name === name)) { setError('Questa coppia esiste già'); return }
+    if (allTeams.some(t => t.name.toLowerCase() === name.toLowerCase())) { setError('Questa coppia esiste già'); return }
+
+    // Ensure unique abbreviation
+    const existingAbbrs = new Set(allTeams.map(t => t.abbr))
+    if (existingAbbrs.has(abbr)) {
+      let n = 2
+      while (existingAbbrs.has(abbr + n)) n++
+      abbr = abbr + n
+    }
 
     const newTeam = { name, abbr, club: c || '' }
     setTeams(prev => ({ ...prev, [girone]: [...prev[girone], newTeam] }))
@@ -52,7 +61,7 @@ export default function Admin({ teams, setTeams, matches, setMatches, isAdmin, l
       [g]: prev[g].filter((_, i) => i !== idx)
     }))
     setMatches(prev => prev.filter(m =>
-      !(m.girone === g && (m.casa.abbr === team.abbr || m.ospite.abbr === team.abbr))
+      !(m.girone === g && (m.casa.name === team.name || m.ospite.name === team.name))
     ))
   }
 
@@ -65,12 +74,42 @@ export default function Admin({ teams, setTeams, matches, setMatches, isAdmin, l
       [toGirone]: [...prev[toGirone], team]
     }))
     setMatches(prev => prev.filter(m =>
-      !(m.girone === fromGirone && (m.casa.abbr === team.abbr || m.ospite.abbr === team.abbr))
+      !(m.girone === fromGirone && (m.casa.name === team.name || m.ospite.name === team.name))
     ))
     setError('')
   }
 
+  const fileRef = useRef(null)
   const totalTeams = Object.values(teams).flat().length
+
+  function exportData() {
+    const data = { teams, matches, bracket: JSON.parse(localStorage.getItem('aretusa_bracket') || 'null') }
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = `aretusa-backup-${new Date().toISOString().slice(0, 10)}.json`
+    a.click()
+    URL.revokeObjectURL(url)
+  }
+
+  function importData(e) {
+    const file = e.target.files?.[0]
+    if (!file) return
+    const reader = new FileReader()
+    reader.onload = (ev) => {
+      try {
+        const data = JSON.parse(ev.target.result)
+        if (data.teams) setTeams(data.teams)
+        if (data.matches) setMatches(data.matches)
+        if (data.bracket) localStorage.setItem('aretusa_bracket', JSON.stringify(data.bracket))
+        alert('Dati importati con successo! Ricarica la pagina per vedere il bracket.')
+      } catch { alert('File non valido') }
+    }
+    reader.readAsText(file)
+    e.target.value = ''
+  }
+
   const inputCls = 'w-full h-12 px-4 bg-[#071530] border border-white/10 rounded-xl text-on-surface font-semibold placeholder:text-on-surface-variant/40 focus:outline-none focus:border-secondary transition-all'
   const selectCls = 'w-full h-12 px-4 bg-[#071530] border border-white/10 rounded-xl text-on-surface font-semibold appearance-none focus:outline-none focus:border-secondary transition-all'
 
@@ -250,6 +289,28 @@ export default function Admin({ teams, setTeams, matches, setMatches, isAdmin, l
             )}
           </section>
         ))}
+
+        {/* Backup section */}
+        <section className="bg-[#152040] rounded-2xl border border-white/5 overflow-hidden">
+          <div className="flex items-center gap-3 p-6 border-b border-white/10 bg-[#254E8F]/40">
+            <div className="w-2 h-8 bg-[#f36238] rounded-full" />
+            <h3 className="font-headline text-lg font-black uppercase">Backup Dati</h3>
+          </div>
+          <div className="p-6 space-y-4">
+            <p className="text-on-surface-variant text-xs">Esporta tutti i dati del torneo in un file JSON. Puoi reimportarli in caso di perdita dati.</p>
+            <div className="grid grid-cols-2 gap-3">
+              <button onClick={exportData} className="h-12 bg-secondary/10 border border-secondary/30 text-secondary font-headline font-bold text-xs uppercase tracking-widest rounded-xl hover:bg-secondary/20 transition-colors flex items-center justify-center gap-2">
+                <span className="material-symbols-outlined text-sm">download</span>
+                Esporta
+              </button>
+              <button onClick={() => fileRef.current?.click()} className="h-12 bg-white/5 border border-white/10 text-on-surface font-headline font-bold text-xs uppercase tracking-widest rounded-xl hover:bg-white/10 transition-colors flex items-center justify-center gap-2">
+                <span className="material-symbols-outlined text-sm">upload</span>
+                Importa
+              </button>
+              <input ref={fileRef} type="file" accept=".json" onChange={importData} className="hidden" />
+            </div>
+          </div>
+        </section>
       </main>
 
       <BottomNav isAdmin={isAdmin} bracketActive={bracketActive} />

@@ -16,10 +16,15 @@ export default function ResultModal({ match, onClose, onConfirm }) {
     if (nums.some(isNaN)) { alert('I punteggi devono essere numeri'); return }
     const [n1a, n1b, n2a, n2b, n3a, n3b] = nums
     if (n1a === n1b || n2a === n2b || n3a === n3b) { alert('Nessun set può finire in parità'); return }
+    // Validate realistic scores: sets max 7, tiebreak max 15
+    if (n1a > 7 || n1b > 7 || n2a > 7 || n2b > 7) { alert('Il punteggio massimo di un set è 7'); return }
+    const tbMax = tbTarget === 10 ? 15 : 10
+    if (n3a > tbMax || n3b > tbMax) { alert(`Il punteggio massimo del tiebreak è ${tbMax}`); return }
     let cW = 0, oW = 0
     if (n1a > n1b) cW++; else oW++
     if (n2a > n2b) cW++; else oW++
     if (n3a > n3b) cW++; else oW++
+    if (cW === oW) { alert('Il risultato deve avere un vincitore'); return }
     onConfirm({ score: `${cW}-${oW}`, sets: [`${n1a}-${n1b}`, `${n2a}-${n2b}`, `${n3a}-${n3b}`], tbTarget })
   }
 

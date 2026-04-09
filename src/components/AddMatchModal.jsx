@@ -6,7 +6,7 @@ for (let h = 8; h <= 23; h++) {
   TIME_SLOTS.push(`${String(h).padStart(2,'0')}:30`)
 }
 
-export default function AddMatchModal({ onClose, onAdd, teams }) {
+export default function AddMatchModal({ onClose, onAdd, teams, matches }) {
   const [girone, setGirone] = useState('')
   const [casaIdx, setCasaIdx] = useState('')
   const [ospiteIdx, setOspiteIdx] = useState('')
@@ -20,7 +20,18 @@ export default function AddMatchModal({ onClose, onAdd, teams }) {
 
   function handleAdd() {
     if (!girone || casaIdx === '' || ospiteIdx === '' || !data || !ora) { alert('Compila tutti i campi'); return }
-    onAdd({ date: data, ora, girone, casa: teams[girone][+casaIdx], ospite: teams[girone][+ospiteIdx], played: false })
+    if (casaIdx === ospiteIdx) { alert('Le due squadre devono essere diverse'); return }
+    const casa = teams[girone][+casaIdx]
+    const ospite = teams[girone][+ospiteIdx]
+    // Check duplicate: same two teams in same girone (either direction)
+    const dup = (matches || []).some(m =>
+      m.girone === girone && (
+        (m.casa.name === casa.name && m.ospite.name === ospite.name) ||
+        (m.casa.name === ospite.name && m.ospite.name === casa.name)
+      )
+    )
+    if (dup) { alert('Questa partita esiste già nel calendario'); return }
+    onAdd({ date: data, ora, girone, casa, ospite, played: false })
   }
 
   const selCls = 'w-full h-12 px-4 bg-[#071530] border border-white/10 rounded-xl text-on-surface font-semibold appearance-none focus:outline-none focus:border-secondary transition-all'

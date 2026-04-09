@@ -23,24 +23,22 @@ function toKey(y, m, d) {
 
 function getCalendarDays(year, month) {
   const firstDay = new Date(year, month, 1)
-  // Monday-based: 0=Mon, 6=Sun
   let startDay = firstDay.getDay() - 1
   if (startDay < 0) startDay = 6
   const daysInMonth = new Date(year, month + 1, 0).getDate()
   const days = []
-  // Empty slots before first day
   for (let i = 0; i < startDay; i++) days.push(null)
   for (let d = 1; d <= daysInMonth; d++) days.push(d)
   return days
 }
 
-let _nid = 100
+const sortMatches = (a, b) => a.date === b.date ? a.ora.localeCompare(b.ora) : a.date.localeCompare(b.date)
 
 export default function Calendario({ matches, setMatches, teams, isAdmin, bracketActive }) {
   const [showAdd, setShowAdd] = useState(false)
-  const [resultIdx, setResultIdx] = useState(null)
-  const [editIdx, setEditIdx] = useState(null)
-  const [deleteConfirm, setDeleteConfirm] = useState(null)
+  const [resultId, setResultId] = useState(null)
+  const [editId, setEditId] = useState(null)
+  const [deleteId, setDeleteId] = useState(null)
   const [filterGirone, setFilterGirone] = useState(null)
 
   // Calendar state
@@ -70,44 +68,49 @@ export default function Calendario({ matches, setMatches, teams, isAdmin, bracke
 
   // Matches for selected date
   const selectedMatches = selectedDate
-    ? matches.map((m, i) => ({ m, i })).filter(({ m }) => m.date === selectedDate && (!filterGirone || m.girone === filterGirone))
+    ? filtered.filter(m => m.date === selectedDate)
     : null
 
   // Grouped matches (for full list below calendar)
   const grouped = {}
-  filtered.forEach((m) => {
-    const i = matches.indexOf(m)
+  filtered.forEach(m => {
     if (!grouped[m.date]) grouped[m.date] = []
-    grouped[m.date].push({ m, i })
+    grouped[m.date].push(m)
   })
 
   // Upcoming matches (not played, sorted by date/time)
   const todayStr = toKey(today.getFullYear(), today.getMonth(), today.getDate())
   const upcoming = filtered
-    .map((m, i) => ({ m, i: matches.indexOf(m) }))
-    .filter(({ m }) => !m.played && m.date >= todayStr)
-    .sort((a, b) => a.m.date === b.m.date ? a.m.ora.localeCompare(b.m.ora) : a.m.date.localeCompare(b.m.date))
+    .filter(m => !m.played && m.date >= todayStr)
+    .sort(sortMatches)
     .slice(0, 6)
 
+  // Find match by ID helpers
+  const findMatch = (id) => matches.find(m => m.id === id)
+  const deleteMatch = findMatch(deleteId)
+
   function handleAdd(nm) {
-    setMatches(prev => [...prev, { id: ++_nid, ...nm }].sort((a,b) => a.date === b.date ? a.ora.localeCompare(b.ora) : a.date.localeCompare(b.date)))
+    setMatches(prev => [...prev, { id: Date.now(), ...nm }].sort(sortMatches))
     setShowAdd(false)
   }
 
   function handleResult({ score, sets, tbTarget }) {
-    setMatches(prev => prev.map((m, i) => i === resultIdx ? { ...m, score, sets, tbTarget, played: true } : m))
-    setResultIdx(null)
+    setMatches(prev => prev.map(m => m.id === resultId ? { ...m, score, sets, tbTarget, played: true } : m))
+    setResultId(null)
   }
 
-  function handleDelete(idx) {
-    setMatches(prev => prev.filter((_, i) => i !== idx))
-    setDeleteConfirm(null)
+  function handleResetResult(matchId) {
+    setMatches(prev => prev.map(m => m.id === matchId ? { ...m, score: null, sets: null, tbTarget: null, played: false } : m))
+  }
+
+  function handleDelete() {
+    setMatches(prev => prev.filter(m => m.id !== deleteId))
+    setDeleteId(null)
   }
 
   function handleEdit(updated) {
-    setMatches(prev => prev.map((m, i) => i === editIdx ? updated : m)
-      .sort((a,b) => a.date === b.date ? a.ora.localeCompare(b.ora) : a.date.localeCompare(b.date)))
-    setEditIdx(null)
+    setMatches(prev => prev.map(m => m.id === editId ? updated : m).sort(sortMatches))
+    setEditId(null)
   }
 
   const todayKey = toKey(today.getFullYear(), today.getMonth(), today.getDate())
@@ -128,7 +131,6 @@ export default function Calendario({ matches, setMatches, teams, isAdmin, bracke
 
         {/* Apple-style calendar */}
         <div className="bg-[#152040] rounded-2xl border border-white/5 overflow-hidden">
-          {/* Month nav */}
           <div className="flex items-center justify-between px-5 py-4 border-b border-white/5">
             <button onClick={prevMonth} className="w-9 h-9 rounded-full hover:bg-white/10 flex items-center justify-center transition-colors">
               <span className="material-symbols-outlined text-on-surface-variant text-xl">chevron_left</span>
@@ -141,14 +143,12 @@ export default function Calendario({ matches, setMatches, teams, isAdmin, bracke
             </button>
           </div>
 
-          {/* Day headers */}
           <div className="grid grid-cols-7 px-3 pt-3">
             {GIORNI_SHORT.map((g, i) => (
               <div key={i} className="text-center text-[10px] font-bold uppercase tracking-widest text-on-surface-variant/50 py-1">{g}</div>
             ))}
           </div>
 
-          {/* Day grid */}
           <div className="grid grid-cols-7 px-3 pb-4 gap-y-1">
             {calDays.map((day, i) => {
               if (day === null) return <div key={`e${i}`} />
@@ -197,7 +197,7 @@ export default function Calendario({ matches, setMatches, teams, isAdmin, bracke
               <h4 className="font-headline font-bold text-xs uppercase tracking-widest text-on-surface-variant">Prossimi Eventi</h4>
             </div>
             <div className="divide-y divide-white/5">
-              {upcoming.map(({ m, i }) => (
+              {upcoming.map(m => (
                 <button
                   key={m.id}
                   onClick={() => setSelectedDate(m.date)}
@@ -229,14 +229,15 @@ export default function Calendario({ matches, setMatches, teams, isAdmin, bracke
               <div className="h-px flex-grow bg-[#3f4a3f]/30" />
             </div>
             {selectedMatches.length > 0 ? (
-              selectedMatches.map(({ m, i }) => (
+              selectedMatches.map(m => (
                 <MatchCard
                   key={m.id}
                   match={m}
                   isAdmin={isAdmin}
-                  onInsertResult={() => setResultIdx(i)}
-                  onEdit={() => setEditIdx(i)}
-                  onDelete={() => setDeleteConfirm(i)}
+                  onInsertResult={() => setResultId(m.id)}
+                  onEdit={() => setEditId(m.id)}
+                  onDelete={() => setDeleteId(m.id)}
+                  onResetResult={() => handleResetResult(m.id)}
                 />
               ))
             ) : (
@@ -257,14 +258,15 @@ export default function Calendario({ matches, setMatches, teams, isAdmin, bracke
                   <h3 className="font-headline font-bold text-xl text-on-surface whitespace-nowrap">{fmtDate(date)}</h3>
                   <div className="h-px flex-grow bg-[#3f4a3f]/30" />
                 </div>
-                {grouped[date].map(({ m, i }) => (
+                {grouped[date].map(m => (
                   <MatchCard
                     key={m.id}
                     match={m}
                     isAdmin={isAdmin}
-                    onInsertResult={() => setResultIdx(i)}
-                    onEdit={() => setEditIdx(i)}
-                    onDelete={() => setDeleteConfirm(i)}
+                    onInsertResult={() => setResultId(m.id)}
+                    onEdit={() => setEditId(m.id)}
+                    onDelete={() => setDeleteId(m.id)}
+                    onResetResult={() => handleResetResult(m.id)}
                   />
                 ))}
               </section>
@@ -275,13 +277,13 @@ export default function Calendario({ matches, setMatches, teams, isAdmin, bracke
       </main>
       <BottomNav isAdmin={isAdmin} bracketActive={bracketActive} />
 
-      {showAdd && <AddMatchModal onClose={() => setShowAdd(false)} onAdd={handleAdd} teams={teams} />}
-      {editIdx !== null && <EditMatchModal match={matches[editIdx]} teams={teams} onClose={() => setEditIdx(null)} onSave={handleEdit} />}
-      {resultIdx !== null && <ResultModal match={matches[resultIdx]} onClose={() => setResultIdx(null)} onConfirm={handleResult} />}
+      {showAdd && <AddMatchModal onClose={() => setShowAdd(false)} onAdd={handleAdd} teams={teams} matches={matches} />}
+      {editId !== null && (() => { const m = findMatch(editId); return m ? <EditMatchModal match={m} teams={teams} onClose={() => setEditId(null)} onSave={handleEdit} /> : null })()}
+      {resultId !== null && (() => { const m = findMatch(resultId); return m ? <ResultModal match={m} onClose={() => setResultId(null)} onConfirm={handleResult} /> : null })()}
 
       {/* Delete confirmation */}
-      {deleteConfirm !== null && (
-        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4" onClick={() => setDeleteConfirm(null)}>
+      {deleteId !== null && deleteMatch && (
+        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4" onClick={() => setDeleteId(null)}>
           <div className="w-full max-w-sm bg-[#1e3368] rounded-2xl shadow-2xl border border-white/10 overflow-hidden" onClick={e => e.stopPropagation()}>
             <div className="p-6 space-y-4">
               <div className="flex items-center gap-3">
@@ -291,16 +293,16 @@ export default function Calendario({ matches, setMatches, teams, isAdmin, bracke
                 <div>
                   <h3 className="font-headline font-black text-lg uppercase text-white">Elimina Partita</h3>
                   <p className="text-on-surface-variant text-xs mt-0.5">
-                    {matches[deleteConfirm]?.casa.name} vs {matches[deleteConfirm]?.ospite.name}
+                    {deleteMatch.casa.name} vs {deleteMatch.ospite.name}
                   </p>
                 </div>
               </div>
               <p className="text-on-surface-variant text-sm">Sei sicuro di voler eliminare questa partita? L'azione non è reversibile.</p>
               <div className="flex gap-3">
-                <button onClick={() => setDeleteConfirm(null)} className="flex-1 h-12 bg-white/5 border border-white/10 text-on-surface font-headline font-bold text-xs uppercase tracking-widest rounded-xl hover:bg-white/10 transition-colors">
+                <button onClick={() => setDeleteId(null)} className="flex-1 h-12 bg-white/5 border border-white/10 text-on-surface font-headline font-bold text-xs uppercase tracking-widest rounded-xl hover:bg-white/10 transition-colors">
                   Annulla
                 </button>
-                <button onClick={() => handleDelete(deleteConfirm)} className="flex-1 h-12 bg-red-500/20 border border-red-500/30 text-red-400 font-headline font-bold text-xs uppercase tracking-widest rounded-xl hover:bg-red-500/30 transition-colors flex items-center justify-center gap-2">
+                <button onClick={handleDelete} className="flex-1 h-12 bg-red-500/20 border border-red-500/30 text-red-400 font-headline font-bold text-xs uppercase tracking-widest rounded-xl hover:bg-red-500/30 transition-colors flex items-center justify-center gap-2">
                   <span className="material-symbols-outlined text-sm">delete</span>
                   Elimina
                 </button>

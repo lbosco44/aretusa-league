@@ -1,4 +1,4 @@
-export default function MatchCard({ match, onInsertResult, onEdit, onDelete, isAdmin }) {
+export default function MatchCard({ match, onInsertResult, onEdit, onDelete, onResetResult, isAdmin }) {
   const { casa, ospite, girone, ora, played, score, sets, tbTarget } = match
   const tbLabel = tbTarget ? `TB/${tbTarget}` : 'TB'
 
@@ -62,11 +62,24 @@ export default function MatchCard({ match, onInsertResult, onEdit, onDelete, isA
             ))}
           </div>
         )}
-        {!played && isAdmin && (
+        {/* Admin: insert result (not played) or modify/reset (played) */}
+        {isAdmin && !played && (
           <div className="mt-4 pt-3 border-t border-white/5 flex justify-center">
             <button onClick={onInsertResult} className="px-6 py-2.5 bg-secondary/10 hover:bg-secondary/20 border border-secondary/30 text-secondary font-headline font-bold text-xs uppercase tracking-widest rounded-xl transition-all flex items-center justify-center gap-2 active:scale-[0.98]">
               <span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>edit_note</span>
               Inserisci Risultato
+            </button>
+          </div>
+        )}
+        {isAdmin && played && (
+          <div className="mt-4 pt-3 border-t border-white/5 flex justify-center gap-3">
+            <button onClick={onInsertResult} className="px-5 py-2 bg-[#254E8F]/40 hover:bg-[#254E8F]/60 border border-white/10 text-on-surface-variant font-headline font-bold text-[10px] uppercase tracking-widest rounded-xl transition-all flex items-center justify-center gap-1.5 active:scale-[0.98]">
+              <span className="material-symbols-outlined text-xs">edit</span>
+              Modifica Risultato
+            </button>
+            <button onClick={onResetResult} className="px-5 py-2 bg-red-500/10 hover:bg-red-500/20 border border-red-500/20 text-red-400 font-headline font-bold text-[10px] uppercase tracking-widest rounded-xl transition-all flex items-center justify-center gap-1.5 active:scale-[0.98]">
+              <span className="material-symbols-outlined text-xs">undo</span>
+              Annulla
             </button>
           </div>
         )}

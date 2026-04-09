@@ -10,30 +10,42 @@ import { initialMatches } from './data/matches'
 
 const EMPTY_TEAMS = { A: [], B: [], C: [] }
 const EMPTY_BRACKET = { active: false, rounds: [[], [], [], []] }
+const INTEGRITY_SALT = 'aretusa_v1_9f3k'
 
-function loadTeams() {
-  try {
-    const stored = localStorage.getItem('aretusa_teams')
-    if (stored) return JSON.parse(stored)
-  } catch { /* ignore */ }
-  return EMPTY_TEAMS
+function simpleHash(str) {
+  let h = 0
+  for (let i = 0; i < str.length; i++) {
+    h = ((h << 5) - h + str.charCodeAt(i)) | 0
+  }
+  return (h >>> 0).toString(36)
 }
 
-function loadMatches() {
-  try {
-    const stored = localStorage.getItem('aretusa_matches')
-    if (stored) return JSON.parse(stored)
-  } catch { /* ignore */ }
-  return initialMatches
+function saveWithHash(key, data) {
+  const json = JSON.stringify(data)
+  localStorage.setItem(key, json)
+  localStorage.setItem(key + '_h', simpleHash(INTEGRITY_SALT + json))
 }
 
-function loadBracket() {
+function loadWithHash(key, fallback) {
   try {
-    const stored = localStorage.getItem('aretusa_bracket')
-    if (stored) return JSON.parse(stored)
-  } catch { /* ignore */ }
-  return EMPTY_BRACKET
+    const json = localStorage.getItem(key)
+    if (!json) return fallback
+    const hash = localStorage.getItem(key + '_h')
+    if (hash && hash !== simpleHash(INTEGRITY_SALT + json)) {
+      console.warn(`Integrity check failed for ${key}, resetting`)
+      localStorage.removeItem(key)
+      localStorage.removeItem(key + '_h')
+      return fallback
+    }
+    return JSON.parse(json)
+  } catch {
+    return fallback
+  }
 }
+
+function loadTeams() { return loadWithHash('aretusa_teams', EMPTY_TEAMS) }
+function loadMatches() { return loadWithHash('aretusa_matches', initialMatches) }
+function loadBracket() { return loadWithHash('aretusa_bracket', EMPTY_BRACKET) }
 
 function buildGironi(teams, matches) {
   const gironi = {}
@@ -41,8 +53,8 @@ function buildGironi(teams, matches) {
     gironi[girone] = list.map((team, i) => {
       const stats = { pg: 0, v: 0, p: 0, sp: 0, sm: 0 }
       matches.filter(m => m.girone === girone && m.played).forEach(m => {
-        const isCasa = m.casa.abbr === team.abbr
-        const isOspite = m.ospite.abbr === team.abbr
+        const isCasa = m.casa.name === team.name
+        const isOspite = m.ospite.name === team.name
         if (!isCasa && !isOspite) return
         stats.pg++
         const [setsWon, setsLost] = (m.score || '0-0').split('-').map(Number)
@@ -77,9 +89,10 @@ function generateBracket(gironi) {
   for (const [g, list] of Object.entries(gironi)) {
     list.forEach(t => allTeams.push({ name: t.name, abbr: t.abbr, club: t.club, girone: g, pos: t.pos, pts: t.pts, sp: t.sp, sm: t.sm }))
   }
+  if (allTeams.length < 12) return EMPTY_BRACKET
   allTeams.sort((a, b) => b.pts - a.pts || (b.sp - b.sm) - (a.sp - a.sm))
 
-  const s = allTeams // s[0] = seed 1, s[11] = seed 12
+  const s = allTeams
   const t = (team, seed) => team ? { name: team.name, abbr: team.abbr, club: team.club, seed, seedLabel: `${team.pos}°${team.girone}` } : null
   const m = (casa, ospite) => ({ casa, ospite, score: null, sets: null, played: false, winner: null })
 
@@ -101,12 +114,16 @@ function generateBracket(gironi) {
 // Advance winner to next round
 function advanceBracket(bracket, roundIdx, matchIdx, result) {
   const next = JSON.parse(JSON.stringify(bracket))
+  if (!next.rounds[roundIdx] || !next.rounds[roundIdx][matchIdx]) return bracket
   const match = next.rounds[roundIdx][matchIdx]
   match.score = result.score
   match.sets = result.sets
   match.played = true
 
-  const [cW, oW] = result.score.split('-').map(Number)
+  const parts = result.score.split('-').map(Number)
+  const cW = parts[0] || 0
+  const oW = parts[1] || 0
+  if (cW === oW) return bracket // tie not allowed, return unchanged
   const winner = cW > oW ? { ...match.casa } : { ...match.ospite }
   match.winner = cW > oW ? 'casa' : 'ospite'
 
@@ -131,20 +148,42 @@ export default function App() {
   const [teams, setTeams] = useState(loadTeams)
   const [matches, setMatches] = useState(loadMatches)
   const [bracket, setBracket] = useState(loadBracket)
-  const [isAdmin, setIsAdmin] = useState(() => sessionStorage.getItem('aretusa_admin') === '1')
+  const [isAdmin, setIsAdmin] = useState(false)
   const gironi = buildGironi(teams, matches)
 
-  function login(pwd) {
-    if (pwd === 'Padelsiracusa567') {
-      sessionStorage.setItem('aretusa_admin', '1')
+  // Verify existing token on mount
+  useEffect(() => {
+    const token = sessionStorage.getItem('aretusa_token')
+    if (!token) return
+    fetch('/api/verify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token }),
+    })
+      .then(r => r.json())
+      .then(d => { if (d.valid) setIsAdmin(true); else sessionStorage.removeItem('aretusa_token') })
+      .catch(() => { sessionStorage.removeItem('aretusa_token') })
+  }, [])
+
+  async function login(pwd) {
+    try {
+      const res = await fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password: pwd }),
+      })
+      if (!res.ok) return false
+      const { token } = await res.json()
+      sessionStorage.setItem('aretusa_token', token)
       setIsAdmin(true)
       return true
+    } catch {
+      return false
     }
-    return false
   }
 
   function logout() {
-    sessionStorage.removeItem('aretusa_admin')
+    sessionStorage.removeItem('aretusa_token')
     setIsAdmin(false)
   }
 
@@ -157,17 +196,20 @@ export default function App() {
     setBracket(prev => advanceBracket(prev, roundIdx, matchIdx, result))
   }
 
-  useEffect(() => {
-    localStorage.setItem('aretusa_teams', JSON.stringify(teams))
-  }, [teams])
+  useEffect(() => { saveWithHash('aretusa_teams', teams) }, [teams])
+  useEffect(() => { saveWithHash('aretusa_matches', matches) }, [matches])
+  useEffect(() => { saveWithHash('aretusa_bracket', bracket) }, [bracket])
 
+  // Multi-tab sync
   useEffect(() => {
-    localStorage.setItem('aretusa_matches', JSON.stringify(matches))
-  }, [matches])
-
-  useEffect(() => {
-    localStorage.setItem('aretusa_bracket', JSON.stringify(bracket))
-  }, [bracket])
+    function onStorage(e) {
+      if (e.key === 'aretusa_teams') setTeams(loadTeams())
+      if (e.key === 'aretusa_matches') setMatches(loadMatches())
+      if (e.key === 'aretusa_bracket') setBracket(loadBracket())
+    }
+    window.addEventListener('storage', onStorage)
+    return () => window.removeEventListener('storage', onStorage)
+  }, [])
 
   return (
     <Routes>
