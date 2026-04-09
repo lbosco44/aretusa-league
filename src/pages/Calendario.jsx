@@ -36,7 +36,7 @@ function getCalendarDays(year, month) {
 
 let _nid = 100
 
-export default function Calendario({ matches, setMatches, teams }) {
+export default function Calendario({ matches, setMatches, teams, isAdmin }) {
   const [showAdd, setShowAdd] = useState(false)
   const [resultIdx, setResultIdx] = useState(null)
   const [editIdx, setEditIdx] = useState(null)
@@ -114,12 +114,12 @@ export default function Calendario({ matches, setMatches, teams }) {
 
   return (
     <div className="min-h-screen text-on-surface">
-      <TopAppBar actions={
+      <TopAppBar actions={isAdmin ? (
         <button onClick={() => setShowAdd(true)} className="flex items-center gap-2 bg-gradient-to-r from-[#27F24C] to-[#1DB954] text-[#003909] font-headline font-bold px-4 py-2 rounded-xl text-xs uppercase tracking-widest shadow-lg active:scale-95 transition-all">
           <span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>add_circle</span>
           Aggiungi
         </button>
-      } />
+      ) : null} />
       <main className="pt-24 px-4 max-w-4xl mx-auto space-y-6 pb-32">
         <div>
           <span className="text-secondary font-headline uppercase tracking-[0.2em] text-xs font-bold">Padel League</span>
@@ -233,6 +233,7 @@ export default function Calendario({ matches, setMatches, teams }) {
                 <MatchCard
                   key={m.id}
                   match={m}
+                  isAdmin={isAdmin}
                   onInsertResult={() => setResultIdx(i)}
                   onEdit={() => setEditIdx(i)}
                   onDelete={() => setDeleteConfirm(i)}
@@ -260,6 +261,7 @@ export default function Calendario({ matches, setMatches, teams }) {
                   <MatchCard
                     key={m.id}
                     match={m}
+                    isAdmin={isAdmin}
                     onInsertResult={() => setResultIdx(i)}
                     onEdit={() => setEditIdx(i)}
                     onDelete={() => setDeleteConfirm(i)}
@@ -271,7 +273,7 @@ export default function Calendario({ matches, setMatches, teams }) {
           </>
         )}
       </main>
-      <BottomNav />
+      <BottomNav isAdmin={isAdmin} />
 
       {showAdd && <AddMatchModal onClose={() => setShowAdd(false)} onAdd={handleAdd} teams={teams} />}
       {editIdx !== null && <EditMatchModal match={matches[editIdx]} teams={teams} onClose={() => setEditIdx(null)} onSave={handleEdit} />}

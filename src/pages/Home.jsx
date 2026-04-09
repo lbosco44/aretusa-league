@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import TopAppBar from '../components/TopAppBar'
 import BottomNav from '../components/BottomNav'
 
-export default function Home({ matches, teams }) {
+export default function Home({ matches, teams, isAdmin }) {
   const nextMatch = matches.find(m => !m.played)
   const totalTeams = Object.values(teams).flat().length
 
@@ -74,10 +74,12 @@ export default function Home({ matches, teams }) {
           </div>
         </section>
       </main>
-      <Link to="/admin" className="fixed bottom-24 right-4 z-40 bg-gradient-to-r from-[#77db90] to-[#3fa35f] text-on-primary w-14 h-14 rounded-full flex items-center justify-center shadow-xl shadow-primary/30 active:scale-95 transition-all">
-        <span className="material-symbols-outlined">admin_panel_settings</span>
-      </Link>
-      <BottomNav />
+      {isAdmin && (
+        <Link to="/admin" className="fixed bottom-24 right-4 z-40 bg-gradient-to-r from-[#77db90] to-[#3fa35f] text-on-primary w-14 h-14 rounded-full flex items-center justify-center shadow-xl shadow-primary/30 active:scale-95 transition-all">
+          <span className="material-symbols-outlined">admin_panel_settings</span>
+        </Link>
+      )}
+      <BottomNav isAdmin={isAdmin} />
     </div>
   )
 }

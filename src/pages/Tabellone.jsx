@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import TopAppBar from '../components/TopAppBar'
 import BottomNav from '../components/BottomNav'
 
-export default function Tabellone() {
+export default function Tabellone({ isAdmin }) {
   return (
     <div className="min-h-screen flex flex-col text-on-surface">
       <TopAppBar actions={<span className="material-symbols-outlined text-on-surface-variant">account_circle</span>} />
@@ -26,7 +26,7 @@ export default function Tabellone() {
           </div>
         </div>
       </main>
-      <BottomNav />
+      <BottomNav isAdmin={isAdmin} />
     </div>
   )
 }

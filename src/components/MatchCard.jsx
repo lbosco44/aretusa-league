@@ -1,4 +1,4 @@
-export default function MatchCard({ match, onInsertResult, onEdit, onDelete }) {
+export default function MatchCard({ match, onInsertResult, onEdit, onDelete, isAdmin }) {
   const { casa, ospite, girone, ora, played, score, sets, tbTarget } = match
   const tbLabel = tbTarget ? `TB/${tbTarget}` : 'TB'
 
@@ -15,12 +15,16 @@ export default function MatchCard({ match, onInsertResult, onEdit, onDelete }) {
             <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase ${played ? 'bg-[#27F24C] text-[#003909]' : 'bg-[#D3D0CB] text-[#152040]'}`}>
               {played ? 'Giocata' : 'Prossima'}
             </span>
-            <button onClick={onEdit} className="w-8 h-8 rounded-lg bg-[#254E8F]/60 flex items-center justify-center hover:bg-[#254E8F] transition-colors" title="Modifica">
-              <span className="material-symbols-outlined text-on-surface-variant text-sm">edit</span>
-            </button>
-            <button onClick={onDelete} className="w-8 h-8 rounded-lg bg-red-500/10 flex items-center justify-center hover:bg-red-500/20 transition-colors" title="Elimina">
-              <span className="material-symbols-outlined text-red-400 text-sm">delete</span>
-            </button>
+            {isAdmin && (
+              <>
+                <button onClick={onEdit} className="w-8 h-8 rounded-lg bg-[#254E8F]/60 flex items-center justify-center hover:bg-[#254E8F] transition-colors" title="Modifica">
+                  <span className="material-symbols-outlined text-on-surface-variant text-sm">edit</span>
+                </button>
+                <button onClick={onDelete} className="w-8 h-8 rounded-lg bg-red-500/10 flex items-center justify-center hover:bg-red-500/20 transition-colors" title="Elimina">
+                  <span className="material-symbols-outlined text-red-400 text-sm">delete</span>
+                </button>
+              </>
+            )}
           </div>
         </div>
         <div className="grid grid-cols-7 gap-4 items-center">
@@ -58,7 +62,7 @@ export default function MatchCard({ match, onInsertResult, onEdit, onDelete }) {
             ))}
           </div>
         )}
-        {!played && (
+        {!played && isAdmin && (
           <div className="mt-4 pt-3 border-t border-white/5 flex justify-center">
             <button onClick={onInsertResult} className="px-6 py-2.5 bg-secondary/10 hover:bg-secondary/20 border border-secondary/30 text-secondary font-headline font-bold text-xs uppercase tracking-widest rounded-xl transition-all flex items-center justify-center gap-2 active:scale-[0.98]">
               <span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>edit_note</span>

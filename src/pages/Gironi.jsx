@@ -3,7 +3,7 @@ import TopAppBar from '../components/TopAppBar'
 import BottomNav from '../components/BottomNav'
 import GroupTable from '../components/GroupTable'
 
-export default function Gironi({ gironi }) {
+export default function Gironi({ gironi, isAdmin }) {
   const [active, setActive] = useState('A')
   const totalTeams = Object.values(gironi).flat().length
 
@@ -53,7 +53,7 @@ export default function Gironi({ gironi }) {
           </div>
         </div>
       </main>
-      <BottomNav />
+      <BottomNav isAdmin={isAdmin} />
     </div>
   )
 }

@@ -62,7 +62,22 @@ function buildGironi(teams, matches) {
 export default function App() {
   const [teams, setTeams] = useState(loadTeams)
   const [matches, setMatches] = useState(loadMatches)
+  const [isAdmin, setIsAdmin] = useState(() => sessionStorage.getItem('aretusa_admin') === '1')
   const gironi = buildGironi(teams, matches)
+
+  function login(pwd) {
+    if (pwd === 'Padelsiracusa567') {
+      sessionStorage.setItem('aretusa_admin', '1')
+      setIsAdmin(true)
+      return true
+    }
+    return false
+  }
+
+  function logout() {
+    sessionStorage.removeItem('aretusa_admin')
+    setIsAdmin(false)
+  }
 
   useEffect(() => {
     localStorage.setItem('aretusa_teams', JSON.stringify(teams))
@@ -74,11 +89,11 @@ export default function App() {
 
   return (
     <Routes>
-      <Route path="/" element={<Home matches={matches} teams={teams} />} />
-      <Route path="/gironi" element={<Gironi gironi={gironi} />} />
-      <Route path="/calendario" element={<Calendario matches={matches} setMatches={setMatches} teams={teams} />} />
-      <Route path="/tabellone" element={<Tabellone />} />
-      <Route path="/admin" element={<Admin teams={teams} setTeams={setTeams} matches={matches} setMatches={setMatches} />} />
+      <Route path="/" element={<Home matches={matches} teams={teams} isAdmin={isAdmin} />} />
+      <Route path="/gironi" element={<Gironi gironi={gironi} isAdmin={isAdmin} />} />
+      <Route path="/calendario" element={<Calendario matches={matches} setMatches={setMatches} teams={teams} isAdmin={isAdmin} />} />
+      <Route path="/tabellone" element={<Tabellone isAdmin={isAdmin} />} />
+      <Route path="/admin" element={<Admin teams={teams} setTeams={setTeams} matches={matches} setMatches={setMatches} isAdmin={isAdmin} login={login} logout={logout} />} />
     </Routes>
   )
 }
