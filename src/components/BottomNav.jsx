@@ -5,6 +5,7 @@ const tabs = [
   { to: '/gironi',     icon: 'groups',        label: 'Gironi' },
   { to: '/calendario', icon: 'calendar_today', label: 'Calendario' },
   { to: '/tabellone',  icon: 'account_tree',  label: 'Tabellone' },
+  { to: '/admin',      icon: 'admin_panel_settings', label: 'Admin' },
 ]
 
 export default function BottomNav() {

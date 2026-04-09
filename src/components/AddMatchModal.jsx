@@ -1,15 +1,16 @@
 import { useState } from 'react'
-import { teams } from '../data/teams'
 
-export default function AddMatchModal({ onClose, onAdd }) {
+export default function AddMatchModal({ onClose, onAdd, teams }) {
   const [girone, setGirone] = useState('')
   const [casaIdx, setCasaIdx] = useState('')
   const [ospiteIdx, setOspiteIdx] = useState('')
   const [data, setData] = useState('')
   const [ora, setOra] = useState('')
 
-  const gironeTeams = girone ? teams[girone] : []
+  const gironeTeams = girone ? (teams[girone] || []) : []
   const casaTeam = casaIdx !== '' ? gironeTeams[+casaIdx] : null
+
+  const availableGironi = Object.entries(teams).filter(([, list]) => list.length >= 2).map(([g]) => g)
 
   function handleAdd() {
     if (!girone || casaIdx === '' || ospiteIdx === '' || !data || !ora) { alert('Compila tutti i campi'); return }
@@ -33,7 +34,7 @@ export default function AddMatchModal({ onClose, onAdd }) {
             <label className="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Girone</label>
             <select value={girone} onChange={(e) => { setGirone(e.target.value); setCasaIdx(''); setOspiteIdx('') }} className={selCls}>
               <option value="">-- Seleziona girone --</option>
-              {['A','B','C','D'].map(g => <option key={g} value={g}>Girone {g}</option>)}
+              {availableGironi.map(g => <option key={g} value={g}>Girone {g}</option>)}
             </select>
           </div>
           <div className="space-y-2">

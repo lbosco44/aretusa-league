@@ -15,7 +15,7 @@ function fmtDate(d) {
 
 let _nid = 100
 
-export default function Calendario({ matches, setMatches }) {
+export default function Calendario({ matches, setMatches, teams }) {
   const [showAdd, setShowAdd] = useState(false)
   const [resultIdx, setResultIdx] = useState(null)
 
@@ -59,7 +59,7 @@ export default function Calendario({ matches, setMatches }) {
         {matches.length === 0 && <p className="text-on-surface-variant text-center py-12">Nessuna partita in calendario.</p>}
       </main>
       <BottomNav />
-      {showAdd && <AddMatchModal onClose={() => setShowAdd(false)} onAdd={handleAdd} />}
+      {showAdd && <AddMatchModal onClose={() => setShowAdd(false)} onAdd={handleAdd} teams={teams} />}
       {resultIdx !== null && <ResultModal match={matches[resultIdx]} onClose={() => setResultIdx(null)} onConfirm={handleResult} />}
     </div>
   )

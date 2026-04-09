@@ -2,8 +2,9 @@ import { Link } from 'react-router-dom'
 import TopAppBar from '../components/TopAppBar'
 import BottomNav from '../components/BottomNav'
 
-export default function Home({ matches }) {
+export default function Home({ matches, teams }) {
   const nextMatch = matches.find(m => !m.played)
+  const totalTeams = Object.values(teams).flat().length
 
   return (
     <div className="bg-surface text-on-surface font-body min-h-screen">
@@ -32,7 +33,7 @@ export default function Home({ matches }) {
           <div className="bg-[#D3D0CB] p-5 rounded-2xl flex flex-col justify-between h-32 text-[#0E2044]">
             <span className="text-xs font-black uppercase tracking-widest opacity-60">Squadre</span>
             <div className="flex items-baseline gap-2">
-              <span className="font-headline text-4xl font-bold">16</span>
+              <span className="font-headline text-4xl font-bold">{totalTeams}</span>
               <span className="material-symbols-outlined text-[#0E2044]/40">groups</span>
             </div>
           </div>
@@ -72,27 +73,9 @@ export default function Home({ matches }) {
             ))}
           </div>
         </section>
-
-        <section className="space-y-4">
-          <h3 className="font-headline text-lg font-bold tracking-tight uppercase text-on-surface px-2">Leader Girone A</h3>
-          <div className="bg-[#152040] rounded-3xl overflow-hidden border border-outline-variant/10 p-6 flex flex-col md:flex-row gap-6">
-            <div className="flex-1 flex gap-4 items-center">
-              <div className="w-16 h-16 rounded-2xl bg-[#2d5aa0] flex items-center justify-center text-primary font-headline font-bold text-2xl border border-primary/20">CB</div>
-              <div>
-                <p className="text-xs font-bold uppercase text-on-surface-variant tracking-widest">Leader Girone A</p>
-                <h5 className="text-xl font-headline font-bold uppercase text-white">Calvo / Bosco</h5>
-                <p className="text-xs text-on-surface-variant mt-0.5">TC Aretusa</p>
-                <div className="flex gap-2 mt-1">
-                  <span className="px-2 py-0.5 rounded-md bg-secondary/10 text-secondary text-[10px] font-bold uppercase">3V 0P</span>
-                  <span className="px-2 py-0.5 rounded-md bg-primary/10 text-primary text-[10px] font-bold uppercase">9 Punti</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
       </main>
-      <Link to="/calendario" className="fixed bottom-24 right-4 z-40 bg-gradient-to-r from-[#77db90] to-[#3fa35f] text-on-primary w-14 h-14 rounded-full flex items-center justify-center shadow-xl shadow-primary/30 active:scale-95 transition-all">
-        <span className="material-symbols-outlined">add</span>
+      <Link to="/admin" className="fixed bottom-24 right-4 z-40 bg-gradient-to-r from-[#77db90] to-[#3fa35f] text-on-primary w-14 h-14 rounded-full flex items-center justify-center shadow-xl shadow-primary/30 active:scale-95 transition-all">
+        <span className="material-symbols-outlined">admin_panel_settings</span>
       </Link>
       <BottomNav />
     </div>
