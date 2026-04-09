@@ -7,11 +7,31 @@ import EditMatchModal from '../components/EditMatchModal'
 import ResultModal from '../components/ResultModal'
 
 const GIORNI = ['Dom','Lun','Mar','Mer','Gio','Ven','Sab']
+const GIORNI_SHORT = ['L','M','M','G','V','S','D']
 const MESI = ['GEN','FEB','MAR','APR','MAG','GIU','LUG','AGO','SET','OTT','NOV','DIC']
+const MESI_FULL = ['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre']
+
 function fmtDate(d) {
   const [y,m,day] = d.split('-')
   const dt = new Date(+y,+m-1,+day)
   return `${GIORNI[dt.getDay()]} ${day} ${MESI[+m-1]}`
+}
+
+function toKey(y, m, d) {
+  return `${y}-${String(m + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`
+}
+
+function getCalendarDays(year, month) {
+  const firstDay = new Date(year, month, 1)
+  // Monday-based: 0=Mon, 6=Sun
+  let startDay = firstDay.getDay() - 1
+  if (startDay < 0) startDay = 6
+  const daysInMonth = new Date(year, month + 1, 0).getDate()
+  const days = []
+  // Empty slots before first day
+  for (let i = 0; i < startDay; i++) days.push(null)
+  for (let d = 1; d <= daysInMonth; d++) days.push(d)
+  return days
 }
 
 let _nid = 100
@@ -22,6 +42,34 @@ export default function Calendario({ matches, setMatches, teams }) {
   const [editIdx, setEditIdx] = useState(null)
   const [deleteConfirm, setDeleteConfirm] = useState(null)
 
+  // Calendar state
+  const today = new Date()
+  const [calYear, setCalYear] = useState(today.getFullYear())
+  const [calMonth, setCalMonth] = useState(today.getMonth())
+  const [selectedDate, setSelectedDate] = useState(null)
+
+  // Match dates set for dot indicators
+  const matchDates = new Set(matches.map(m => m.date))
+
+  const calDays = getCalendarDays(calYear, calMonth)
+
+  function prevMonth() {
+    if (calMonth === 0) { setCalYear(calYear - 1); setCalMonth(11) }
+    else setCalMonth(calMonth - 1)
+    setSelectedDate(null)
+  }
+  function nextMonth() {
+    if (calMonth === 11) { setCalYear(calYear + 1); setCalMonth(0) }
+    else setCalMonth(calMonth + 1)
+    setSelectedDate(null)
+  }
+
+  // Matches for selected date
+  const selectedMatches = selectedDate
+    ? matches.map((m, i) => ({ m, i })).filter(({ m }) => m.date === selectedDate)
+    : null
+
+  // Grouped matches (for full list below calendar)
   const grouped = {}
   matches.forEach((m, i) => { if (!grouped[m.date]) grouped[m.date] = []; grouped[m.date].push({ m, i }) })
 
@@ -46,6 +94,8 @@ export default function Calendario({ matches, setMatches, teams }) {
     setEditIdx(null)
   }
 
+  const todayKey = toKey(today.getFullYear(), today.getMonth(), today.getDate())
+
   return (
     <div className="min-h-screen text-on-surface">
       <TopAppBar actions={
@@ -54,29 +104,109 @@ export default function Calendario({ matches, setMatches, teams }) {
           Aggiungi
         </button>
       } />
-      <main className="pt-24 px-4 max-w-4xl mx-auto space-y-8 pb-32">
+      <main className="pt-24 px-4 max-w-4xl mx-auto space-y-6 pb-32">
         <div>
           <span className="text-secondary font-headline uppercase tracking-[0.2em] text-xs font-bold">Padel League</span>
           <h2 className="text-4xl font-headline font-black text-on-surface uppercase" style={{ letterSpacing: '-0.04em' }}>Calendario</h2>
         </div>
-        {Object.keys(grouped).sort().map(date => (
-          <section key={date} className="space-y-4 pb-4">
+
+        {/* Apple-style calendar */}
+        <div className="bg-[#152040] rounded-2xl border border-white/5 overflow-hidden">
+          {/* Month nav */}
+          <div className="flex items-center justify-between px-5 py-4 border-b border-white/5">
+            <button onClick={prevMonth} className="w-9 h-9 rounded-full hover:bg-white/10 flex items-center justify-center transition-colors">
+              <span className="material-symbols-outlined text-on-surface-variant text-xl">chevron_left</span>
+            </button>
+            <h3 className="font-headline font-bold text-base text-white uppercase tracking-wide">
+              {MESI_FULL[calMonth]} {calYear}
+            </h3>
+            <button onClick={nextMonth} className="w-9 h-9 rounded-full hover:bg-white/10 flex items-center justify-center transition-colors">
+              <span className="material-symbols-outlined text-on-surface-variant text-xl">chevron_right</span>
+            </button>
+          </div>
+
+          {/* Day headers */}
+          <div className="grid grid-cols-7 px-3 pt-3">
+            {GIORNI_SHORT.map((g, i) => (
+              <div key={i} className="text-center text-[10px] font-bold uppercase tracking-widest text-on-surface-variant/50 py-1">{g}</div>
+            ))}
+          </div>
+
+          {/* Day grid */}
+          <div className="grid grid-cols-7 px-3 pb-4 gap-y-1">
+            {calDays.map((day, i) => {
+              if (day === null) return <div key={`e${i}`} />
+              const dateKey = toKey(calYear, calMonth, day)
+              const hasMatch = matchDates.has(dateKey)
+              const isToday = dateKey === todayKey
+              const isSelected = dateKey === selectedDate
+
+              return (
+                <button
+                  key={i}
+                  onClick={() => setSelectedDate(isSelected ? null : dateKey)}
+                  className={`flex flex-col items-center justify-center py-1.5 rounded-xl transition-all relative
+                    ${isSelected ? 'bg-secondary text-[#003909]' : isToday ? 'bg-white/10 text-white' : 'text-on-surface/70 hover:bg-white/5'}`}
+                >
+                  <span className={`text-sm font-semibold ${isSelected ? 'font-black' : ''}`}>{day}</span>
+                  {hasMatch && (
+                    <span className={`w-1.5 h-1.5 rounded-full mt-0.5 ${isSelected ? 'bg-[#003909]' : 'bg-secondary'}`} />
+                  )}
+                </button>
+              )
+            })}
+          </div>
+        </div>
+
+        {/* Selected date matches */}
+        {selectedDate && (
+          <section className="space-y-4">
             <div className="flex items-center gap-4">
-              <h3 className="font-headline font-bold text-xl text-on-surface whitespace-nowrap">{fmtDate(date)}</h3>
+              <h3 className="font-headline font-bold text-xl text-on-surface whitespace-nowrap">{fmtDate(selectedDate)}</h3>
               <div className="h-px flex-grow bg-[#3f4a3f]/30" />
             </div>
-            {grouped[date].map(({ m, i }) => (
-              <MatchCard
-                key={m.id}
-                match={m}
-                onInsertResult={() => setResultIdx(i)}
-                onEdit={() => setEditIdx(i)}
-                onDelete={() => setDeleteConfirm(i)}
-              />
-            ))}
+            {selectedMatches.length > 0 ? (
+              selectedMatches.map(({ m, i }) => (
+                <MatchCard
+                  key={m.id}
+                  match={m}
+                  onInsertResult={() => setResultIdx(i)}
+                  onEdit={() => setEditIdx(i)}
+                  onDelete={() => setDeleteConfirm(i)}
+                />
+              ))
+            ) : (
+              <div className="bg-[#152040] rounded-2xl border border-white/5 p-8 text-center">
+                <span className="material-symbols-outlined text-3xl text-on-surface-variant/30 mb-2">event_busy</span>
+                <p className="text-on-surface-variant/50 text-sm font-medium">Nessun evento in questo giorno</p>
+              </div>
+            )}
           </section>
-        ))}
-        {matches.length === 0 && <p className="text-on-surface-variant text-center py-12">Nessuna partita in calendario.</p>}
+        )}
+
+        {/* Full match list (when no date selected) */}
+        {!selectedDate && (
+          <>
+            {Object.keys(grouped).sort().map(date => (
+              <section key={date} className="space-y-4 pb-4">
+                <div className="flex items-center gap-4">
+                  <h3 className="font-headline font-bold text-xl text-on-surface whitespace-nowrap">{fmtDate(date)}</h3>
+                  <div className="h-px flex-grow bg-[#3f4a3f]/30" />
+                </div>
+                {grouped[date].map(({ m, i }) => (
+                  <MatchCard
+                    key={m.id}
+                    match={m}
+                    onInsertResult={() => setResultIdx(i)}
+                    onEdit={() => setEditIdx(i)}
+                    onDelete={() => setDeleteConfirm(i)}
+                  />
+                ))}
+              </section>
+            ))}
+            {matches.length === 0 && <p className="text-on-surface-variant text-center py-12">Nessuna partita in calendario.</p>}
+          </>
+        )}
       </main>
       <BottomNav />
 

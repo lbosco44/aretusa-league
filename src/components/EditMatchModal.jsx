@@ -1,5 +1,11 @@
 import { useState } from 'react'
 
+const TIME_SLOTS = []
+for (let h = 8; h <= 23; h++) {
+  TIME_SLOTS.push(`${String(h).padStart(2,'0')}:00`)
+  TIME_SLOTS.push(`${String(h).padStart(2,'0')}:30`)
+}
+
 export default function EditMatchModal({ match, teams, onClose, onSave }) {
   const [girone, setGirone] = useState(match.girone)
   const [casaIdx, setCasaIdx] = useState(() => {
@@ -85,7 +91,10 @@ export default function EditMatchModal({ match, teams, onClose, onSave }) {
             </div>
             <div className="space-y-2">
               <label className="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Orario</label>
-              <input type="time" value={ora} onChange={e => setOra(e.target.value)} className={selCls} />
+              <select value={ora} onChange={e => setOra(e.target.value)} className={selCls}>
+                <option value="">-- Orario --</option>
+                {TIME_SLOTS.map(t => <option key={t} value={t}>{t}</option>)}
+              </select>
             </div>
           </div>
         </div>

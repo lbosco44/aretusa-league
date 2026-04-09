@@ -59,8 +59,8 @@ export default function MatchCard({ match, onInsertResult, onEdit, onDelete }) {
           </div>
         )}
         {!played && (
-          <div className="mt-4 pt-3 border-t border-white/5">
-            <button onClick={onInsertResult} className="w-full py-2.5 bg-[#f36238]/10 hover:bg-[#f36238]/20 border border-[#f36238]/30 text-[#f36238] font-headline font-bold text-xs uppercase tracking-widest rounded-xl transition-all flex items-center justify-center gap-2 active:scale-[0.98]">
+          <div className="mt-4 pt-3 border-t border-white/5 flex justify-center">
+            <button onClick={onInsertResult} className="px-6 py-2.5 bg-secondary/10 hover:bg-secondary/20 border border-secondary/30 text-secondary font-headline font-bold text-xs uppercase tracking-widest rounded-xl transition-all flex items-center justify-center gap-2 active:scale-[0.98]">
               <span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>edit_note</span>
               Inserisci Risultato
             </button>
