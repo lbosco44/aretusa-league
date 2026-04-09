@@ -41,6 +41,7 @@ export default function Calendario({ matches, setMatches, teams }) {
   const [resultIdx, setResultIdx] = useState(null)
   const [editIdx, setEditIdx] = useState(null)
   const [deleteConfirm, setDeleteConfirm] = useState(null)
+  const [filterGirone, setFilterGirone] = useState(null)
 
   // Calendar state
   const today = new Date()
@@ -48,8 +49,11 @@ export default function Calendario({ matches, setMatches, teams }) {
   const [calMonth, setCalMonth] = useState(today.getMonth())
   const [selectedDate, setSelectedDate] = useState(null)
 
+  // Filtered matches
+  const filtered = filterGirone ? matches.filter(m => m.girone === filterGirone) : matches
+
   // Match dates set for dot indicators
-  const matchDates = new Set(matches.map(m => m.date))
+  const matchDates = new Set(filtered.map(m => m.date))
 
   const calDays = getCalendarDays(calYear, calMonth)
 
@@ -66,12 +70,24 @@ export default function Calendario({ matches, setMatches, teams }) {
 
   // Matches for selected date
   const selectedMatches = selectedDate
-    ? matches.map((m, i) => ({ m, i })).filter(({ m }) => m.date === selectedDate)
+    ? matches.map((m, i) => ({ m, i })).filter(({ m }) => m.date === selectedDate && (!filterGirone || m.girone === filterGirone))
     : null
 
   // Grouped matches (for full list below calendar)
   const grouped = {}
-  matches.forEach((m, i) => { if (!grouped[m.date]) grouped[m.date] = []; grouped[m.date].push({ m, i }) })
+  filtered.forEach((m) => {
+    const i = matches.indexOf(m)
+    if (!grouped[m.date]) grouped[m.date] = []
+    grouped[m.date].push({ m, i })
+  })
+
+  // Upcoming matches (not played, sorted by date/time)
+  const todayStr = toKey(today.getFullYear(), today.getMonth(), today.getDate())
+  const upcoming = filtered
+    .map((m, i) => ({ m, i: matches.indexOf(m) }))
+    .filter(({ m }) => !m.played && m.date >= todayStr)
+    .sort((a, b) => a.m.date === b.m.date ? a.m.ora.localeCompare(b.m.ora) : a.m.date.localeCompare(b.m.date))
+    .slice(0, 6)
 
   function handleAdd(nm) {
     setMatches(prev => [...prev, { id: ++_nid, ...nm }].sort((a,b) => a.date === b.date ? a.ora.localeCompare(b.ora) : a.date.localeCompare(b.date)))
@@ -157,6 +173,53 @@ export default function Calendario({ matches, setMatches, teams }) {
             })}
           </div>
         </div>
+
+        {/* Girone filter */}
+        <div className="flex gap-2 bg-[#152040] p-1.5 rounded-xl border border-white/5">
+          <button
+            onClick={() => setFilterGirone(null)}
+            className={`flex-1 py-2.5 px-3 rounded-lg font-headline font-bold text-xs transition-all ${!filterGirone ? 'bg-[#254E8F] text-secondary' : 'text-on-surface/60 hover:bg-[#1e3368]'}`}
+          >Tutti</button>
+          {['A','B','C'].map(g => (
+            <button
+              key={g}
+              onClick={() => setFilterGirone(filterGirone === g ? null : g)}
+              className={`flex-1 py-2.5 px-3 rounded-lg font-headline font-bold text-xs transition-all ${filterGirone === g ? 'bg-[#254E8F] text-secondary' : 'text-on-surface/60 hover:bg-[#1e3368]'}`}
+            >Girone {g}</button>
+          ))}
+        </div>
+
+        {/* Upcoming mini list */}
+        {upcoming.length > 0 && (
+          <div className="bg-[#152040] rounded-2xl border border-white/5 overflow-hidden">
+            <div className="flex items-center gap-2 px-5 py-3 border-b border-white/5">
+              <span className="material-symbols-outlined text-secondary text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>schedule</span>
+              <h4 className="font-headline font-bold text-xs uppercase tracking-widest text-on-surface-variant">Prossimi Eventi</h4>
+            </div>
+            <div className="divide-y divide-white/5">
+              {upcoming.map(({ m, i }) => (
+                <button
+                  key={m.id}
+                  onClick={() => setSelectedDate(m.date)}
+                  className="w-full flex items-center gap-3 px-5 py-3 hover:bg-[#1e3368] transition-colors text-left"
+                >
+                  <div className="flex flex-col items-center justify-center w-10 shrink-0">
+                    <span className="text-[10px] font-bold uppercase text-secondary tracking-wider">
+                      {MESI[+m.date.split('-')[1] - 1]}
+                    </span>
+                    <span className="font-headline font-black text-lg text-white leading-tight">{+m.date.split('-')[2]}</span>
+                  </div>
+                  <div className="h-8 w-px bg-white/10 shrink-0" />
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-semibold text-white truncate">{m.casa.name} <span className="text-on-surface-variant/50 font-normal">vs</span> {m.ospite.name}</p>
+                    <p className="text-[10px] text-on-surface-variant/60 font-medium">{m.ora} &bull; Girone {m.girone} &bull; {m.casa.club}</p>
+                  </div>
+                  <span className="material-symbols-outlined text-on-surface-variant/30 text-sm shrink-0">chevron_right</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Selected date matches */}
         {selectedDate && (
