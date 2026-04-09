@@ -47,7 +47,7 @@ export default function Calendario({ matches, setMatches, teams }) {
   const today = new Date()
   const [calYear, setCalYear] = useState(today.getFullYear())
   const [calMonth, setCalMonth] = useState(today.getMonth())
-  const [selectedDate, setSelectedDate] = useState(null)
+  const [selectedDate, setSelectedDate] = useState(() => toKey(today.getFullYear(), today.getMonth(), today.getDate()))
 
   // Filtered matches
   const filtered = filterGirone ? matches.filter(m => m.girone === filterGirone) : matches
