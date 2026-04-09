@@ -36,19 +36,14 @@ export default function Gironi({ gironi, isAdmin, bracketActive }) {
             <p className="text-on-surface-variant/30 text-xs mt-1">Vai al pannello Admin per aggiungere le coppie</p>
           </div>
         )}
-        <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="mt-8">
           <div className="bg-[#152040] p-6 rounded-2xl flex items-center gap-4 border border-secondary/10">
-            <div className="w-1.5 h-12 bg-secondary rounded-full" />
-            <div>
-              <h4 className="font-headline font-black text-sm uppercase text-secondary">Promozione</h4>
-              <p className="text-on-surface-variant text-xs">I primi due di ogni girone accedono alla fase a eliminazione diretta.</p>
+            <div className="w-12 h-12 rounded-xl bg-secondary/10 border border-secondary/30 flex items-center justify-center shrink-0">
+              <span className="material-symbols-outlined text-secondary" style={{ fontVariationSettings: "'FILL' 1" }}>info</span>
             </div>
-          </div>
-          <div className="bg-[#152040] p-6 rounded-2xl flex items-center gap-4 border border-white/5">
-            <div className="w-1.5 h-12 bg-on-surface-variant/30 rounded-full" />
             <div>
-              <h4 className="font-headline font-black text-sm uppercase text-on-surface-variant">Consolazione</h4>
-              <p className="text-on-surface-variant text-xs">I restanti accedono al tabellone Silver del torneo.</p>
+              <h4 className="font-headline font-black text-sm uppercase text-secondary">Come funziona</h4>
+              <p className="text-on-surface-variant text-xs leading-relaxed mt-1">Tutte le coppie accedono al tabellone finale. Ogni coppia ha 4 partite garantite: 3 nella fase a gironi + 1 nella fase a eliminazione diretta. Il piazzamento nel girone determina il seed nel tabellone.</p>
             </div>
           </div>
         </div>

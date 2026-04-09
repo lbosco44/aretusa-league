@@ -73,10 +73,9 @@ function buildGironi(teams, matches) {
         club: team.club || '',
         ...stats,
         pts: stats.v * 3,
-        promo: false,
       }
     }).sort((a, b) => b.pts - a.pts || (b.sp - b.sm) - (a.sp - a.sm))
-      .map((r, i) => ({ ...r, pos: i + 1, promo: i < 2 }))
+      .map((r, i) => ({ ...r, pos: i + 1 }))
   }
   return gironi
 }
