@@ -36,7 +36,7 @@ function getCalendarDays(year, month) {
 
 let _nid = 100
 
-export default function Calendario({ matches, setMatches, teams, isAdmin }) {
+export default function Calendario({ matches, setMatches, teams, isAdmin, bracketActive }) {
   const [showAdd, setShowAdd] = useState(false)
   const [resultIdx, setResultIdx] = useState(null)
   const [editIdx, setEditIdx] = useState(null)
@@ -114,7 +114,7 @@ export default function Calendario({ matches, setMatches, teams, isAdmin }) {
 
   return (
     <div className="min-h-screen text-on-surface">
-      <TopAppBar actions={isAdmin ? (
+      <TopAppBar actions={isAdmin && !bracketActive ? (
         <button onClick={() => setShowAdd(true)} className="flex items-center gap-2 bg-gradient-to-r from-[#27F24C] to-[#1DB954] text-[#003909] font-headline font-bold px-4 py-2 rounded-xl text-xs uppercase tracking-widest shadow-lg active:scale-95 transition-all">
           <span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>add_circle</span>
           Aggiungi
@@ -273,7 +273,7 @@ export default function Calendario({ matches, setMatches, teams, isAdmin }) {
           </>
         )}
       </main>
-      <BottomNav isAdmin={isAdmin} />
+      <BottomNav isAdmin={isAdmin} bracketActive={bracketActive} />
 
       {showAdd && <AddMatchModal onClose={() => setShowAdd(false)} onAdd={handleAdd} teams={teams} />}
       {editIdx !== null && <EditMatchModal match={matches[editIdx]} teams={teams} onClose={() => setEditIdx(null)} onSave={handleEdit} />}

@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import TopAppBar from '../components/TopAppBar'
 import BottomNav from '../components/BottomNav'
 
-export default function Home({ matches, teams, isAdmin }) {
+export default function Home({ matches, teams, isAdmin, bracketActive }) {
   const nextMatch = matches.find(m => !m.played)
   const totalTeams = Object.values(teams).flat().length
 
@@ -79,7 +79,7 @@ export default function Home({ matches, teams, isAdmin }) {
           <span className="material-symbols-outlined">admin_panel_settings</span>
         </Link>
       )}
-      <BottomNav isAdmin={isAdmin} />
+      <BottomNav isAdmin={isAdmin} bracketActive={bracketActive} />
     </div>
   )
 }

@@ -4,7 +4,7 @@ import BottomNav from '../components/BottomNav'
 
 const GIRONI = ['A', 'B', 'C']
 
-export default function Admin({ teams, setTeams, matches, setMatches, isAdmin, login, logout }) {
+export default function Admin({ teams, setTeams, matches, setMatches, isAdmin, login, logout, bracketActive }) {
   const [player1, setPlayer1] = useState('')
   const [player2, setPlayer2] = useState('')
   const [club, setClub] = useState('')
@@ -118,7 +118,7 @@ export default function Admin({ teams, setTeams, matches, setMatches, isAdmin, l
             </form>
           </div>
         </main>
-        <BottomNav isAdmin={isAdmin} />
+        <BottomNav isAdmin={isAdmin} bracketActive={bracketActive} />
       </div>
     )
   }
@@ -252,7 +252,7 @@ export default function Admin({ teams, setTeams, matches, setMatches, isAdmin, l
         ))}
       </main>
 
-      <BottomNav isAdmin={isAdmin} />
+      <BottomNav isAdmin={isAdmin} bracketActive={bracketActive} />
     </div>
   )
 }

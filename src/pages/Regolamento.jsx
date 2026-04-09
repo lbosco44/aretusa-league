@@ -85,7 +85,7 @@ const sections = [
   },
 ]
 
-export default function Regolamento({ isAdmin }) {
+export default function Regolamento({ isAdmin, bracketActive }) {
   return (
     <div className="min-h-screen text-on-surface">
       <TopAppBar actions={
@@ -151,7 +151,7 @@ export default function Regolamento({ isAdmin }) {
         </div>
       </main>
 
-      <BottomNav isAdmin={isAdmin} />
+      <BottomNav isAdmin={isAdmin} bracketActive={bracketActive} />
     </div>
   )
 }
