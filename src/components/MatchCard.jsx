@@ -1,4 +1,4 @@
-export default function MatchCard({ match, onInsertResult }) {
+export default function MatchCard({ match, onInsertResult, onEdit, onDelete }) {
   const { casa, ospite, girone, ora, played, score, sets, tbTarget } = match
   const tbLabel = tbTarget ? `TB/${tbTarget}` : 'TB'
 
@@ -11,9 +11,17 @@ export default function MatchCard({ match, onInsertResult }) {
             <span>{casa.club} &bull; {ora}</span>
             <span className="ml-1 text-[10px] text-on-surface-variant/50">Girone {girone}</span>
           </div>
-          <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase ${played ? 'bg-[#27F24C] text-[#003909]' : 'bg-[#D3D0CB] text-[#152040]'}`}>
-            {played ? 'Giocata' : 'Prossima'}
-          </span>
+          <div className="flex items-center gap-2">
+            <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase ${played ? 'bg-[#27F24C] text-[#003909]' : 'bg-[#D3D0CB] text-[#152040]'}`}>
+              {played ? 'Giocata' : 'Prossima'}
+            </span>
+            <button onClick={onEdit} className="w-8 h-8 rounded-lg bg-[#254E8F]/60 flex items-center justify-center hover:bg-[#254E8F] transition-colors" title="Modifica">
+              <span className="material-symbols-outlined text-on-surface-variant text-sm">edit</span>
+            </button>
+            <button onClick={onDelete} className="w-8 h-8 rounded-lg bg-red-500/10 flex items-center justify-center hover:bg-red-500/20 transition-colors" title="Elimina">
+              <span className="material-symbols-outlined text-red-400 text-sm">delete</span>
+            </button>
+          </div>
         </div>
         <div className="grid grid-cols-7 gap-4 items-center">
           <div className="col-span-3 flex items-center justify-end gap-3">
