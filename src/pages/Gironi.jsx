@@ -12,14 +12,17 @@ export default function Gironi({ gironi, isAdmin, bracketActive }) {
       <TopAppBar actions={<span className="material-symbols-outlined text-on-surface-variant">account_circle</span>} />
       <main className="pt-24 pb-32 px-4 max-w-5xl mx-auto">
         <section className="mb-8">
-          <div className="relative h-48 w-full rounded-xl overflow-hidden shadow-2xl">
-            <div className="absolute inset-0 bg-gradient-to-br from-[#003918] to-[#071530]" />
-            <div className="absolute inset-0 opacity-5" style={{ background: 'repeating-linear-gradient(45deg,#77db90 0,#77db90 1px,transparent 1px,transparent 40px)' }} />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0E2044] to-transparent" />
-            <div className="absolute bottom-6 left-6">
-              <h2 className="font-headline text-4xl font-black italic uppercase tracking-tighter text-white">GIRONI</h2>
-              <p className="text-secondary font-bold tracking-widest text-xs uppercase mt-1">Fase a Gironi &bull; 3 Gruppi &bull; {totalTeams} Squadre</p>
+          <div className="glow-card">
+            <div className="glow-card-bg relative h-48 w-full">
+              <div className="absolute inset-0 bg-gradient-to-br from-[#003918] to-[#071530]" />
+              <div className="absolute inset-0 opacity-5" style={{ background: 'repeating-linear-gradient(45deg,#77db90 0,#77db90 1px,transparent 1px,transparent 40px)' }} />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0E2044] to-transparent" />
+              <div className="absolute bottom-6 left-6 z-10">
+                <h2 className="font-headline text-4xl font-black italic uppercase tracking-tighter text-white">GIRONI</h2>
+                <p className="text-secondary font-bold tracking-widest text-xs uppercase mt-1">Fase a Gironi &bull; 3 Gruppi &bull; {totalTeams} Squadre</p>
+              </div>
             </div>
+            <div className="glow-blob" />
           </div>
         </section>
         <div className="glass-radio-group mb-8">
