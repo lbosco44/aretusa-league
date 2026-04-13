@@ -22,10 +22,12 @@ export default function Gironi({ gironi, isAdmin, bracketActive }) {
             </div>
           </div>
         </section>
-        <div className="flex gap-2 mb-8 bg-[#152040] p-1.5 rounded-xl border border-white/5">
-          {['A','B','C'].map(g => (
-            <button key={g} onClick={() => setActive(g)} className={`flex-1 py-3 px-4 rounded-lg font-headline font-bold text-sm transition-all ${active === g ? 'bg-[#254E8F] text-secondary' : 'text-on-surface/60 hover:bg-[#1e3368]'}`}>Girone {g}</button>
-          ))}
+        <div className="glass-radio-group mb-8">
+          {['A','B','C'].map((g, i) => [
+            <input key={`r${g}`} type="radio" name="girone" id={`girone-${g}`} checked={active === g} onChange={() => setActive(g)} />,
+            <label key={`l${g}`} htmlFor={`girone-${g}`}>Girone {g}</label>,
+          ])}
+          <div className="glass-glider" data-pos={['A','B','C'].indexOf(active)} />
         </div>
         {gironi[active].length > 0 ? (
           <GroupTable rows={gironi[active]} />
