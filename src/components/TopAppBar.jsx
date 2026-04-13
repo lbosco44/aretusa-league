@@ -1,8 +1,42 @@
+import { useState, useEffect } from 'react'
+
 export default function TopAppBar({ actions }) {
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    function onScroll() {
+      setScrolled(window.scrollY > 40)
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
   return (
-    <header className="fixed top-0 w-full z-50 bg-[#0E2044]/80 backdrop-blur-xl shadow-2xl shadow-black/40">
-      <div className="flex items-center justify-between px-6 h-16 w-full">
-        <img src="/logo-white.png" alt="Aretusa League" className="h-9 w-auto object-contain" />
+    <header className="fixed top-0 left-0 right-0 z-50 flex justify-center transition-all duration-300"
+      style={{ padding: scrolled ? '8px 16px 0' : '0' }}
+    >
+      <div
+        className="flex items-center justify-between transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)]"
+        style={{
+          width: scrolled ? 'min(92%, 420px)' : '100%',
+          height: scrolled ? '48px' : '64px',
+          padding: scrolled ? '0 16px' : '0 24px',
+          borderRadius: scrolled ? '9999px' : '0',
+          background: scrolled ? 'rgba(14, 32, 68, 0.7)' : 'rgba(14, 32, 68, 0.8)',
+          backdropFilter: 'blur(24px)',
+          WebkitBackdropFilter: 'blur(24px)',
+          boxShadow: scrolled
+            ? '0 8px 32px rgba(0,0,0,0.4), 0 0 0 1px rgba(113,255,116,0.08), inset 0 1px 0 rgba(255,255,255,0.05)'
+            : '0 8px 30px rgba(0,0,0,0.4)',
+          border: scrolled ? '1px solid rgba(255,255,255,0.08)' : 'none',
+        }}
+      >
+        <img
+          src="/logo-white.png"
+          alt="Aretusa League"
+          className="w-auto object-contain transition-all duration-500"
+          style={{ height: scrolled ? '28px' : '36px' }}
+        />
         <div className="flex items-center gap-3">{actions}</div>
       </div>
     </header>
