@@ -2,12 +2,12 @@ import { initializeApp } from 'firebase/app'
 import { getFirestore } from 'firebase/firestore'
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBv1eamtBox-Xb-ZiXM6xEnVzFSoCKXEzE",
-  authDomain: "aretusa-league.firebaseapp.com",
-  projectId: "aretusa-league",
-  storageBucket: "aretusa-league.firebasestorage.app",
-  messagingSenderId: "1093417534466",
-  appId: "1:1093417534466:web:78ea68fe2f1d190397931b"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
 }
 
 const app = initializeApp(firebaseConfig)
