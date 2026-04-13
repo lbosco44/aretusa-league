@@ -174,6 +174,34 @@ export default function Calendario({ matches, setMatches, teams, isAdmin, bracke
           </div>
         </div>
 
+        {/* Selected date matches (right after calendar) */}
+        {selectedDate && (
+          <section className="space-y-4">
+            <div className="flex items-center gap-4">
+              <h3 className="font-headline font-bold text-xl text-on-surface whitespace-nowrap">{fmtDate(selectedDate)}</h3>
+              <div className="h-px flex-grow bg-[#3f4a3f]/30" />
+            </div>
+            {selectedMatches.length > 0 ? (
+              selectedMatches.map(m => (
+                <MatchCard
+                  key={m.id}
+                  match={m}
+                  isAdmin={isAdmin}
+                  onInsertResult={() => setResultId(m.id)}
+                  onEdit={() => setEditId(m.id)}
+                  onDelete={() => setDeleteId(m.id)}
+                  onResetResult={() => handleResetResult(m.id)}
+                />
+              ))
+            ) : (
+              <div className="bg-[#152040] rounded-2xl border border-white/5 p-8 text-center">
+                <span className="material-symbols-outlined text-3xl text-on-surface-variant/30 mb-2">event_busy</span>
+                <p className="text-on-surface-variant/50 text-sm font-medium">Nessun evento in questo giorno</p>
+              </div>
+            )}
+          </section>
+        )}
+
         {/* Girone filter */}
         <div className="glass-radio-group" data-count="4">
           {[null, 'A', 'B', 'C'].map((g, i) => [
@@ -213,34 +241,6 @@ export default function Calendario({ matches, setMatches, teams, isAdmin, bracke
               ))}
             </div>
           </div>
-        )}
-
-        {/* Selected date matches */}
-        {selectedDate && (
-          <section className="space-y-4">
-            <div className="flex items-center gap-4">
-              <h3 className="font-headline font-bold text-xl text-on-surface whitespace-nowrap">{fmtDate(selectedDate)}</h3>
-              <div className="h-px flex-grow bg-[#3f4a3f]/30" />
-            </div>
-            {selectedMatches.length > 0 ? (
-              selectedMatches.map(m => (
-                <MatchCard
-                  key={m.id}
-                  match={m}
-                  isAdmin={isAdmin}
-                  onInsertResult={() => setResultId(m.id)}
-                  onEdit={() => setEditId(m.id)}
-                  onDelete={() => setDeleteId(m.id)}
-                  onResetResult={() => handleResetResult(m.id)}
-                />
-              ))
-            ) : (
-              <div className="bg-[#152040] rounded-2xl border border-white/5 p-8 text-center">
-                <span className="material-symbols-outlined text-3xl text-on-surface-variant/30 mb-2">event_busy</span>
-                <p className="text-on-surface-variant/50 text-sm font-medium">Nessun evento in questo giorno</p>
-              </div>
-            )}
-          </section>
         )}
 
         {/* Full match list (when no date selected) */}
