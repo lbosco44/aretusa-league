@@ -1,51 +1,21 @@
 import { Routes, Route } from 'react-router-dom'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
+import { doc, setDoc, getDoc, onSnapshot } from 'firebase/firestore'
+import { db } from './firebase'
 import Home from './pages/Home'
 import Gironi from './pages/Gironi'
 import Calendario from './pages/Calendario'
 import Tabellone from './pages/Tabellone'
 import Admin from './pages/Admin'
 import Regolamento from './pages/Regolamento'
-import { initialMatches } from './data/matches'
 
 const EMPTY_TEAMS = { A: [], B: [], C: [] }
 const EMPTY_BRACKET = { active: false, rounds: [[], [], [], []] }
-const INTEGRITY_SALT = 'aretusa_v1_9f3k'
 
-function simpleHash(str) {
-  let h = 0
-  for (let i = 0; i < str.length; i++) {
-    h = ((h << 5) - h + str.charCodeAt(i)) | 0
-  }
-  return (h >>> 0).toString(36)
-}
-
-function saveWithHash(key, data) {
-  const json = JSON.stringify(data)
-  localStorage.setItem(key, json)
-  localStorage.setItem(key + '_h', simpleHash(INTEGRITY_SALT + json))
-}
-
-function loadWithHash(key, fallback) {
-  try {
-    const json = localStorage.getItem(key)
-    if (!json) return fallback
-    const hash = localStorage.getItem(key + '_h')
-    if (hash && hash !== simpleHash(INTEGRITY_SALT + json)) {
-      console.warn(`Integrity check failed for ${key}, resetting`)
-      localStorage.removeItem(key)
-      localStorage.removeItem(key + '_h')
-      return fallback
-    }
-    return JSON.parse(json)
-  } catch {
-    return fallback
-  }
-}
-
-function loadTeams() { return loadWithHash('aretusa_teams', EMPTY_TEAMS) }
-function loadMatches() { return loadWithHash('aretusa_matches', initialMatches) }
-function loadBracket() { return loadWithHash('aretusa_bracket', EMPTY_BRACKET) }
+// Firestore document refs
+const teamsRef = doc(db, 'tournament', 'teams')
+const matchesRef = doc(db, 'tournament', 'matches')
+const bracketRef = doc(db, 'tournament', 'bracket')
 
 function buildGironi(teams, matches) {
   const gironi = {}
@@ -80,9 +50,6 @@ function buildGironi(teams, matches) {
   return gironi
 }
 
-// Generate bracket from gironi standings
-// 12 teams → 4 byes (seeds 1-4) + 4 primo turno matches
-// Seeding: 1v winner(8v9), 4v winner(5v12), 3v winner(6v11), 2v winner(7v10)
 function generateBracket(gironi) {
   const allTeams = []
   for (const [g, list] of Object.entries(gironi)) {
@@ -98,19 +65,14 @@ function generateBracket(gironi) {
   return {
     active: true,
     rounds: [
-      // Round 0: Primo Turno
       [m(t(s[7],8), t(s[8],9)), m(t(s[4],5), t(s[11],12)), m(t(s[5],6), t(s[10],11)), m(t(s[6],7), t(s[9],10))],
-      // Round 1: Quarti di Finale (seeds 1,4,3,2 have byes)
       [m(t(s[0],1), null), m(t(s[3],4), null), m(t(s[2],3), null), m(t(s[1],2), null)],
-      // Round 2: Semifinali
       [m(null, null), m(null, null)],
-      // Round 3: Finale
       [m(null, null)],
     ]
   }
 }
 
-// Advance winner to next round
 function advanceBracket(bracket, roundIdx, matchIdx, result) {
   const next = JSON.parse(JSON.stringify(bracket))
   if (!next.rounds[roundIdx] || !next.rounds[roundIdx][matchIdx]) return bracket
@@ -122,35 +84,94 @@ function advanceBracket(bracket, roundIdx, matchIdx, result) {
   const parts = result.score.split('-').map(Number)
   const cW = parts[0] || 0
   const oW = parts[1] || 0
-  if (cW === oW) return bracket // tie not allowed, return unchanged
+  if (cW === oW) return bracket
   const winner = cW > oW ? { ...match.casa } : { ...match.ospite }
   match.winner = cW > oW ? 'casa' : 'ospite'
 
   if (roundIdx === 0) {
-    // PT[i] winner → QF[i].ospite
     next.rounds[1][matchIdx].ospite = winner
   } else if (roundIdx === 1) {
-    // QF[0] winner → SF[0].casa, QF[1] → SF[0].ospite
-    // QF[2] winner → SF[1].casa, QF[3] → SF[1].ospite
     const sfIdx = matchIdx < 2 ? 0 : 1
     const slot = matchIdx % 2 === 0 ? 'casa' : 'ospite'
     next.rounds[2][sfIdx][slot] = winner
   } else if (roundIdx === 2) {
-    // SF[0] winner → F.casa, SF[1] → F.ospite
     next.rounds[3][0][matchIdx === 0 ? 'casa' : 'ospite'] = winner
   }
 
   return next
 }
 
+// Creates a setter that syncs to Firestore
+function makeSyncSetter(rawSetter, docRef, toFirestore) {
+  return function syncSetter(updaterOrValue) {
+    if (typeof updaterOrValue === 'function') {
+      rawSetter(prev => {
+        const next = updaterOrValue(prev)
+        setDoc(docRef, toFirestore ? toFirestore(next) : next).catch(console.error)
+        return next
+      })
+    } else {
+      rawSetter(updaterOrValue)
+      setDoc(docRef, toFirestore ? toFirestore(updaterOrValue) : updaterOrValue).catch(console.error)
+    }
+  }
+}
+
 export default function App() {
-  const [teams, setTeams] = useState(loadTeams)
-  const [matches, setMatches] = useState(loadMatches)
-  const [bracket, setBracket] = useState(loadBracket)
+  const [teams, setTeams] = useState(EMPTY_TEAMS)
+  const [matches, setMatches] = useState([])
+  const [bracket, setBracket] = useState(EMPTY_BRACKET)
   const [isAdmin, setIsAdmin] = useState(false)
+  const [loading, setLoading] = useState(true)
   const gironi = buildGironi(teams, matches)
 
-  // Verify existing token on mount
+  // Sync setters: update state + write to Firestore
+  const syncTeams = makeSyncSetter(setTeams, teamsRef)
+  const syncMatches = makeSyncSetter(setMatches, matchesRef, list => ({ list }))
+  const syncBracket = makeSyncSetter(setBracket, bracketRef)
+
+  // Real-time Firestore listeners
+  useEffect(() => {
+    let loadCount = 0
+    const done = () => { if (++loadCount >= 3) setLoading(false) }
+
+    const unsubs = [
+      onSnapshot(teamsRef, snap => {
+        if (snap.exists()) setTeams(snap.data())
+        done()
+      }),
+      onSnapshot(matchesRef, snap => {
+        if (snap.exists()) setMatches(snap.data().list || [])
+        done()
+      }),
+      onSnapshot(bracketRef, snap => {
+        if (snap.exists()) setBracket(snap.data())
+        done()
+      }),
+    ]
+    return () => unsubs.forEach(u => u())
+  }, [])
+
+  // One-time migration: localStorage → Firestore
+  useEffect(() => {
+    async function migrate() {
+      try {
+        const snap = await getDoc(teamsRef)
+        if (snap.exists()) return // Firestore already has data
+
+        const t = localStorage.getItem('aretusa_teams')
+        const m = localStorage.getItem('aretusa_matches')
+        const b = localStorage.getItem('aretusa_bracket')
+
+        if (t) await setDoc(teamsRef, JSON.parse(t))
+        if (m) await setDoc(matchesRef, { list: JSON.parse(m) })
+        if (b) await setDoc(bracketRef, JSON.parse(b))
+      } catch (e) { console.error('Migration failed:', e) }
+    }
+    migrate()
+  }, [])
+
+  // Verify admin token on mount
   useEffect(() => {
     const token = sessionStorage.getItem('aretusa_token')
     if (!token) return
@@ -188,33 +209,29 @@ export default function App() {
 
   function activateTabellone() {
     const newBracket = generateBracket(gironi)
-    setBracket(newBracket)
+    syncBracket(newBracket)
   }
 
   function handleBracketResult(roundIdx, matchIdx, result) {
-    setBracket(prev => advanceBracket(prev, roundIdx, matchIdx, result))
+    syncBracket(prev => advanceBracket(prev, roundIdx, matchIdx, result))
   }
 
-  useEffect(() => { saveWithHash('aretusa_teams', teams) }, [teams])
-  useEffect(() => { saveWithHash('aretusa_matches', matches) }, [matches])
-  useEffect(() => { saveWithHash('aretusa_bracket', bracket) }, [bracket])
-
-  // Multi-tab sync
-  useEffect(() => {
-    function onStorage(e) {
-      if (e.key === 'aretusa_teams') setTeams(loadTeams())
-      if (e.key === 'aretusa_matches') setMatches(loadMatches())
-      if (e.key === 'aretusa_bracket') setBracket(loadBracket())
-    }
-    window.addEventListener('storage', onStorage)
-    return () => window.removeEventListener('storage', onStorage)
-  }, [])
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-[#0E2044] flex items-center justify-center">
+        <div className="flex flex-col items-center gap-4">
+          <div className="w-12 h-12 border-4 border-[#71ff74]/30 border-t-[#71ff74] rounded-full animate-spin" />
+          <p className="text-on-surface-variant text-sm font-medium">Caricamento...</p>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <Routes>
       <Route path="/" element={<Home matches={matches} teams={teams} isAdmin={isAdmin} bracketActive={bracket.active} />} />
       <Route path="/gironi" element={<Gironi gironi={gironi} isAdmin={isAdmin} bracketActive={bracket.active} />} />
-      <Route path="/calendario" element={<Calendario matches={matches} setMatches={setMatches} teams={teams} isAdmin={isAdmin} bracketActive={bracket.active} />} />
+      <Route path="/calendario" element={<Calendario matches={matches} setMatches={syncMatches} teams={teams} isAdmin={isAdmin} bracketActive={bracket.active} />} />
       <Route path="/tabellone" element={
         <Tabellone
           isAdmin={isAdmin}
@@ -225,7 +242,7 @@ export default function App() {
         />
       } />
       <Route path="/regolamento" element={<Regolamento isAdmin={isAdmin} bracketActive={bracket.active} />} />
-      <Route path="/admin" element={<Admin teams={teams} setTeams={setTeams} matches={matches} setMatches={setMatches} isAdmin={isAdmin} login={login} logout={logout} bracketActive={bracket.active} />} />
+      <Route path="/admin" element={<Admin teams={teams} setTeams={syncTeams} matches={matches} setMatches={syncMatches} bracket={bracket} setBracket={syncBracket} isAdmin={isAdmin} login={login} logout={logout} bracketActive={bracket.active} />} />
     </Routes>
   )
 }

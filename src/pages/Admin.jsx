@@ -4,7 +4,7 @@ import BottomNav from '../components/BottomNav'
 
 const GIRONI = ['A', 'B', 'C']
 
-export default function Admin({ teams, setTeams, matches, setMatches, isAdmin, login, logout, bracketActive }) {
+export default function Admin({ teams, setTeams, matches, setMatches, bracket, setBracket, isAdmin, login, logout, bracketActive }) {
   const [player1, setPlayer1] = useState('')
   const [player2, setPlayer2] = useState('')
   const [club, setClub] = useState('')
@@ -83,7 +83,7 @@ export default function Admin({ teams, setTeams, matches, setMatches, isAdmin, l
   const totalTeams = Object.values(teams).flat().length
 
   function exportData() {
-    const data = { teams, matches, bracket: JSON.parse(localStorage.getItem('aretusa_bracket') || 'null') }
+    const data = { teams, matches, bracket }
     const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' })
     const url = URL.createObjectURL(blob)
     const a = document.createElement('a')
@@ -102,8 +102,8 @@ export default function Admin({ teams, setTeams, matches, setMatches, isAdmin, l
         const data = JSON.parse(ev.target.result)
         if (data.teams) setTeams(data.teams)
         if (data.matches) setMatches(data.matches)
-        if (data.bracket) localStorage.setItem('aretusa_bracket', JSON.stringify(data.bracket))
-        alert('Dati importati con successo! Ricarica la pagina per vedere il bracket.')
+        if (data.bracket) setBracket(data.bracket)
+        alert('Dati importati con successo!')
       } catch { alert('File non valido') }
     }
     reader.readAsText(file)
