@@ -26,9 +26,11 @@ export default function Home({ matches, teams, isAdmin, bracketActive }) {
                 </span>
                 <h2 className="font-headline text-3xl font-black italic uppercase text-white leading-tight">IL TORNEO STA<br/>PER INIZIARE...</h2>
               </div>
-              <Link to="/calendario" className="blob-btn active:scale-95 transition-transform">
-                <div className="blob-btn-glow" />
-                <div className="blob-btn-inner font-headline font-bold text-sm uppercase tracking-wide">VEDI PARTITE</div>
+              <Link to="/calendario" className="cta-btn">
+                <span className="font-headline font-bold text-sm uppercase tracking-wide">Vedi Partite</span>
+                <div className="cta-btn-icon">
+                  <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>arrow_forward</span>
+                </div>
               </Link>
             </div>
           </div>
