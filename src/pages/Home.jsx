@@ -26,7 +26,10 @@ export default function Home({ matches, teams, isAdmin, bracketActive }) {
                 </span>
                 <h2 className="font-headline text-3xl font-black italic uppercase text-white leading-tight">IL TORNEO STA<br/>PER INIZIARE...</h2>
               </div>
-              <Link to="/calendario" className="bg-gradient-to-r from-[#77db90] to-[#3fa35f] text-on-primary font-headline font-bold px-6 py-3 rounded-xl shadow-lg shadow-primary/20 active:scale-95 transition-all text-sm uppercase tracking-wide">VEDI PARTITE</Link>
+              <Link to="/calendario" className="blob-btn active:scale-95 transition-transform">
+                <div className="blob-btn-glow" />
+                <div className="blob-btn-inner font-headline font-bold text-sm uppercase tracking-wide">VEDI PARTITE</div>
+              </Link>
             </div>
           </div>
           <div className="glow-blob" />
