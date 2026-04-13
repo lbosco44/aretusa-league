@@ -25,7 +25,7 @@ export default function Gironi({ gironi, isAdmin, bracketActive }) {
             <div className="glow-blob" />
           </div>
         </section>
-        <div className="glass-radio-group mb-8">
+        <div className="glass-radio-group mb-8" data-count="3">
           {['A','B','C'].map((g, i) => [
             <input key={`r${g}`} type="radio" name="girone" id={`girone-${g}`} checked={active === g} onChange={() => setActive(g)} />,
             <label key={`l${g}`} htmlFor={`girone-${g}`}>Girone {g}</label>,

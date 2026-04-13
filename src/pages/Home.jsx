@@ -14,19 +14,22 @@ export default function Home({ matches, teams, isAdmin, bracketActive }) {
         </div>
       } />
       <main className="pt-20 pb-32 px-4 max-w-5xl mx-auto space-y-8">
-        <section className="relative overflow-hidden rounded-3xl h-64 flex items-end p-6">
-          <img src="/hero-ball.png" alt="Pallina da padel" className="absolute inset-0 w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#071530] via-[#0E2044]/60 to-transparent" />
-          <div className="relative w-full flex justify-between items-end">
-            <div className="space-y-1">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary/20 text-secondary text-xs font-bold uppercase tracking-widest backdrop-blur-md">
-                <span className="w-2 h-2 rounded-full bg-secondary animate-pulse" />
-                {nextMatch ? `Prossima Partita \u2022 ${nextMatch.ora}` : 'Fase a gironi in corso'}
-              </span>
-              <h2 className="font-headline text-3xl font-black italic uppercase text-white leading-tight">IL TORNEO STA<br/>PER INIZIARE...</h2>
+        <section className="glow-card" style={{ borderRadius: '1.5rem' }}>
+          <div className="glow-card-bg relative h-64 flex items-end p-6" style={{ borderRadius: 'calc(1.5rem - 2px)' }}>
+            <img src="/hero-ball.png" alt="Pallina da padel" className="absolute inset-0 w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#071530] via-[#0E2044]/60 to-transparent" />
+            <div className="relative w-full flex justify-between items-end z-10">
+              <div className="space-y-1">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary/20 text-secondary text-xs font-bold uppercase tracking-widest backdrop-blur-md">
+                  <span className="w-2 h-2 rounded-full bg-secondary animate-pulse" />
+                  {nextMatch ? `Prossima Partita \u2022 ${nextMatch.ora}` : 'Fase a gironi in corso'}
+                </span>
+                <h2 className="font-headline text-3xl font-black italic uppercase text-white leading-tight">IL TORNEO STA<br/>PER INIZIARE...</h2>
+              </div>
+              <Link to="/calendario" className="bg-gradient-to-r from-[#77db90] to-[#3fa35f] text-on-primary font-headline font-bold px-6 py-3 rounded-xl shadow-lg shadow-primary/20 active:scale-95 transition-all text-sm uppercase tracking-wide">VEDI PARTITE</Link>
             </div>
-            <Link to="/calendario" className="bg-gradient-to-r from-[#77db90] to-[#3fa35f] text-on-primary font-headline font-bold px-6 py-3 rounded-xl shadow-lg shadow-primary/20 active:scale-95 transition-all text-sm uppercase tracking-wide">VEDI PARTITE</Link>
           </div>
+          <div className="glow-blob" />
         </section>
 
         <section className="grid grid-cols-2 md:grid-cols-3 gap-4">

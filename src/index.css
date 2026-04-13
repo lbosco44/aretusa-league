@@ -54,7 +54,6 @@ body {
   position: absolute;
   top: 0;
   bottom: 0;
-  width: calc(100% / 3);
   border-radius: 1rem;
   z-index: 1;
   background: linear-gradient(135deg, rgba(119, 219, 144, 0.35), #71ff74);
@@ -68,6 +67,10 @@ body {
 .glass-glider[data-pos="0"] { transform: translateX(0%); }
 .glass-glider[data-pos="1"] { transform: translateX(100%); }
 .glass-glider[data-pos="2"] { transform: translateX(200%); }
+.glass-glider[data-pos="3"] { transform: translateX(300%); }
+
+.glass-radio-group[data-count="3"] .glass-glider { width: calc(100% / 3); }
+.glass-radio-group[data-count="4"] .glass-glider { width: calc(100% / 4); }
 
 /* Glow border card */
 .glow-card {

@@ -175,18 +175,12 @@ export default function Calendario({ matches, setMatches, teams, isAdmin, bracke
         </div>
 
         {/* Girone filter */}
-        <div className="flex gap-2 bg-[#152040] p-1.5 rounded-xl border border-white/5">
-          <button
-            onClick={() => setFilterGirone(null)}
-            className={`flex-1 py-2.5 px-3 rounded-lg font-headline font-bold text-xs transition-all ${!filterGirone ? 'bg-[#254E8F] text-secondary' : 'text-on-surface/60 hover:bg-[#1e3368]'}`}
-          >Tutti</button>
-          {['A','B','C'].map(g => (
-            <button
-              key={g}
-              onClick={() => setFilterGirone(filterGirone === g ? null : g)}
-              className={`flex-1 py-2.5 px-3 rounded-lg font-headline font-bold text-xs transition-all ${filterGirone === g ? 'bg-[#254E8F] text-secondary' : 'text-on-surface/60 hover:bg-[#1e3368]'}`}
-            >Girone {g}</button>
-          ))}
+        <div className="glass-radio-group" data-count="4">
+          {[null, 'A', 'B', 'C'].map((g, i) => [
+            <input key={`r${i}`} type="radio" name="cal-filter" id={`cal-filter-${i}`} checked={filterGirone === g} onChange={() => setFilterGirone(g)} />,
+            <label key={`l${i}`} htmlFor={`cal-filter-${i}`}>{g ? `Girone ${g}` : 'Tutti'}</label>,
+          ])}
+          <div className="glass-glider" data-pos={filterGirone ? ['A','B','C'].indexOf(filterGirone) + 1 : 0} />
         </div>
 
         {/* Upcoming mini list */}
