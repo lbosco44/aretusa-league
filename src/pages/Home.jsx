@@ -90,9 +90,11 @@ export default function Home({ matches, teams, isAdmin, bracketActive }) {
                 { src: '/autocanaima-logo.png', alt: 'Auto Canaima' },
                 { src: '/La-Lisca-logo-bianco-1920w.png', alt: 'La Lisca' },
                 { src: '/SIULP.png', alt: 'SIULP' },
+                { src: '/t2padel.jpg', alt: 'T2 Padel' },
                 { src: '/autocanaima-logo.png', alt: 'Auto Canaima' },
                 { src: '/La-Lisca-logo-bianco-1920w.png', alt: 'La Lisca' },
                 { src: '/SIULP.png', alt: 'SIULP' },
+                { src: '/t2padel.jpg', alt: 'T2 Padel' },
               ].map((logo, i) => (
                 <div key={i} className="sponsor-item">
                   <img src={logo.src} alt={logo.alt} loading="lazy" />
