@@ -87,18 +87,18 @@ export default function Home({ matches, teams, isAdmin, bracketActive }) {
           <div className="sponsor-marquee">
             <div className="sponsor-track">
               {[
-                { src: '/autocanaima-logo.png', alt: 'Auto Canaima' },
-                { src: '/La-Lisca-logo-bianco-1920w.png', alt: 'La Lisca' },
-                { src: '/SIULP.png', alt: 'SIULP' },
-                { src: '/t2padel.jpg', alt: 'T2 Padel' },
-                { src: '/autocanaima-logo.png', alt: 'Auto Canaima' },
-                { src: '/La-Lisca-logo-bianco-1920w.png', alt: 'La Lisca' },
-                { src: '/SIULP.png', alt: 'SIULP' },
-                { src: '/t2padel.jpg', alt: 'T2 Padel' },
+                { src: '/autocanaima-logo.png', alt: 'Auto Canaima', url: 'https://www.facebook.com/AutoCanaima/?locale=it_IT' },
+                { src: '/La-Lisca-logo-bianco-1920w.png', alt: 'La Lisca', url: 'https://www.laliscacucinaebottega.com/' },
+                { src: '/SIULP.png', alt: 'SIULP', url: 'https://siulp.it/' },
+                { src: '/t2padel.jpg', alt: 'T2 Padel', url: 'https://www.facebook.com/time2padelsr/' },
+                { src: '/autocanaima-logo.png', alt: 'Auto Canaima', url: 'https://www.facebook.com/AutoCanaima/?locale=it_IT' },
+                { src: '/La-Lisca-logo-bianco-1920w.png', alt: 'La Lisca', url: 'https://www.laliscacucinaebottega.com/' },
+                { src: '/SIULP.png', alt: 'SIULP', url: 'https://siulp.it/' },
+                { src: '/t2padel.jpg', alt: 'T2 Padel', url: 'https://www.facebook.com/time2padelsr/' },
               ].map((logo, i) => (
-                <div key={i} className="sponsor-item">
+                <a key={i} href={logo.url} target="_blank" rel="noopener noreferrer" className="sponsor-item">
                   <img src={logo.src} alt={logo.alt} loading="lazy" />
-                </div>
+                </a>
               ))}
             </div>
           </div>
