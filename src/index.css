@@ -162,3 +162,52 @@ body {
 .cta-btn:active .cta-btn-icon {
   transform: scale(0.95);
 }
+
+/* Sponsor marquee */
+.sponsor-marquee {
+  position: relative;
+  overflow: hidden;
+  padding: 1rem 0;
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.sponsor-track {
+  display: flex;
+  gap: 3rem;
+  width: max-content;
+  animation: sponsor-scroll 24s linear infinite;
+}
+
+.sponsor-marquee:hover .sponsor-track {
+  animation-play-state: paused;
+}
+
+.sponsor-item {
+  flex-shrink: 0;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1rem;
+  opacity: 0.7;
+  transition: opacity 0.3s;
+}
+
+.sponsor-item:hover {
+  opacity: 1;
+}
+
+.sponsor-item img {
+  max-height: 100%;
+  max-width: 140px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+@keyframes sponsor-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}

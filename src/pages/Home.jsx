@@ -81,6 +81,26 @@ export default function Home({ matches, teams, isAdmin, bracketActive }) {
             ))}
           </div>
         </section>
+
+        <section className="space-y-4">
+          <h3 className="font-headline text-lg font-bold tracking-tight uppercase text-secondary px-2">I Nostri Sponsor</h3>
+          <div className="sponsor-marquee">
+            <div className="sponsor-track">
+              {[
+                { src: '/autocanaima-logo.png', alt: 'Auto Canaima' },
+                { src: '/La-Lisca-logo-bianco-1920w.png', alt: 'La Lisca' },
+                { src: '/SIULP.png', alt: 'SIULP' },
+                { src: '/autocanaima-logo.png', alt: 'Auto Canaima' },
+                { src: '/La-Lisca-logo-bianco-1920w.png', alt: 'La Lisca' },
+                { src: '/SIULP.png', alt: 'SIULP' },
+              ].map((logo, i) => (
+                <div key={i} className="sponsor-item">
+                  <img src={logo.src} alt={logo.alt} loading="lazy" />
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
       </main>
       {isAdmin && (
         <Link to="/admin" className="fixed bottom-24 right-4 z-40 bg-gradient-to-r from-[#77db90] to-[#3fa35f] text-on-primary w-14 h-14 rounded-full flex items-center justify-center shadow-xl shadow-primary/30 active:scale-95 transition-all">
