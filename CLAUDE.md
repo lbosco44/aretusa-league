@@ -49,6 +49,17 @@ completely separate Firestore data.
 - Switching level re-subscribes Firestore listeners to the new collection
 - Each level has its own teams, matches, and bracket
 
+Gironi per level are configured in `GIRONI_BY_LEVEL` in App.jsx:
+- Livello A: 3 gironi (A, B, C)
+- Livello B: 6 gironi (A, B, C, D, E, F)
+- Livello C: 3 gironi (A, B, C)
+
+`gironiList` is passed down as a prop to Admin/Gironi/Calendario and
+drives all UI that references gironi (team assignment, filter, tabs,
+add-match modal). The bracket generator is currently hardcoded for
+12 teams (3 × 4); Livello B with 6 gironi × 4 = 24 teams would need
+a different bracket structure.
+
 ### Gironi (Group Stage)
 `buildGironi()` in App.jsx computes standings from match results.
 Stats: pg (played), v (wins), p (losses), sp (sets for), sm (sets against), pts (wins × 3).

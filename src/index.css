@@ -68,9 +68,24 @@ body {
 .glass-glider[data-pos="1"] { transform: translateX(100%); }
 .glass-glider[data-pos="2"] { transform: translateX(200%); }
 .glass-glider[data-pos="3"] { transform: translateX(300%); }
+.glass-glider[data-pos="4"] { transform: translateX(400%); }
+.glass-glider[data-pos="5"] { transform: translateX(500%); }
+.glass-glider[data-pos="6"] { transform: translateX(600%); }
 
 .glass-radio-group[data-count="3"] .glass-glider { width: calc(100% / 3); }
 .glass-radio-group[data-count="4"] .glass-glider { width: calc(100% / 4); }
+.glass-radio-group[data-count="5"] .glass-glider { width: calc(100% / 5); }
+.glass-radio-group[data-count="6"] .glass-glider { width: calc(100% / 6); }
+.glass-radio-group[data-count="7"] .glass-glider { width: calc(100% / 7); }
+
+/* Con molti gironi, stringi il padding per far entrare tutto */
+.glass-radio-group[data-count="5"] label,
+.glass-radio-group[data-count="6"] label,
+.glass-radio-group[data-count="7"] label {
+  padding: 0.7rem 0.4rem;
+  font-size: 12px;
+  letter-spacing: 0.05em;
+}
 
 /* Compact variant — used in navbar level selector */
 .glass-radio-group.compact label {

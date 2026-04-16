@@ -3,9 +3,15 @@ import TopAppBar from '../components/TopAppBar'
 import BottomNav from '../components/BottomNav'
 import GroupTable from '../components/GroupTable'
 
-export default function Gironi({ gironi, isAdmin, bracketActive, level, setLevel }) {
-  const [active, setActive] = useState('A')
+export default function Gironi({ gironi, isAdmin, bracketActive, level, setLevel, gironiList }) {
+  const GIRONI = gironiList || ['A', 'B', 'C']
+  const [active, setActive] = useState(GIRONI[0])
   const totalTeams = Object.values(gironi).flat().length
+
+  // Se cambia il livello e il girone attivo non esiste più, resetta al primo
+  if (!GIRONI.includes(active)) {
+    setActive(GIRONI[0])
+  }
 
   return (
     <div className="min-h-screen text-on-surface">
@@ -19,18 +25,18 @@ export default function Gironi({ gironi, isAdmin, bracketActive, level, setLevel
               <div className="absolute inset-0 bg-gradient-to-t from-[#0E2044] to-transparent" />
               <div className="absolute bottom-6 left-6 z-10">
                 <h2 className="font-headline text-4xl font-black italic uppercase tracking-tighter text-white">GIRONI</h2>
-                <p className="text-secondary font-bold tracking-widest text-xs uppercase mt-1">Fase a Gironi &bull; 3 Gruppi &bull; {totalTeams} Squadre</p>
+                <p className="text-secondary font-bold tracking-widest text-xs uppercase mt-1">Fase a Gironi &bull; {GIRONI.length} Gruppi &bull; {totalTeams} Squadre</p>
               </div>
             </div>
             <div className="glow-blob" />
           </div>
         </section>
-        <div className="glass-radio-group mb-8" data-count="3">
-          {['A','B','C'].map((g, i) => [
+        <div className="glass-radio-group mb-8" data-count={GIRONI.length}>
+          {GIRONI.map(g => [
             <input key={`r${g}`} type="radio" name="girone" id={`girone-${g}`} checked={active === g} onChange={() => setActive(g)} />,
-            <label key={`l${g}`} htmlFor={`girone-${g}`}>Girone {g}</label>,
+            <label key={`l${g}`} htmlFor={`girone-${g}`}>{GIRONI.length > 4 ? g : `Girone ${g}`}</label>,
           ])}
-          <div className="glass-glider" data-pos={['A','B','C'].indexOf(active)} />
+          <div className="glass-glider" data-pos={GIRONI.indexOf(active)} />
         </div>
         {gironi[active].length > 0 ? (
           <GroupTable rows={gironi[active]} />

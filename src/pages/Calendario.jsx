@@ -34,7 +34,8 @@ function getCalendarDays(year, month) {
 
 const sortMatches = (a, b) => a.date === b.date ? a.ora.localeCompare(b.ora) : a.date.localeCompare(b.date)
 
-export default function Calendario({ matches, setMatches, teams, isAdmin, bracketActive, level, setLevel }) {
+export default function Calendario({ matches, setMatches, teams, isAdmin, bracketActive, level, setLevel, gironiList }) {
+  const GIRONI = gironiList || ['A', 'B', 'C']
   const [showAdd, setShowAdd] = useState(false)
   const [resultId, setResultId] = useState(null)
   const [editId, setEditId] = useState(null)
@@ -203,12 +204,12 @@ export default function Calendario({ matches, setMatches, teams, isAdmin, bracke
         )}
 
         {/* Girone filter */}
-        <div className="glass-radio-group" data-count="4">
-          {[null, 'A', 'B', 'C'].map((g, i) => [
+        <div className="glass-radio-group" data-count={GIRONI.length + 1}>
+          {[null, ...GIRONI].map((g, i) => [
             <input key={`r${i}`} type="radio" name="cal-filter" id={`cal-filter-${i}`} checked={filterGirone === g} onChange={() => setFilterGirone(g)} />,
-            <label key={`l${i}`} htmlFor={`cal-filter-${i}`}>{g ? `Girone ${g}` : 'Tutti'}</label>,
+            <label key={`l${i}`} htmlFor={`cal-filter-${i}`}>{g == null ? 'Tutti' : (GIRONI.length > 3 ? g : `Girone ${g}`)}</label>,
           ])}
-          <div className="glass-glider" data-pos={filterGirone ? ['A','B','C'].indexOf(filterGirone) + 1 : 0} />
+          <div className="glass-glider" data-pos={filterGirone ? GIRONI.indexOf(filterGirone) + 1 : 0} />
         </div>
 
         {/* Upcoming mini list */}

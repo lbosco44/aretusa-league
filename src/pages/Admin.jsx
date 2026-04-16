@@ -2,9 +2,8 @@ import { useState, useRef } from 'react'
 import TopAppBar from '../components/TopAppBar'
 import BottomNav from '../components/BottomNav'
 
-const GIRONI = ['A', 'B', 'C']
-
-export default function Admin({ teams, setTeams, matches, setMatches, bracket, setBracket, isAdmin, login, logout, bracketActive, level, setLevel }) {
+export default function Admin({ teams, setTeams, matches, setMatches, bracket, setBracket, isAdmin, login, logout, bracketActive, level, setLevel, gironiList }) {
+  const GIRONI = gironiList || ['A', 'B', 'C']
   const [player1, setPlayer1] = useState('')
   const [player2, setPlayer2] = useState('')
   const [club, setClub] = useState('')

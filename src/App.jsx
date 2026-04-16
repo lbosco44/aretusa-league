@@ -11,9 +11,31 @@ import Regolamento from './pages/Regolamento'
 import Galleria from './pages/Galleria'
 import LoadingBall from './components/LoadingBall'
 
-const EMPTY_TEAMS = { A: [], B: [], C: [] }
 const EMPTY_BRACKET = { active: false, rounds: [[], [], [], []] }
 const LEVELS = ['A', 'B', 'C']
+
+// Gironi per livello: Livello B ha 6 gironi, gli altri ne hanno 3
+const GIRONI_BY_LEVEL = {
+  A: ['A', 'B', 'C'],
+  B: ['A', 'B', 'C', 'D', 'E', 'F'],
+  C: ['A', 'B', 'C'],
+}
+
+function getGironiList(level) {
+  return GIRONI_BY_LEVEL[level] || ['A', 'B', 'C']
+}
+
+function emptyTeamsForLevel(level) {
+  const result = {}
+  getGironiList(level).forEach(g => { result[g] = [] })
+  return result
+}
+
+function normalizeTeams(teams, gironiList) {
+  const result = {}
+  gironiList.forEach(g => { result[g] = (teams && teams[g]) || [] })
+  return result
+}
 
 function collectionForLevel(level) {
   return `tournament_${level}`
@@ -125,7 +147,7 @@ function makeSyncSetter(rawSetter, docRef, toFirestore) {
 
 export default function App() {
   const [level, setLevelState] = useState(loadLevel)
-  const [teams, setTeams] = useState(EMPTY_TEAMS)
+  const [teams, setTeams] = useState(() => emptyTeamsForLevel(loadLevel()))
   const [matches, setMatches] = useState([])
   const [bracket, setBracket] = useState(EMPTY_BRACKET)
   const [gallery, setGallery] = useState({ list: [] })
@@ -151,10 +173,12 @@ export default function App() {
     setLevelState(newLevel)
   }
 
+  const gironiList = getGironiList(level)
+
   // Real-time Firestore listeners (re-subscribe when level changes)
   useEffect(() => {
     setLoading(true)
-    setTeams(EMPTY_TEAMS)
+    setTeams(emptyTeamsForLevel(level))
     setMatches([])
     setBracket(EMPTY_BRACKET)
     setGallery({ list: [] })
@@ -163,9 +187,11 @@ export default function App() {
     const done = () => { if (++loadCount >= 4) setLoading(false) }
     const onError = (e) => { console.error('Firestore error:', e); done() }
 
+    const list = getGironiList(level)
     const unsubs = [
       onSnapshot(teamsRef, snap => {
-        if (snap.exists()) setTeams(snap.data())
+        if (snap.exists()) setTeams(normalizeTeams(snap.data(), list))
+        else setTeams(emptyTeamsForLevel(level))
         done()
       }, onError),
       onSnapshot(matchesRef, snap => {
@@ -258,7 +284,7 @@ export default function App() {
     return <LoadingBall label={`Caricamento Livello ${level}...`} />
   }
 
-  const commonProps = { level, setLevel, isAdmin, bracketActive: bracket.active }
+  const commonProps = { level, setLevel, isAdmin, bracketActive: bracket.active, gironiList }
 
   return (
     <Routes>
