@@ -3,7 +3,15 @@ import TopAppBar from '../components/TopAppBar'
 import BottomNav from '../components/BottomNav'
 
 export default function Home({ matches, teams, isAdmin, bracketActive }) {
-  const nextMatch = matches.find(m => !m.played)
+  const now = new Date()
+  const pad = n => String(n).padStart(2, '0')
+  const todayStr = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`
+  const nowTime = `${pad(now.getHours())}:${pad(now.getMinutes())}`
+
+  const nextMatch = matches
+    .filter(m => !m.played && (m.date > todayStr || (m.date === todayStr && m.ora >= nowTime)))
+    .sort((a, b) => a.date === b.date ? a.ora.localeCompare(b.ora) : a.date.localeCompare(b.date))[0]
+
   const totalTeams = Object.values(teams).flat().length
 
   return (
