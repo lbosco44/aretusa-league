@@ -32,7 +32,7 @@ export default function Home({ matches, teams, isAdmin, bracketActive }) {
                   <span className="w-2 h-2 rounded-full bg-secondary animate-pulse" />
                   {nextMatch ? `Prossima Partita \u2022 ${nextMatch.ora}` : 'Fase a gironi in corso'}
                 </span>
-                <h2 className="font-headline text-3xl font-black italic uppercase text-white leading-tight">IL TORNEO STA<br/>PER INIZIARE...</h2>
+                <h2 className="font-headline text-3xl font-black italic uppercase text-white leading-tight">IL TORNEO<br/>È INIZIATO!</h2>
               </div>
               <Link to="/calendario" className="cta-btn">
                 <span className="font-headline font-bold text-sm uppercase tracking-wide">Vedi Partite</span>
