@@ -74,9 +74,9 @@ body {
 
 /* Compact variant — used in navbar level selector */
 .glass-radio-group.compact label {
-  padding: 0.35rem 0.65rem;
-  font-size: 10px;
-  letter-spacing: 0.08em;
+  padding: 0.5rem 0.95rem;
+  font-size: 13px;
+  letter-spacing: 0.12em;
 }
 .glass-radio-group.compact .glass-glider {
   border-radius: 9999px;

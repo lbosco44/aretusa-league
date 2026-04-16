@@ -40,8 +40,8 @@ export default function TopAppBar({ actions, level = 'A', setLevel }) {
           style={{ height: scrolled ? '28px' : '36px' }}
         />
 
-        {/* Level selector — glass radio group */}
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
+        {/* Level selector — right on mobile, centered on desktop */}
+        <div className="absolute top-1/2 -translate-y-1/2 z-20 right-4 md:right-auto md:left-1/2 md:-translate-x-1/2">
           <div className="glass-radio-group compact" data-count="3" style={{ width: 'auto' }}>
             {LEVELS.map(l => [
               <input
