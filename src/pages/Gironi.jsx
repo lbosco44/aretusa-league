@@ -9,7 +9,7 @@ export default function Gironi({ gironi, isAdmin, bracketActive, level, setLevel
 
   return (
     <div className="min-h-screen text-on-surface">
-      <TopAppBar level={level} setLevel={setLevel} actions={<span className="material-symbols-outlined text-on-surface-variant">account_circle</span>} />
+      <TopAppBar level={level} setLevel={setLevel} actions={null} />
       <main className="pt-24 pb-32 px-4 max-w-5xl mx-auto">
         <section className="mb-8">
           <div className="glow-card">

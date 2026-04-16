@@ -16,11 +16,7 @@ export default function Home({ matches, teams, isAdmin, bracketActive, level, se
 
   return (
     <div className="bg-surface text-on-surface font-body min-h-screen">
-      <TopAppBar level={level} setLevel={setLevel} actions={
-        <div className="w-8 h-8 rounded-full bg-[#2d5aa0] flex items-center justify-center border-2 border-primary/20">
-          <span className="material-symbols-outlined text-on-surface-variant text-lg">account_circle</span>
-        </div>
-      } />
+      <TopAppBar level={level} setLevel={setLevel} actions={null} />
       <main className="pt-20 pb-32 px-4 max-w-5xl mx-auto space-y-8">
         <section className="glow-card" style={{ borderRadius: '1.5rem' }}>
           <div className="glow-card-bg relative h-64 flex items-end p-6" style={{ borderRadius: 'calc(1.5rem - 2px)' }}>

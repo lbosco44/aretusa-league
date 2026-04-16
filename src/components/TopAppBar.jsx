@@ -41,19 +41,21 @@ export default function TopAppBar({ actions, level = 'A', setLevel }) {
         />
 
         {/* Level selector — glass radio group */}
-        <div className="glass-radio-group compact absolute left-1/2 -translate-x-1/2" data-count="3" style={{ width: 'auto' }}>
-          {LEVELS.map(l => [
-            <input
-              key={`r${l}`}
-              type="radio"
-              name="level"
-              id={`level-${l}`}
-              checked={level === l}
-              onChange={() => setLevel && setLevel(l)}
-            />,
-            <label key={`l${l}`} htmlFor={`level-${l}`}>{l}</label>,
-          ])}
-          <div className="glass-glider" data-pos={LEVELS.indexOf(level)} />
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
+          <div className="glass-radio-group compact" data-count="3" style={{ width: 'auto' }}>
+            {LEVELS.map(l => [
+              <input
+                key={`r${l}`}
+                type="radio"
+                name="level"
+                id={`level-${l}`}
+                checked={level === l}
+                onChange={() => setLevel && setLevel(l)}
+              />,
+              <label key={`l${l}`} htmlFor={`level-${l}`}>{l}</label>,
+            ])}
+            <div className="glass-glider" data-pos={LEVELS.indexOf(level)} />
+          </div>
         </div>
 
         <div className="flex items-center gap-3 relative z-10">{actions}</div>
