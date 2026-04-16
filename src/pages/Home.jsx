@@ -37,6 +37,28 @@ export default function Home({ matches, teams, isAdmin, bracketActive }) {
           <div className="glow-blob" />
         </section>
 
+        <section className="space-y-4">
+          <h3 className="font-headline text-lg font-bold tracking-tight uppercase text-secondary px-2">I Nostri Sponsor</h3>
+          <div className="sponsor-marquee">
+            <div className="sponsor-track">
+              {[
+                { src: '/autocanaima-logo.png', alt: 'Auto Canaima', url: 'https://www.facebook.com/AutoCanaima/?locale=it_IT' },
+                { src: '/La-Lisca-logo-bianco-1920w.png', alt: 'La Lisca', url: 'https://www.laliscacucinaebottega.com/' },
+                { src: '/SIULP.png', alt: 'SIULP', url: 'https://siulp.it/' },
+                { src: '/t2padel.jpg', alt: 'T2 Padel', url: 'https://www.facebook.com/time2padelsr/' },
+                { src: '/autocanaima-logo.png', alt: 'Auto Canaima', url: 'https://www.facebook.com/AutoCanaima/?locale=it_IT' },
+                { src: '/La-Lisca-logo-bianco-1920w.png', alt: 'La Lisca', url: 'https://www.laliscacucinaebottega.com/' },
+                { src: '/SIULP.png', alt: 'SIULP', url: 'https://siulp.it/' },
+                { src: '/t2padel.jpg', alt: 'T2 Padel', url: 'https://www.facebook.com/time2padelsr/' },
+              ].map((logo, i) => (
+                <a key={i} href={logo.url} target="_blank" rel="noopener noreferrer" className="sponsor-item">
+                  <img src={logo.src} alt={logo.alt} loading="lazy" />
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
+
         <section className="grid grid-cols-2 md:grid-cols-3 gap-4">
           <div className="bg-[#D3D0CB] p-5 rounded-2xl flex flex-col justify-between h-32 text-[#0E2044]">
             <span className="text-xs font-black uppercase tracking-widest opacity-60">Squadre</span>
@@ -82,27 +104,6 @@ export default function Home({ matches, teams, isAdmin, bracketActive }) {
           </div>
         </section>
 
-        <section className="space-y-4">
-          <h3 className="font-headline text-lg font-bold tracking-tight uppercase text-secondary px-2">I Nostri Sponsor</h3>
-          <div className="sponsor-marquee">
-            <div className="sponsor-track">
-              {[
-                { src: '/autocanaima-logo.png', alt: 'Auto Canaima', url: 'https://www.facebook.com/AutoCanaima/?locale=it_IT' },
-                { src: '/La-Lisca-logo-bianco-1920w.png', alt: 'La Lisca', url: 'https://www.laliscacucinaebottega.com/' },
-                { src: '/SIULP.png', alt: 'SIULP', url: 'https://siulp.it/' },
-                { src: '/t2padel.jpg', alt: 'T2 Padel', url: 'https://www.facebook.com/time2padelsr/' },
-                { src: '/autocanaima-logo.png', alt: 'Auto Canaima', url: 'https://www.facebook.com/AutoCanaima/?locale=it_IT' },
-                { src: '/La-Lisca-logo-bianco-1920w.png', alt: 'La Lisca', url: 'https://www.laliscacucinaebottega.com/' },
-                { src: '/SIULP.png', alt: 'SIULP', url: 'https://siulp.it/' },
-                { src: '/t2padel.jpg', alt: 'T2 Padel', url: 'https://www.facebook.com/time2padelsr/' },
-              ].map((logo, i) => (
-                <a key={i} href={logo.url} target="_blank" rel="noopener noreferrer" className="sponsor-item">
-                  <img src={logo.src} alt={logo.alt} loading="lazy" />
-                </a>
-              ))}
-            </div>
-          </div>
-        </section>
       </main>
       {isAdmin && (
         <Link to="/admin" className="fixed bottom-24 right-4 z-40 bg-gradient-to-r from-[#77db90] to-[#3fa35f] text-on-primary w-14 h-14 rounded-full flex items-center justify-center shadow-xl shadow-primary/30 active:scale-95 transition-all">
