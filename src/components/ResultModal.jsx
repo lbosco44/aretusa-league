@@ -20,10 +20,8 @@ export default function ResultModal({ match, onClose, onConfirm }) {
     if (n1a > 7 || n1b > 7 || n2a > 7 || n2b > 7) { alert('Il punteggio massimo di un set è 7'); return }
     if (tbTarget == null) {
       if (n3a > 7 || n3b > 7) { alert('Il punteggio massimo del set è 7'); return }
-    } else {
-      const tbMax = tbTarget === 10 ? 15 : 10
-      if (n3a > tbMax || n3b > tbMax) { alert(`Il punteggio massimo del tiebreak è ${tbMax}`); return }
     }
+    // Tiebreak: nessun limite massimo (può andare a oltranza, es. 18-16)
     let cW = 0, oW = 0
     if (n1a > n1b) cW++; else oW++
     if (n2a > n2b) cW++; else oW++
@@ -89,7 +87,7 @@ export default function ResultModal({ match, onClose, onConfirm }) {
                 <input
                   type="number"
                   min="0"
-                  max={tbTarget == null ? 7 : (tbTarget === 10 ? 15 : 10)}
+                  {...(tbTarget == null ? { max: 7 } : {})}
                   placeholder="0"
                   value={s3a}
                   onChange={e => setS3a(e.target.value)}
@@ -101,7 +99,7 @@ export default function ResultModal({ match, onClose, onConfirm }) {
                 <input
                   type="number"
                   min="0"
-                  max={tbTarget == null ? 7 : (tbTarget === 10 ? 15 : 10)}
+                  {...(tbTarget == null ? { max: 7 } : {})}
                   placeholder="0"
                   value={s3b}
                   onChange={e => setS3b(e.target.value)}
