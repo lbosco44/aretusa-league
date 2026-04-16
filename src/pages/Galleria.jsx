@@ -39,12 +39,7 @@ export default function Galleria({ gallery, setGallery, isAdmin, bracketActive, 
 
   return (
     <div className="min-h-screen text-on-surface">
-      <TopAppBar level={level} setLevel={setLevel} actions={isAdmin ? (
-        <button onClick={() => setShowUpload(true)} className="flex items-center gap-2 bg-gradient-to-r from-[#27F24C] to-[#1DB954] text-[#003909] font-headline font-bold px-4 py-2 rounded-xl text-xs uppercase tracking-widest shadow-lg active:scale-95 transition-all">
-          <span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>add_a_photo</span>
-          Carica
-        </button>
-      ) : null} />
+      <TopAppBar level={level} setLevel={setLevel} actions={null} />
 
       <main className="pt-24 pb-32 px-4 max-w-5xl mx-auto space-y-6">
         {/* Header */}
@@ -67,7 +62,7 @@ export default function Galleria({ gallery, setGallery, isAdmin, bracketActive, 
           <div className="bg-[#152040] rounded-2xl border border-white/5 p-12 text-center">
             <span className="material-symbols-outlined text-5xl text-on-surface-variant/30 mb-3">photo_library</span>
             <p className="text-on-surface-variant/60 text-sm font-medium">Nessuna foto ancora caricata</p>
-            {isAdmin && <p className="text-on-surface-variant/40 text-xs mt-1">Clicca "Carica" in alto per aggiungere la prima</p>}
+            {isAdmin && <p className="text-on-surface-variant/40 text-xs mt-1">Usa il pulsante verde in basso a destra per caricare la prima</p>}
           </div>
         ) : (
           <div className="grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-8 py-4">
@@ -95,6 +90,17 @@ export default function Galleria({ gallery, setGallery, isAdmin, bracketActive, 
       </main>
 
       <BottomNav isAdmin={isAdmin} bracketActive={bracketActive} />
+
+      {/* Floating Action Button (admin only) */}
+      {isAdmin && (
+        <button
+          onClick={() => setShowUpload(true)}
+          aria-label="Carica foto"
+          className="fixed bottom-24 right-5 z-40 w-14 h-14 rounded-full bg-gradient-to-br from-[#27F24C] to-[#1DB954] text-[#003909] flex items-center justify-center shadow-2xl shadow-[#1DB954]/40 active:scale-95 transition-transform"
+        >
+          <span className="material-symbols-outlined text-3xl" style={{ fontVariationSettings: "'FILL' 1" }}>add</span>
+        </button>
+      )}
 
       {/* Upload modal */}
       {showUpload && <UploadPhotoModal onClose={() => setShowUpload(false)} onUploaded={handleUploaded} />}
