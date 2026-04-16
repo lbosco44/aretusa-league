@@ -8,6 +8,7 @@ import Calendario from './pages/Calendario'
 import Tabellone from './pages/Tabellone'
 import Admin from './pages/Admin'
 import Regolamento from './pages/Regolamento'
+import LoadingBall from './components/LoadingBall'
 
 const EMPTY_TEAMS = { A: [], B: [], C: [] }
 const EMPTY_BRACKET = { active: false, rounds: [[], [], [], []] }
@@ -245,14 +246,7 @@ export default function App() {
   }
 
   if (loading) {
-    return (
-      <div className="min-h-screen bg-[#0E2044] flex items-center justify-center">
-        <div className="flex flex-col items-center gap-4">
-          <div className="w-12 h-12 border-4 border-[#71ff74]/30 border-t-[#71ff74] rounded-full animate-spin" />
-          <p className="text-on-surface-variant text-sm font-medium">Caricamento Livello {level}...</p>
-        </div>
-      </div>
-    )
+    return <LoadingBall label={`Caricamento Livello ${level}...`} />
   }
 
   const commonProps = { level, setLevel, isAdmin, bracketActive: bracket.active }
