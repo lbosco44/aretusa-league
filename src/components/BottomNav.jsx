@@ -6,6 +6,7 @@ const tabs = [
   { to: '/gironi',     icon: 'groups',        label: 'Gironi' },
   { to: '/calendario', icon: 'calendar_today', label: 'Calendario' },
   { to: '/tabellone',  icon: 'account_tree',  label: 'Tabellone' },
+  { to: '/galleria',   icon: 'photo_library', label: 'Galleria' },
   { to: '/regolamento', icon: 'menu_book',    label: 'Regole' },
   { to: '/admin',      icon: 'lock',          iconActive: 'admin_panel_settings', label: 'Admin' },
 ]

@@ -259,3 +259,68 @@ body {
   0%, 100% { transform: scaleX(1); opacity: 0.7; }
   50%      { transform: scaleX(0.4); opacity: 0.25; }
 }
+
+/* Polaroid cards */
+.polaroid {
+  display: block;
+  background: #fafafa;
+  padding: 10px 10px 0;
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.4),
+    0 2px 4px rgba(0, 0, 0, 0.3);
+  border-radius: 3px;
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.35s;
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+  position: relative;
+  border: none;
+  font-family: inherit;
+}
+
+.polaroid:nth-child(6n+1) { transform: rotate(-2.5deg); }
+.polaroid:nth-child(6n+2) { transform: rotate(1.8deg); }
+.polaroid:nth-child(6n+3) { transform: rotate(-1deg); }
+.polaroid:nth-child(6n+4) { transform: rotate(2.2deg); }
+.polaroid:nth-child(6n+5) { transform: rotate(-3deg); }
+.polaroid:nth-child(6n+6) { transform: rotate(1.2deg); }
+
+.polaroid:hover {
+  transform: rotate(0deg) scale(1.04);
+  box-shadow:
+    0 10px 28px rgba(0, 0, 0, 0.5),
+    0 6px 10px rgba(0, 0, 0, 0.3);
+  z-index: 2;
+}
+
+.polaroid-photo {
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: #000;
+}
+.polaroid-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.polaroid-caption {
+  font-family: 'Caveat', cursive;
+  font-size: 20px;
+  font-weight: 700;
+  color: #1a1a1a;
+  padding: 14px 6px 4px;
+  line-height: 1.1;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.polaroid-date {
+  font-family: 'Caveat', cursive;
+  font-size: 13px;
+  color: #888;
+  padding: 0 6px 12px;
+}

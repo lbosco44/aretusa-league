@@ -8,6 +8,7 @@ import Calendario from './pages/Calendario'
 import Tabellone from './pages/Tabellone'
 import Admin from './pages/Admin'
 import Regolamento from './pages/Regolamento'
+import Galleria from './pages/Galleria'
 import LoadingBall from './components/LoadingBall'
 
 const EMPTY_TEAMS = { A: [], B: [], C: [] }
@@ -127,6 +128,7 @@ export default function App() {
   const [teams, setTeams] = useState(EMPTY_TEAMS)
   const [matches, setMatches] = useState([])
   const [bracket, setBracket] = useState(EMPTY_BRACKET)
+  const [gallery, setGallery] = useState({ list: [] })
   const [isAdmin, setIsAdmin] = useState(false)
   const [loading, setLoading] = useState(true)
   const gironi = buildGironi(teams, matches)
@@ -136,10 +138,12 @@ export default function App() {
   const teamsRef = doc(db, col, 'teams')
   const matchesRef = doc(db, col, 'matches')
   const bracketRef = doc(db, col, 'bracket')
+  const galleryRef = doc(db, col, 'gallery')
 
   const syncTeams = makeSyncSetter(setTeams, teamsRef)
   const syncMatches = makeSyncSetter(setMatches, matchesRef, list => ({ list }))
   const syncBracket = makeSyncSetter(setBracket, bracketRef)
+  const syncGallery = makeSyncSetter(setGallery, galleryRef)
 
   function setLevel(newLevel) {
     if (!LEVELS.includes(newLevel) || newLevel === level) return
@@ -153,9 +157,10 @@ export default function App() {
     setTeams(EMPTY_TEAMS)
     setMatches([])
     setBracket(EMPTY_BRACKET)
+    setGallery({ list: [] })
 
     let loadCount = 0
-    const done = () => { if (++loadCount >= 3) setLoading(false) }
+    const done = () => { if (++loadCount >= 4) setLoading(false) }
     const onError = (e) => { console.error('Firestore error:', e); done() }
 
     const unsubs = [
@@ -169,6 +174,10 @@ export default function App() {
       }, onError),
       onSnapshot(bracketRef, snap => {
         if (snap.exists()) setBracket(snap.data())
+        done()
+      }, onError),
+      onSnapshot(galleryRef, snap => {
+        if (snap.exists()) setGallery(snap.data())
         done()
       }, onError),
     ]
@@ -266,6 +275,7 @@ export default function App() {
         />
       } />
       <Route path="/regolamento" element={<Regolamento {...commonProps} />} />
+      <Route path="/galleria" element={<Galleria gallery={gallery} setGallery={syncGallery} {...commonProps} />} />
       <Route path="/admin" element={<Admin teams={teams} setTeams={syncTeams} matches={matches} setMatches={syncMatches} bracket={bracket} setBracket={syncBracket} login={login} logout={logout} {...commonProps} />} />
     </Routes>
   )

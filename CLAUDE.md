@@ -26,10 +26,16 @@ and is passed down via props (no context/store).
 
 ### State & Persistence
 Data is stored in **Firebase Firestore** with real-time sync across devices.
-Three documents per level in collection `tournament_{A|B|C}`:
+Four documents per level in collection `tournament_{A|B|C}`:
 - `teams` — teams organized by girone {A, B, C}, max 4 per girone
 - `matches` — { list: [...] } array of match objects (gironi phase)
 - `bracket` — knockout bracket state (rounds, results, advancement)
+- `gallery` — { list: [...] } photos uploaded via Cloudinary
+
+Photos in gallery use Cloudinary for storage (cloud: `dzvwpvixz`,
+unsigned preset: `aretusa_gallery`). Each photo: { id, url, publicId,
+caption, uploadedAt }. Deleting a photo only removes it from Firestore
+(Cloudinary asset remains as orphan; clean up manually if needed).
 
 Admin session stored in `sessionStorage` as `aretusa_token` (JWT).
 Auth handled by Vercel Functions (`/api/login`, `/api/verify`).
