@@ -34,7 +34,7 @@ function getCalendarDays(year, month) {
 
 const sortMatches = (a, b) => a.date === b.date ? a.ora.localeCompare(b.ora) : a.date.localeCompare(b.date)
 
-export default function Calendario({ matches, setMatches, teams, isAdmin, bracketActive }) {
+export default function Calendario({ matches, setMatches, teams, isAdmin, bracketActive, level, setLevel }) {
   const [showAdd, setShowAdd] = useState(false)
   const [resultId, setResultId] = useState(null)
   const [editId, setEditId] = useState(null)
@@ -117,7 +117,7 @@ export default function Calendario({ matches, setMatches, teams, isAdmin, bracke
 
   return (
     <div className="min-h-screen text-on-surface">
-      <TopAppBar actions={isAdmin && !bracketActive ? (
+      <TopAppBar level={level} setLevel={setLevel} actions={isAdmin && !bracketActive ? (
         <button onClick={() => setShowAdd(true)} className="flex items-center gap-2 bg-gradient-to-r from-[#27F24C] to-[#1DB954] text-[#003909] font-headline font-bold px-4 py-2 rounded-xl text-xs uppercase tracking-widest shadow-lg active:scale-95 transition-all">
           <span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>add_circle</span>
           Aggiungi

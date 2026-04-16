@@ -85,10 +85,10 @@ const sections = [
   },
 ]
 
-export default function Regolamento({ isAdmin, bracketActive }) {
+export default function Regolamento({ isAdmin, bracketActive, level, setLevel }) {
   return (
     <div className="min-h-screen text-on-surface">
-      <TopAppBar actions={
+      <TopAppBar level={level} setLevel={setLevel} actions={
         <Link to="/" className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
           <span className="material-symbols-outlined text-on-surface-variant text-lg">arrow_back</span>
         </Link>

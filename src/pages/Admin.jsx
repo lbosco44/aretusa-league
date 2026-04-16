@@ -4,7 +4,7 @@ import BottomNav from '../components/BottomNav'
 
 const GIRONI = ['A', 'B', 'C']
 
-export default function Admin({ teams, setTeams, matches, setMatches, bracket, setBracket, isAdmin, login, logout, bracketActive }) {
+export default function Admin({ teams, setTeams, matches, setMatches, bracket, setBracket, isAdmin, login, logout, bracketActive, level, setLevel }) {
   const [player1, setPlayer1] = useState('')
   const [player2, setPlayer2] = useState('')
   const [club, setClub] = useState('')
@@ -117,7 +117,7 @@ export default function Admin({ teams, setTeams, matches, setMatches, bracket, s
   if (!isAdmin) {
     return (
       <div className="min-h-screen text-on-surface">
-        <TopAppBar actions={
+        <TopAppBar level={level} setLevel={setLevel} actions={
           <span className="material-symbols-outlined text-on-surface-variant">lock</span>
         } />
         <main className="pt-24 pb-32 px-4 max-w-md mx-auto flex flex-col items-center justify-center min-h-[70vh]">
@@ -165,7 +165,7 @@ export default function Admin({ teams, setTeams, matches, setMatches, bracket, s
   // Admin panel
   return (
     <div className="min-h-screen text-on-surface">
-      <TopAppBar actions={
+      <TopAppBar level={level} setLevel={setLevel} actions={
         <button onClick={logout} className="flex items-center gap-2 bg-red-500/20 border border-red-500/30 text-red-400 font-headline font-bold px-4 py-2 rounded-xl text-xs uppercase tracking-widest active:scale-95 transition-all">
           <span className="material-symbols-outlined text-sm">logout</span>
           Esci

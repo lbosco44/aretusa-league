@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import TopAppBar from '../components/TopAppBar'
 import BottomNav from '../components/BottomNav'
 
-export default function Home({ matches, teams, isAdmin, bracketActive }) {
+export default function Home({ matches, teams, isAdmin, bracketActive, level, setLevel }) {
   const now = new Date()
   const pad = n => String(n).padStart(2, '0')
   const todayStr = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`
@@ -16,7 +16,7 @@ export default function Home({ matches, teams, isAdmin, bracketActive }) {
 
   return (
     <div className="bg-surface text-on-surface font-body min-h-screen">
-      <TopAppBar actions={
+      <TopAppBar level={level} setLevel={setLevel} actions={
         <div className="w-8 h-8 rounded-full bg-[#2d5aa0] flex items-center justify-center border-2 border-primary/20">
           <span className="material-symbols-outlined text-on-surface-variant text-lg">account_circle</span>
         </div>

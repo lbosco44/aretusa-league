@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom'
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { doc, setDoc, getDoc, onSnapshot } from 'firebase/firestore'
 import { db } from './firebase'
 import Home from './pages/Home'
@@ -11,11 +11,16 @@ import Regolamento from './pages/Regolamento'
 
 const EMPTY_TEAMS = { A: [], B: [], C: [] }
 const EMPTY_BRACKET = { active: false, rounds: [[], [], [], []] }
+const LEVELS = ['A', 'B', 'C']
 
-// Firestore document refs
-const teamsRef = doc(db, 'tournament', 'teams')
-const matchesRef = doc(db, 'tournament', 'matches')
-const bracketRef = doc(db, 'tournament', 'bracket')
+function collectionForLevel(level) {
+  return `tournament_${level}`
+}
+
+function loadLevel() {
+  const stored = localStorage.getItem('aretusa_level')
+  return LEVELS.includes(stored) ? stored : 'A'
+}
 
 function buildGironi(teams, matches) {
   const gironi = {}
@@ -101,7 +106,6 @@ function advanceBracket(bracket, roundIdx, matchIdx, result) {
   return next
 }
 
-// Creates a setter that syncs to Firestore
 function makeSyncSetter(rawSetter, docRef, toFirestore) {
   return function syncSetter(updaterOrValue) {
     if (typeof updaterOrValue === 'function') {
@@ -118,6 +122,7 @@ function makeSyncSetter(rawSetter, docRef, toFirestore) {
 }
 
 export default function App() {
+  const [level, setLevelState] = useState(loadLevel)
   const [teams, setTeams] = useState(EMPTY_TEAMS)
   const [matches, setMatches] = useState([])
   const [bracket, setBracket] = useState(EMPTY_BRACKET)
@@ -125,13 +130,29 @@ export default function App() {
   const [loading, setLoading] = useState(true)
   const gironi = buildGironi(teams, matches)
 
-  // Sync setters: update state + write to Firestore
+  // Firestore refs for current level
+  const col = collectionForLevel(level)
+  const teamsRef = doc(db, col, 'teams')
+  const matchesRef = doc(db, col, 'matches')
+  const bracketRef = doc(db, col, 'bracket')
+
   const syncTeams = makeSyncSetter(setTeams, teamsRef)
   const syncMatches = makeSyncSetter(setMatches, matchesRef, list => ({ list }))
   const syncBracket = makeSyncSetter(setBracket, bracketRef)
 
-  // Real-time Firestore listeners
+  function setLevel(newLevel) {
+    if (!LEVELS.includes(newLevel) || newLevel === level) return
+    localStorage.setItem('aretusa_level', newLevel)
+    setLevelState(newLevel)
+  }
+
+  // Real-time Firestore listeners (re-subscribe when level changes)
   useEffect(() => {
+    setLoading(true)
+    setTeams(EMPTY_TEAMS)
+    setMatches([])
+    setBracket(EMPTY_BRACKET)
+
     let loadCount = 0
     const done = () => { if (++loadCount >= 3) setLoading(false) }
 
@@ -150,23 +171,26 @@ export default function App() {
       }),
     ]
     return () => unsubs.forEach(u => u())
-  }, [])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [level])
 
-  // One-time migration: localStorage → Firestore
+  // One-time migration: old `tournament` collection → `tournament_A`
   useEffect(() => {
     async function migrate() {
       try {
-        const snap = await getDoc(teamsRef)
-        if (snap.exists()) return // Firestore already has data
+        const newSnap = await getDoc(doc(db, 'tournament_A', 'teams'))
+        if (newSnap.exists()) return
 
-        const t = localStorage.getItem('aretusa_teams')
-        const m = localStorage.getItem('aretusa_matches')
-        const b = localStorage.getItem('aretusa_bracket')
+        const oldTeams = await getDoc(doc(db, 'tournament', 'teams'))
+        if (!oldTeams.exists()) return
 
-        if (t) await setDoc(teamsRef, JSON.parse(t))
-        if (m) await setDoc(matchesRef, { list: JSON.parse(m) })
-        if (b) await setDoc(bracketRef, JSON.parse(b))
-      } catch (e) { console.error('Migration failed:', e) }
+        const oldMatches = await getDoc(doc(db, 'tournament', 'matches'))
+        const oldBracket = await getDoc(doc(db, 'tournament', 'bracket'))
+
+        await setDoc(doc(db, 'tournament_A', 'teams'), oldTeams.data())
+        if (oldMatches.exists()) await setDoc(doc(db, 'tournament_A', 'matches'), oldMatches.data())
+        if (oldBracket.exists()) await setDoc(doc(db, 'tournament_A', 'bracket'), oldBracket.data())
+      } catch (e) { console.error('Migration to tournament_A failed:', e) }
     }
     migrate()
   }, [])
@@ -221,28 +245,30 @@ export default function App() {
       <div className="min-h-screen bg-[#0E2044] flex items-center justify-center">
         <div className="flex flex-col items-center gap-4">
           <div className="w-12 h-12 border-4 border-[#71ff74]/30 border-t-[#71ff74] rounded-full animate-spin" />
-          <p className="text-on-surface-variant text-sm font-medium">Caricamento...</p>
+          <p className="text-on-surface-variant text-sm font-medium">Caricamento Livello {level}...</p>
         </div>
       </div>
     )
   }
 
+  const commonProps = { level, setLevel, isAdmin, bracketActive: bracket.active }
+
   return (
     <Routes>
-      <Route path="/" element={<Home matches={matches} teams={teams} isAdmin={isAdmin} bracketActive={bracket.active} />} />
-      <Route path="/gironi" element={<Gironi gironi={gironi} isAdmin={isAdmin} bracketActive={bracket.active} />} />
-      <Route path="/calendario" element={<Calendario matches={matches} setMatches={syncMatches} teams={teams} isAdmin={isAdmin} bracketActive={bracket.active} />} />
+      <Route path="/" element={<Home matches={matches} teams={teams} {...commonProps} />} />
+      <Route path="/gironi" element={<Gironi gironi={gironi} {...commonProps} />} />
+      <Route path="/calendario" element={<Calendario matches={matches} setMatches={syncMatches} teams={teams} {...commonProps} />} />
       <Route path="/tabellone" element={
         <Tabellone
-          isAdmin={isAdmin}
           bracket={bracket}
           gironi={gironi}
           onActivate={activateTabellone}
           onResult={handleBracketResult}
+          {...commonProps}
         />
       } />
-      <Route path="/regolamento" element={<Regolamento isAdmin={isAdmin} bracketActive={bracket.active} />} />
-      <Route path="/admin" element={<Admin teams={teams} setTeams={syncTeams} matches={matches} setMatches={syncMatches} bracket={bracket} setBracket={syncBracket} isAdmin={isAdmin} login={login} logout={logout} bracketActive={bracket.active} />} />
+      <Route path="/regolamento" element={<Regolamento {...commonProps} />} />
+      <Route path="/admin" element={<Admin teams={teams} setTeams={syncTeams} matches={matches} setMatches={syncMatches} bracket={bracket} setBracket={syncBracket} login={login} logout={logout} {...commonProps} />} />
     </Routes>
   )
 }
