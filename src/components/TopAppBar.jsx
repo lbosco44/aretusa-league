@@ -1,11 +1,9 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 
 const LEVELS = ['A', 'B', 'C']
 
 export default function TopAppBar({ actions, level = 'A', setLevel }) {
   const [scrolled, setScrolled] = useState(false)
-  const [menuOpen, setMenuOpen] = useState(false)
-  const menuRef = useRef(null)
 
   useEffect(() => {
     function onScroll() {
@@ -14,27 +12,6 @@ export default function TopAppBar({ actions, level = 'A', setLevel }) {
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
-
-  useEffect(() => {
-    function onClick(e) {
-      if (menuRef.current && !menuRef.current.contains(e.target)) {
-        setMenuOpen(false)
-      }
-    }
-    if (menuOpen) {
-      document.addEventListener('mousedown', onClick)
-      document.addEventListener('touchstart', onClick)
-    }
-    return () => {
-      document.removeEventListener('mousedown', onClick)
-      document.removeEventListener('touchstart', onClick)
-    }
-  }, [menuOpen])
-
-  function handleSelect(l) {
-    if (setLevel) setLevel(l)
-    setMenuOpen(false)
-  }
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 flex justify-center transition-all duration-300"
@@ -63,37 +40,20 @@ export default function TopAppBar({ actions, level = 'A', setLevel }) {
           style={{ height: scrolled ? '28px' : '36px' }}
         />
 
-        {/* Level selector */}
-        <div ref={menuRef} className="absolute left-1/2 -translate-x-1/2">
-          <button
-            onClick={() => setMenuOpen(o => !o)}
-            className="flex items-center gap-1 font-headline font-black italic uppercase tracking-widest text-secondary hover:text-white transition-colors"
-            style={{ fontSize: scrolled ? '12px' : '14px' }}
-          >
-            Livello {level}
-            <span className="material-symbols-outlined" style={{ fontSize: scrolled ? '14px' : '16px' }}>
-              {menuOpen ? 'expand_less' : 'expand_more'}
-            </span>
-          </button>
-
-          {menuOpen && (
-            <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-[#152040] border border-white/10 rounded-xl shadow-2xl shadow-black/40 backdrop-blur-xl overflow-hidden min-w-[140px]">
-              {LEVELS.map(l => (
-                <button
-                  key={l}
-                  onClick={() => handleSelect(l)}
-                  className={`w-full px-4 py-2.5 text-sm font-headline font-bold uppercase tracking-widest transition-colors flex items-center justify-between gap-3 ${
-                    l === level
-                      ? 'bg-secondary/10 text-secondary'
-                      : 'text-on-surface-variant hover:bg-white/5 hover:text-white'
-                  }`}
-                >
-                  <span>Livello {l}</span>
-                  {l === level && <span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>}
-                </button>
-              ))}
-            </div>
-          )}
+        {/* Level selector — glass radio group */}
+        <div className="glass-radio-group compact absolute left-1/2 -translate-x-1/2" data-count="3" style={{ width: 'auto' }}>
+          {LEVELS.map(l => [
+            <input
+              key={`r${l}`}
+              type="radio"
+              name="level"
+              id={`level-${l}`}
+              checked={level === l}
+              onChange={() => setLevel && setLevel(l)}
+            />,
+            <label key={`l${l}`} htmlFor={`level-${l}`}>{l}</label>,
+          ])}
+          <div className="glass-glider" data-pos={LEVELS.indexOf(level)} />
         </div>
 
         <div className="flex items-center gap-3 relative z-10">{actions}</div>

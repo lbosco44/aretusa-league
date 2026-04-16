@@ -72,6 +72,19 @@ body {
 .glass-radio-group[data-count="3"] .glass-glider { width: calc(100% / 3); }
 .glass-radio-group[data-count="4"] .glass-glider { width: calc(100% / 4); }
 
+/* Compact variant — used in navbar level selector */
+.glass-radio-group.compact label {
+  padding: 0.35rem 0.65rem;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+}
+.glass-radio-group.compact .glass-glider {
+  border-radius: 9999px;
+}
+.glass-radio-group.compact {
+  border-radius: 9999px;
+}
+
 /* Glow border card */
 .glow-card {
   position: relative;
