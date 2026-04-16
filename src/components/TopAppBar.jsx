@@ -16,7 +16,7 @@ export default function TopAppBar({ actions }) {
       style={{ padding: scrolled ? '8px 16px 0' : '0' }}
     >
       <div
-        className="flex items-center justify-between transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)]"
+        className="relative flex items-center justify-between transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)]"
         style={{
           width: scrolled ? 'min(92%, 420px)' : '100%',
           height: scrolled ? '48px' : '64px',
@@ -37,7 +37,13 @@ export default function TopAppBar({ actions }) {
           className="w-auto object-contain transition-all duration-500"
           style={{ height: scrolled ? '28px' : '36px' }}
         />
-        <div className="flex items-center gap-3">{actions}</div>
+        <span
+          className="font-headline font-black italic uppercase tracking-widest text-secondary transition-all duration-500 absolute left-1/2 -translate-x-1/2 pointer-events-none"
+          style={{ fontSize: scrolled ? '12px' : '14px' }}
+        >
+          Livello A
+        </span>
+        <div className="flex items-center gap-3 relative z-10">{actions}</div>
       </div>
     </header>
   )
