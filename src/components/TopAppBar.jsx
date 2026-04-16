@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 
 const LEVELS = ['A', 'B', 'C']
 
-export default function TopAppBar({ actions, level = 'A', setLevel }) {
+export default function TopAppBar({ level = 'A', setLevel, center = null }) {
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
@@ -36,12 +36,19 @@ export default function TopAppBar({ actions, level = 'A', setLevel }) {
         <img
           src="/logo-white.png"
           alt="Aretusa League"
-          className="w-auto object-contain transition-all duration-500"
+          className="w-auto object-contain transition-all duration-500 relative z-10"
           style={{ height: scrolled ? '28px' : '36px' }}
         />
 
-        {/* Level selector — always centered to avoid collision with right actions */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
+        {/* Center slot */}
+        {center && (
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
+            {center}
+          </div>
+        )}
+
+        {/* Level selector — always on the right */}
+        <div className="relative z-10">
           <div className="glass-radio-group compact" data-count="3" style={{ width: 'auto' }}>
             {LEVELS.map(l => [
               <input
@@ -57,8 +64,6 @@ export default function TopAppBar({ actions, level = 'A', setLevel }) {
             <div className="glass-glider" data-pos={LEVELS.indexOf(level)} />
           </div>
         </div>
-
-        <div className="flex items-center gap-3 relative z-10">{actions}</div>
       </div>
     </header>
   )

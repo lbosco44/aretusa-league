@@ -118,7 +118,7 @@ export default function Calendario({ matches, setMatches, teams, isAdmin, bracke
 
   return (
     <div className="min-h-screen text-on-surface">
-      <TopAppBar level={level} setLevel={setLevel} actions={null} />
+      <TopAppBar level={level} setLevel={setLevel} />
       <main className="pt-24 px-4 max-w-4xl mx-auto space-y-6 pb-32">
         <div>
           <span className="text-secondary font-headline uppercase tracking-[0.2em] text-xs font-bold">Padel League</span>

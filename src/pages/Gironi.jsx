@@ -15,7 +15,7 @@ export default function Gironi({ gironi, isAdmin, bracketActive, level, setLevel
 
   return (
     <div className="min-h-screen text-on-surface">
-      <TopAppBar level={level} setLevel={setLevel} actions={null} />
+      <TopAppBar level={level} setLevel={setLevel} />
       <main className="pt-24 pb-32 px-4 max-w-5xl mx-auto">
         <section className="mb-8">
           <div className="glow-card">

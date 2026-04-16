@@ -116,9 +116,7 @@ export default function Admin({ teams, setTeams, matches, setMatches, bracket, s
   if (!isAdmin) {
     return (
       <div className="min-h-screen text-on-surface">
-        <TopAppBar level={level} setLevel={setLevel} actions={
-          <span className="material-symbols-outlined text-on-surface-variant">lock</span>
-        } />
+        <TopAppBar level={level} setLevel={setLevel} />
         <main className="pt-24 pb-32 px-4 max-w-md mx-auto flex flex-col items-center justify-center min-h-[70vh]">
           <div className="w-full bg-[#152040] rounded-2xl border border-white/5 overflow-hidden">
             <div className="p-6 border-b border-white/10 bg-[#254E8F]/40 text-center">
@@ -164,9 +162,9 @@ export default function Admin({ teams, setTeams, matches, setMatches, bracket, s
   // Admin panel
   return (
     <div className="min-h-screen text-on-surface">
-      <TopAppBar level={level} setLevel={setLevel} actions={
-        <button onClick={logout} className="flex items-center gap-2 bg-red-500/20 border border-red-500/30 text-red-400 font-headline font-bold px-4 py-2 rounded-xl text-xs uppercase tracking-widest active:scale-95 transition-all">
-          <span className="material-symbols-outlined text-sm">logout</span>
+      <TopAppBar level={level} setLevel={setLevel} center={
+        <button onClick={logout} className="flex items-center gap-1.5 bg-red-500/20 border border-red-500/30 text-red-400 font-headline font-bold px-3 py-1.5 rounded-full text-[11px] uppercase tracking-widest active:scale-95 transition-all">
+          <span className="material-symbols-outlined" style={{ fontSize: '14px' }}>logout</span>
           Esci
         </button>
       } />

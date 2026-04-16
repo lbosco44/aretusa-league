@@ -39,7 +39,7 @@ export default function Galleria({ gallery, setGallery, isAdmin, bracketActive, 
 
   return (
     <div className="min-h-screen text-on-surface">
-      <TopAppBar level={level} setLevel={setLevel} actions={null} />
+      <TopAppBar level={level} setLevel={setLevel} />
 
       <main className="pt-24 pb-32 px-4 max-w-5xl mx-auto space-y-6">
         {/* Header */}

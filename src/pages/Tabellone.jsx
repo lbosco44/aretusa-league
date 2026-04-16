@@ -356,7 +356,7 @@ export default function Tabellone({ isAdmin, bracket, gironi, onActivate, onResu
   if (!isAdmin && !isActive) {
     return (
       <div className="min-h-screen flex flex-col text-on-surface">
-        <TopAppBar level={level} setLevel={setLevel} actions={null} />
+        <TopAppBar level={level} setLevel={setLevel} />
         <main className="flex-grow flex flex-col items-center justify-center relative px-6 py-20">
           <img src="/court-sunset.png" alt="Campo" className="absolute inset-0 w-full h-full object-cover opacity-30" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#071530] via-[#0E2044]/70 to-[#0E2044]/40" />
@@ -376,7 +376,7 @@ export default function Tabellone({ isAdmin, bracket, gironi, onActivate, onResu
 
   return (
     <div className="min-h-screen text-on-surface">
-      <TopAppBar level={level} setLevel={setLevel} actions={null} />
+      <TopAppBar level={level} setLevel={setLevel} />
       <main className="pt-24 pb-32 px-4 max-w-6xl mx-auto space-y-6">
         {/* Header */}
         <section>
