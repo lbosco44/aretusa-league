@@ -1,6 +1,6 @@
 export default function MatchCard({ match, onInsertResult, onEdit, onDelete, onResetResult, isAdmin }) {
   const { casa, ospite, girone, ora, played, score, sets, tbTarget } = match
-  const tbLabel = tbTarget ? `TB/${tbTarget}` : 'TB'
+  const thirdSetLabel = tbTarget ? `TB/${tbTarget}` : 'Set 3'
 
   return (
     <div className={`bg-[#152040] rounded-xl overflow-hidden shadow-lg border-l-4 ${played ? 'border-[#71ff74]' : 'border-[#3f4a3f]'}`}>
@@ -56,7 +56,7 @@ export default function MatchCard({ match, onInsertResult, onEdit, onDelete, onR
           <div className="mt-4 pt-4 border-t border-white/5 flex flex-wrap justify-center gap-3">
             {sets.map((s, i) => (
               <div key={i} className="flex gap-2 items-center bg-[#2d5aa0]/50 px-4 py-2 rounded-lg">
-                <span className="text-[#77db90] text-xs font-bold uppercase">{i < 2 ? `Set ${i + 1}` : tbLabel}</span>
+                <span className="text-[#77db90] text-xs font-bold uppercase">{i < 2 ? `Set ${i + 1}` : thirdSetLabel}</span>
                 <span className="text-on-surface font-bold text-sm">{s}</span>
               </div>
             ))}
