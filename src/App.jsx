@@ -155,22 +155,26 @@ export default function App() {
 
     let loadCount = 0
     const done = () => { if (++loadCount >= 3) setLoading(false) }
+    const onError = (e) => { console.error('Firestore error:', e); done() }
 
     const unsubs = [
       onSnapshot(teamsRef, snap => {
         if (snap.exists()) setTeams(snap.data())
         done()
-      }),
+      }, onError),
       onSnapshot(matchesRef, snap => {
         if (snap.exists()) setMatches(snap.data().list || [])
         done()
-      }),
+      }, onError),
       onSnapshot(bracketRef, snap => {
         if (snap.exists()) setBracket(snap.data())
         done()
-      }),
+      }, onError),
     ]
-    return () => unsubs.forEach(u => u())
+
+    // Fallback: unlock UI after 8s anche in caso di problemi
+    const timeout = setTimeout(() => setLoading(false), 8000)
+    return () => { unsubs.forEach(u => u()); clearTimeout(timeout) }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [level])
 
