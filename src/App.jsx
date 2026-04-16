@@ -79,20 +79,71 @@ function buildGironi(teams, matches) {
   return gironi
 }
 
-function generateBracket(gironi) {
+function generateBracket(gironi, level) {
   const allTeams = []
   for (const [g, list] of Object.entries(gironi)) {
     list.forEach(t => allTeams.push({ name: t.name, abbr: t.abbr, club: t.club, girone: g, pos: t.pos, pts: t.pts, sp: t.sp, sm: t.sm }))
   }
-  if (allTeams.length < 12) return EMPTY_BRACKET
   allTeams.sort((a, b) => b.pts - a.pts || (b.sp - b.sm) - (a.sp - a.sm))
 
-  const s = allTeams
   const t = (team, seed) => team ? { name: team.name, abbr: team.abbr, club: team.club, seed, seedLabel: `${team.pos}°${team.girone}` } : null
   const m = (casa, ospite) => ({ casa, ospite, score: null, sets: null, played: false, winner: null })
 
+  // 24-team bracket for Livello B (5 rounds: R1, R16, QF, SF, F)
+  if (level === 'B') {
+    if (allTeams.length < 24) return EMPTY_BRACKET
+    const s = allTeams
+    // R1: pair seeds 9-24 as 9v24, 10v23, ..., 16v17 (highest non-bye vs lowest, down to middle)
+    // Index mapping: R1[i] pairs s[8+i] with s[23-i] for i=0..7
+    //   R1[0]: s[8] (9) vs s[23] (24)
+    //   R1[1]: s[9] (10) vs s[22] (23)
+    //   ...
+    //   R1[7]: s[15] (16) vs s[16] (17)
+    const r1 = Array.from({ length: 8 }, (_, i) =>
+      m(t(s[8 + i], 9 + i), t(s[23 - i], 24 - i))
+    )
+    // R16: 8 matches, top seeds placed to avoid early meetings
+    //   Feeder mapping: each R16 slot's "casa" is a bye seed, "ospite" comes from an R1 winner
+    //   Top half bracket (R16 0-3): seeds 1, 8, 5, 4 — will meet in QF in that order
+    //   Bottom half (R16 4-7): seeds 3, 6, 7, 2
+    // R1 winner → R16[i].ospite mapping:
+    //   R16[0] (S1) ← R1[0] (9v24 winner)
+    //   R16[1] (S8) ← R1[7] (16v17 winner)
+    //   R16[2] (S5) ← R1[3] (12v21 winner)
+    //   R16[3] (S4) ← R1[4] (13v20 winner)
+    //   R16[4] (S3) ← R1[5] (14v19 winner)
+    //   R16[5] (S6) ← R1[2] (11v22 winner)
+    //   R16[6] (S7) ← R1[1] (10v23 winner)
+    //   R16[7] (S2) ← R1[6] (15v18 winner)
+    const r16 = [
+      m(t(s[0], 1), null),
+      m(t(s[7], 8), null),
+      m(t(s[4], 5), null),
+      m(t(s[3], 4), null),
+      m(t(s[2], 3), null),
+      m(t(s[5], 6), null),
+      m(t(s[6], 7), null),
+      m(t(s[1], 2), null),
+    ]
+    return {
+      active: true,
+      size: 24,
+      rounds: [
+        r1,
+        r16,
+        [m(null, null), m(null, null), m(null, null), m(null, null)], // QF: 4 matches
+        [m(null, null), m(null, null)], // SF: 2 matches
+        [m(null, null)], // F: 1 match
+      ],
+    }
+  }
+
+  // 12-team bracket (default, 4 rounds: PT, QF, SF, F)
+  if (allTeams.length < 12) return EMPTY_BRACKET
+  const s = allTeams
   return {
     active: true,
+    size: 12,
     rounds: [
       [m(t(s[7],8), t(s[8],9)), m(t(s[4],5), t(s[11],12)), m(t(s[5],6), t(s[10],11)), m(t(s[6],7), t(s[9],10))],
       [m(t(s[0],1), null), m(t(s[3],4), null), m(t(s[2],3), null), m(t(s[1],2), null)],
@@ -101,6 +152,9 @@ function generateBracket(gironi) {
     ]
   }
 }
+
+// R1[i] winner → R16[j].ospite mapping for 24-team bracket
+const R1_TO_R16_MAP = [0, 6, 5, 2, 3, 4, 7, 1]
 
 function advanceBracket(bracket, roundIdx, matchIdx, result) {
   const next = JSON.parse(JSON.stringify(bracket))
@@ -117,16 +171,28 @@ function advanceBracket(bracket, roundIdx, matchIdx, result) {
   const winner = cW > oW ? { ...match.casa } : { ...match.ospite }
   match.winner = cW > oW ? 'casa' : 'ospite'
 
-  if (roundIdx === 0) {
-    next.rounds[1][matchIdx].ospite = winner
-  } else if (roundIdx === 1) {
-    const sfIdx = matchIdx < 2 ? 0 : 1
-    const slot = matchIdx % 2 === 0 ? 'casa' : 'ospite'
-    next.rounds[2][sfIdx][slot] = winner
-  } else if (roundIdx === 2) {
-    next.rounds[3][0][matchIdx === 0 ? 'casa' : 'ospite'] = winner
+  const totalRounds = next.rounds.length
+  // Last round has no next
+  if (roundIdx >= totalRounds - 1) return next
+
+  // For 24-team bracket, R1 → R16 uses custom mapping
+  if (bracket.size === 24 && roundIdx === 0) {
+    const targetIdx = R1_TO_R16_MAP[matchIdx]
+    next.rounds[1][targetIdx].ospite = winner
+    return next
   }
 
+  // For 12-team bracket, PT → QF is 1:1 to .ospite
+  if (bracket.size !== 24 && roundIdx === 0) {
+    next.rounds[1][matchIdx].ospite = winner
+    return next
+  }
+
+  // Standard halving: match i in round N feeds match floor(i/2) in round N+1,
+  // casa if i even, ospite if i odd.
+  const nextIdx = Math.floor(matchIdx / 2)
+  const slot = matchIdx % 2 === 0 ? 'casa' : 'ospite'
+  next.rounds[roundIdx + 1][nextIdx][slot] = winner
   return next
 }
 
@@ -272,7 +338,7 @@ export default function App() {
   }
 
   function activateTabellone() {
-    const newBracket = generateBracket(gironi)
+    const newBracket = generateBracket(gironi, level)
     syncBracket(newBracket)
   }
 

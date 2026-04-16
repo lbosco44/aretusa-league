@@ -66,14 +66,27 @@ Stats: pg (played), v (wins), p (losses), sp (sets for), sm (sets against), pts 
 Sorted by points then set difference.
 
 ### Bracket (Tabellone)
-12 teams seeded from gironi standings. `generateBracket()` creates the initial bracket;
-`advanceBracket()` propagates winners. Structure:
+Two bracket formats based on level:
+
+**12-team bracket** (Livello A, C): 4 rounds
 - **Round 0** (Primo Turno): seeds 5-12, 4 matches
 - **Round 1** (Quarti): seeds 1-4 have byes, face PT winners
 - **Round 2** (Semifinali): 2 matches
 - **Round 3** (Finale): 1 match
 
-The bracket visualization uses CSS Grid (8 rows × 7 columns) with SVG connector lines.
+**24-team bracket** (Livello B): 5 rounds
+- **Round 0** (Primo Turno): seeds 9-24, 8 matches paired as 9v24, 10v23, ...
+- **Round 1** (Ottavi): seeds 1-8 have byes, face R1 winners (custom R1→R16 mapping to separate top seeds)
+- **Round 2** (Quarti): 4 matches
+- **Round 3** (Semifinali): 2 matches
+- **Round 4** (Finale): 1 match
+
+`generateBracket(gironi, level)` creates the structure based on level.
+`bracket.size` stores 12 or 24. `advanceBracket()` propagates winners
+using different mapping for R1→R16 in 24-team bracket.
+
+Visualizations use CSS Grid + SVG connectors. Two renderers:
+`Bracket12` (8 rows × 7 cols) and `Bracket24` (16 rows × 9 cols).
 
 ### Admin vs User
 `isAdmin` boolean controls visibility of all edit/add/delete controls.

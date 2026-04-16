@@ -3,18 +3,22 @@ import TopAppBar from '../components/TopAppBar'
 import BottomNav from '../components/BottomNav'
 import ResultModal from '../components/ResultModal'
 
-const ROW_H = 64
+const ROW_H_12 = 64
+const ROW_H_24 = 52
 const CARD_W = 152
 const CONN_W = 28
-const TOTAL_W = CARD_W * 4 + CONN_W * 3
 
-const ROUND_LABELS = ['Primo Turno', 'Quarti di Finale', 'Semifinali', 'Finale']
-
-// Preview seed labels
-const PREVIEW_BYES = ['1°A', '2°A', '1°C', '1°B']
-const PREVIEW_PT = [
+// Bracket 12 squadre (Livello A / C): 4 round
+const LABELS_12 = ['Primo Turno', 'Quarti', 'Semifinali', 'Finale']
+const PREVIEW_BYES_12 = ['1°A', '2°A', '1°C', '1°B']
+const PREVIEW_PT_12 = [
   ['3°B', '3°C'], ['2°B', '4°C'], ['2°C', '4°B'], ['3°A', '4°A']
 ]
+
+// Bracket 24 squadre (Livello B): 5 round
+const LABELS_24 = ['Primo Turno', 'Ottavi', 'Quarti', 'Semifinali', 'Finale']
+// R16_TO_R1_MAP[i] = R1 match che alimenta R16[i].ospite
+const R16_TO_R1_MAP = [0, 7, 3, 4, 5, 2, 1, 6]
 
 function SvgConn({ h }) {
   const t = h / 4, b = 3 * h / 4, m = h / 2, mx = 14
@@ -66,7 +70,7 @@ function MatchCard({ casa, ospite, score, played, winner, isAdmin, onResult, cas
   )
 }
 
-function ByeSlot({ team, label }) {
+function ByeSlot({ team, label, hint }) {
   const name = team?.name || label || '?'
   const abbr = team?.abbr || (label ? label.slice(0, 2) : '?')
   return (
@@ -75,7 +79,7 @@ function ByeSlot({ team, label }) {
         <span className="w-5 h-5 rounded-full bg-secondary/10 border border-secondary/15 flex items-center justify-center text-[7px] font-bold text-secondary/50 shrink-0">{abbr}</span>
         <div className="min-w-0">
           <span className="text-[10px] text-on-surface/50 font-semibold truncate block">{name}</span>
-          <span className="text-[7px] text-on-surface-variant/20 font-bold uppercase">Bye &rarr; Quarti</span>
+          <span className="text-[7px] text-on-surface-variant/20 font-bold uppercase">{hint || 'Bye'}</span>
         </div>
       </div>
     </div>
@@ -90,22 +94,262 @@ const cell = (row, span, col) => ({
   justifyContent: 'center',
 })
 
-export default function Tabellone({ isAdmin, bracket, gironi, onActivate, onResult, level, setLevel }) {
-  const [resultTarget, setResultTarget] = useState(null)
-  const [confirmActivate, setConfirmActivate] = useState(false)
-  const isActive = bracket.active
-  const hasTeams = Object.values(gironi).flat().length >= 12
-
+function Bracket12({ bracket, isActive, isAdmin, onResultClick }) {
+  const ROW_H = ROW_H_12
+  const TOTAL_W = CARD_W * 4 + CONN_W * 3
   const pt = isActive ? bracket.rounds[0] : null
   const qf = isActive ? bracket.rounds[1] : null
   const sf = isActive ? bracket.rounds[2] : null
   const fi = isActive ? bracket.rounds[3]?.[0] : null
+
+  const gridStyle = {
+    display: 'grid',
+    gridTemplateColumns: `${CARD_W}px ${CONN_W}px ${CARD_W}px ${CONN_W}px ${CARD_W}px ${CONN_W}px ${CARD_W}px`,
+    gridTemplateRows: `repeat(8, ${ROW_H}px)`,
+    width: TOTAL_W,
+  }
+
+  return (
+    <div className="overflow-x-auto -mx-4 px-4 pb-2">
+      <div className="flex mb-3" style={{ width: TOTAL_W }}>
+        {LABELS_12.map((label, i) => (
+          <div key={i} className="text-center" style={{ width: CARD_W, marginRight: i < LABELS_12.length - 1 ? CONN_W : 0 }}>
+            <span className="text-[9px] font-bold uppercase tracking-widest text-on-surface-variant/40">{label}</span>
+          </div>
+        ))}
+      </div>
+
+      <div style={gridStyle}>
+        {[0, 1, 2, 3].map(i => {
+          const byeRow = 2 * i + 1
+          const ptRow = 2 * i + 2
+          const byeTeam = isActive ? qf[i]?.casa : null
+          const byeLabel = !isActive ? PREVIEW_BYES_12[i] : null
+          const ptMatch = isActive ? pt[i] : null
+          return [
+            <div key={`bye${i}`} style={cell(byeRow, 1, 1)}>
+              <ByeSlot team={byeTeam} label={byeLabel} hint="Bye → Quarti" />
+            </div>,
+            <div key={`pt${i}`} style={cell(ptRow, 1, 1)}>
+              <MatchCard
+                casa={ptMatch?.casa} ospite={ptMatch?.ospite}
+                casaLabel={!isActive ? PREVIEW_PT_12[i][0] : null}
+                ospiteLabel={!isActive ? PREVIEW_PT_12[i][1] : null}
+                score={ptMatch?.score} played={ptMatch?.played} winner={ptMatch?.winner}
+                isAdmin={isAdmin} onResult={() => onResultClick(0, i)}
+              />
+            </div>,
+          ]
+        })}
+        {[0, 1, 2, 3].map(i => (
+          <div key={`c1_${i}`} style={cell(2 * i + 1, 2, 2)}><SvgConn h={ROW_H * 2} /></div>
+        ))}
+        {[0, 1, 2, 3].map(i => {
+          const m = isActive ? qf[i] : null
+          return (
+            <div key={`qf${i}`} style={cell(2 * i + 1, 2, 3)}>
+              <MatchCard
+                casa={m?.casa} ospite={m?.ospite}
+                casaLabel={!isActive ? PREVIEW_BYES_12[i] : null}
+                ospiteLabel={!isActive ? `Vinc. PT${i + 1}` : null}
+                score={m?.score} played={m?.played} winner={m?.winner}
+                isAdmin={isAdmin} onResult={() => onResultClick(1, i)}
+              />
+            </div>
+          )
+        })}
+        {[0, 1].map(i => (
+          <div key={`c2_${i}`} style={cell(4 * i + 1, 4, 4)}><SvgConn h={ROW_H * 4} /></div>
+        ))}
+        {[0, 1].map(i => {
+          const m = isActive ? sf[i] : null
+          return (
+            <div key={`sf${i}`} style={cell(4 * i + 1, 4, 5)}>
+              <MatchCard
+                casa={m?.casa} ospite={m?.ospite}
+                casaLabel={!isActive ? `Vinc. QF${2 * i + 1}` : null}
+                ospiteLabel={!isActive ? `Vinc. QF${2 * i + 2}` : null}
+                score={m?.score} played={m?.played} winner={m?.winner}
+                isAdmin={isAdmin} onResult={() => onResultClick(2, i)}
+              />
+            </div>
+          )
+        })}
+        <div style={cell(1, 8, 6)}><SvgConn h={ROW_H * 8} /></div>
+        <div style={cell(1, 8, 7)}>
+          <MatchCard
+            casa={fi?.casa} ospite={fi?.ospite}
+            casaLabel={!isActive ? 'Vinc. SF1' : null}
+            ospiteLabel={!isActive ? 'Vinc. SF2' : null}
+            score={fi?.score} played={fi?.played} winner={fi?.winner}
+            isAdmin={isAdmin} onResult={() => onResultClick(3, 0)}
+          />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function Bracket24({ bracket, isActive, isAdmin, onResultClick }) {
+  const ROW_H = ROW_H_24
+  const TOTAL_W = CARD_W * 5 + CONN_W * 4
+  const r1 = isActive ? bracket.rounds[0] : null
+  const r16 = isActive ? bracket.rounds[1] : null
+  const qf = isActive ? bracket.rounds[2] : null
+  const sf = isActive ? bracket.rounds[3] : null
+  const fi = isActive ? bracket.rounds[4]?.[0] : null
+
+  const gridStyle = {
+    display: 'grid',
+    gridTemplateColumns: `${CARD_W}px ${CONN_W}px ${CARD_W}px ${CONN_W}px ${CARD_W}px ${CONN_W}px ${CARD_W}px ${CONN_W}px ${CARD_W}px`,
+    gridTemplateRows: `repeat(16, ${ROW_H}px)`,
+    width: TOTAL_W,
+  }
+
+  // Preview labels (based on default seeding order)
+  const byePreview = (i) => `Seed ${i + 1}`
+  const r1Preview = (i) => [`Seed ${9 + i}`, `Seed ${24 - i}`]
+
+  return (
+    <div className="overflow-x-auto -mx-4 px-4 pb-2">
+      <div className="flex mb-3" style={{ width: TOTAL_W }}>
+        {LABELS_24.map((label, i) => (
+          <div key={i} className="text-center" style={{ width: CARD_W, marginRight: i < LABELS_24.length - 1 ? CONN_W : 0 }}>
+            <span className="text-[9px] font-bold uppercase tracking-widest text-on-surface-variant/40">{label}</span>
+          </div>
+        ))}
+      </div>
+
+      <div style={gridStyle}>
+        {/* Entry column: 8 byes + 8 R1 matches interleaved per R16 slot */}
+        {[0, 1, 2, 3, 4, 5, 6, 7].map(i => {
+          const byeRow = 2 * i + 1
+          const r1Row = 2 * i + 2
+          const r1Idx = R16_TO_R1_MAP[i]
+          const byeTeam = isActive ? r16[i]?.casa : null
+          const r1Match = isActive ? r1[r1Idx] : null
+          const r1P = r1Preview(r1Idx)
+          return [
+            <div key={`bye${i}`} style={cell(byeRow, 1, 1)}>
+              <ByeSlot team={byeTeam} label={!isActive ? byePreview(i < 4 ? [0, 7, 4, 3][i] : [2, 5, 6, 1][i - 4]) : null} hint="Bye → Ottavi" />
+            </div>,
+            <div key={`r1_${i}`} style={cell(r1Row, 1, 1)}>
+              <MatchCard
+                casa={r1Match?.casa} ospite={r1Match?.ospite}
+                casaLabel={!isActive ? r1P[0] : null}
+                ospiteLabel={!isActive ? r1P[1] : null}
+                score={r1Match?.score} played={r1Match?.played} winner={r1Match?.winner}
+                isAdmin={isAdmin} onResult={() => onResultClick(0, r1Idx)}
+              />
+            </div>,
+          ]
+        })}
+
+        {/* Connectors entries → R16 */}
+        {[0, 1, 2, 3, 4, 5, 6, 7].map(i => (
+          <div key={`c1_${i}`} style={cell(2 * i + 1, 2, 2)}><SvgConn h={ROW_H * 2} /></div>
+        ))}
+
+        {/* R16 column: 8 matches */}
+        {[0, 1, 2, 3, 4, 5, 6, 7].map(i => {
+          const m = isActive ? r16[i] : null
+          const seedLabel = !isActive ? byePreview(i < 4 ? [0, 7, 4, 3][i] : [2, 5, 6, 1][i - 4]) : null
+          return (
+            <div key={`r16_${i}`} style={cell(2 * i + 1, 2, 3)}>
+              <MatchCard
+                casa={m?.casa} ospite={m?.ospite}
+                casaLabel={seedLabel}
+                ospiteLabel={!isActive ? `Vinc. R1` : null}
+                score={m?.score} played={m?.played} winner={m?.winner}
+                isAdmin={isAdmin} onResult={() => onResultClick(1, i)}
+              />
+            </div>
+          )
+        })}
+
+        {/* Connectors R16 → QF */}
+        {[0, 1, 2, 3].map(i => (
+          <div key={`c2_${i}`} style={cell(4 * i + 1, 4, 4)}><SvgConn h={ROW_H * 4} /></div>
+        ))}
+
+        {/* QF column: 4 matches */}
+        {[0, 1, 2, 3].map(i => {
+          const m = isActive ? qf[i] : null
+          return (
+            <div key={`qf_${i}`} style={cell(4 * i + 1, 4, 5)}>
+              <MatchCard
+                casa={m?.casa} ospite={m?.ospite}
+                casaLabel={!isActive ? `Vinc. R16 ${2 * i + 1}` : null}
+                ospiteLabel={!isActive ? `Vinc. R16 ${2 * i + 2}` : null}
+                score={m?.score} played={m?.played} winner={m?.winner}
+                isAdmin={isAdmin} onResult={() => onResultClick(2, i)}
+              />
+            </div>
+          )
+        })}
+
+        {/* Connectors QF → SF */}
+        {[0, 1].map(i => (
+          <div key={`c3_${i}`} style={cell(8 * i + 1, 8, 6)}><SvgConn h={ROW_H * 8} /></div>
+        ))}
+
+        {/* SF column: 2 matches */}
+        {[0, 1].map(i => {
+          const m = isActive ? sf[i] : null
+          return (
+            <div key={`sf_${i}`} style={cell(8 * i + 1, 8, 7)}>
+              <MatchCard
+                casa={m?.casa} ospite={m?.ospite}
+                casaLabel={!isActive ? `Vinc. QF${2 * i + 1}` : null}
+                ospiteLabel={!isActive ? `Vinc. QF${2 * i + 2}` : null}
+                score={m?.score} played={m?.played} winner={m?.winner}
+                isAdmin={isAdmin} onResult={() => onResultClick(3, i)}
+              />
+            </div>
+          )
+        })}
+
+        {/* Connector SF → F */}
+        <div style={cell(1, 16, 8)}><SvgConn h={ROW_H * 16} /></div>
+
+        {/* Final */}
+        <div style={cell(1, 16, 9)}>
+          <MatchCard
+            casa={fi?.casa} ospite={fi?.ospite}
+            casaLabel={!isActive ? 'Vinc. SF1' : null}
+            ospiteLabel={!isActive ? 'Vinc. SF2' : null}
+            score={fi?.score} played={fi?.played} winner={fi?.winner}
+            isAdmin={isAdmin} onResult={() => onResultClick(4, 0)}
+          />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default function Tabellone({ isAdmin, bracket, gironi, onActivate, onResult, level, setLevel }) {
+  const [resultTarget, setResultTarget] = useState(null)
+  const [confirmActivate, setConfirmActivate] = useState(false)
+  const isActive = bracket.active
+  const totalTeams = Object.values(gironi).flat().length
+
+  // 24-team bracket for Livello B, 12-team otherwise
+  const is24 = (bracket.size === 24) || (!isActive && level === 'B')
+  const requiredTeams = is24 ? 24 : 12
+  const hasTeams = totalTeams >= requiredTeams
+
+  const finalRoundIdx = is24 ? 4 : 3
+  const fi = isActive ? bracket.rounds[finalRoundIdx]?.[0] : null
   const champion = fi?.played ? (fi.winner === 'casa' ? fi.casa : fi.ospite) : null
 
   function handleResult({ score, sets }) {
     if (!resultTarget) return
     onResult(resultTarget.round, resultTarget.match, { score, sets })
     setResultTarget(null)
+  }
+
+  function onResultClick(round, match) {
+    setResultTarget({ round, match })
   }
 
   // Non-admin placeholder
@@ -130,17 +374,10 @@ export default function Tabellone({ isAdmin, bracket, gironi, onActivate, onResu
     )
   }
 
-  const gridStyle = {
-    display: 'grid',
-    gridTemplateColumns: `${CARD_W}px ${CONN_W}px ${CARD_W}px ${CONN_W}px ${CARD_W}px ${CONN_W}px ${CARD_W}px`,
-    gridTemplateRows: `repeat(8, ${ROW_H}px)`,
-    width: TOTAL_W,
-  }
-
   return (
     <div className="min-h-screen text-on-surface">
       <TopAppBar level={level} setLevel={setLevel} actions={null} />
-      <main className="pt-24 pb-32 px-4 max-w-4xl mx-auto space-y-6">
+      <main className="pt-24 pb-32 px-4 max-w-6xl mx-auto space-y-6">
         {/* Header */}
         <section>
           <div className="relative h-44 w-full rounded-xl overflow-hidden shadow-2xl">
@@ -149,7 +386,9 @@ export default function Tabellone({ isAdmin, bracket, gironi, onActivate, onResu
             <div className="absolute inset-0 bg-gradient-to-t from-[#0E2044] to-transparent" />
             <div className="absolute bottom-6 left-6">
               <h2 className="font-headline text-4xl font-black italic uppercase tracking-tighter text-white">TABELLONE</h2>
-              <p className="text-secondary font-bold tracking-widest text-xs uppercase mt-1">{isActive ? 'Eliminazione Diretta' : 'Anteprima Bracket'}</p>
+              <p className="text-secondary font-bold tracking-widest text-xs uppercase mt-1">
+                {isActive ? `Eliminazione Diretta · ${is24 ? 24 : 12} squadre` : `Anteprima · ${is24 ? 24 : 12} squadre`}
+              </p>
             </div>
             {isActive && <span className="absolute top-4 right-4 px-3 py-1 rounded-full bg-secondary/20 text-secondary text-[10px] font-bold uppercase tracking-widest">Attivo</span>}
           </div>
@@ -174,7 +413,9 @@ export default function Tabellone({ isAdmin, bracket, gironi, onActivate, onResu
               </div>
               <div>
                 <h3 className="font-headline font-black text-sm uppercase text-white">Attiva Eliminazione</h3>
-                <p className="text-[10px] text-on-surface-variant">{hasTeams ? 'Classifiche congelate e bracket generato' : 'Servono 12 squadre (4 per girone)'}</p>
+                <p className="text-[10px] text-on-surface-variant">
+                  {hasTeams ? 'Classifiche congelate e bracket generato' : `Servono ${requiredTeams} squadre (hai ${totalTeams})`}
+                </p>
               </div>
             </div>
             {!confirmActivate ? (
@@ -196,110 +437,9 @@ export default function Tabellone({ isAdmin, bracket, gironi, onActivate, onResu
         )}
 
         {/* Bracket */}
-        <div className="overflow-x-auto -mx-4 px-4 pb-2">
-          {/* Round labels */}
-          <div className="flex mb-3" style={{ width: TOTAL_W }}>
-            {ROUND_LABELS.map((label, i) => (
-              <div key={i} className="text-center" style={{ width: CARD_W, marginRight: i < 3 ? CONN_W : 0 }}>
-                <span className="text-[9px] font-bold uppercase tracking-widest text-on-surface-variant/40">{label}</span>
-              </div>
-            ))}
-          </div>
-
-          {/* Bracket grid */}
-          <div style={gridStyle}>
-            {/* Column 1: Entries (byes + PT matches) */}
-            {[0, 1, 2, 3].map(i => {
-              // Bye at row 2i+1, PT at row 2i+2
-              const byeRow = 2 * i + 1
-              const ptRow = 2 * i + 2
-
-              const byeTeam = isActive ? qf[i]?.casa : null
-              const byeLabel = !isActive ? PREVIEW_BYES[i] : null
-
-              const ptMatch = isActive ? pt[i] : null
-              const ptCasaLabel = !isActive ? PREVIEW_PT[i][0] : null
-              const ptOspiteLabel = !isActive ? PREVIEW_PT[i][1] : null
-
-              return [
-                <div key={`bye${i}`} style={cell(byeRow, 1, 1)}>
-                  <ByeSlot team={byeTeam} label={byeLabel} />
-                </div>,
-                <div key={`pt${i}`} style={cell(ptRow, 1, 1)}>
-                  <MatchCard
-                    casa={ptMatch?.casa} ospite={ptMatch?.ospite}
-                    casaLabel={ptCasaLabel} ospiteLabel={ptOspiteLabel}
-                    score={ptMatch?.score} played={ptMatch?.played} winner={ptMatch?.winner}
-                    isAdmin={isAdmin} onResult={() => setResultTarget({ round: 0, match: i })}
-                  />
-                </div>,
-              ]
-            })}
-
-            {/* Connectors: Entries → QF */}
-            {[0, 1, 2, 3].map(i => (
-              <div key={`c1_${i}`} style={cell(2 * i + 1, 2, 2)}><SvgConn h={ROW_H * 2} /></div>
-            ))}
-
-            {/* Column 3: QF */}
-            {[0, 1, 2, 3].map(i => {
-              const m = isActive ? qf[i] : null
-              const cL = !isActive ? PREVIEW_BYES[i] : null
-              const oL = !isActive ? `Vinc. PT${i + 1}` : null
-              return (
-                <div key={`qf${i}`} style={cell(2 * i + 1, 2, 3)}>
-                  <MatchCard
-                    casa={m?.casa} ospite={m?.ospite}
-                    casaLabel={cL} ospiteLabel={oL}
-                    score={m?.score} played={m?.played} winner={m?.winner}
-                    isAdmin={isAdmin} onResult={() => setResultTarget({ round: 1, match: i })}
-                  />
-                </div>
-              )
-            })}
-
-            {/* Connectors: QF → SF */}
-            {[0, 1].map(i => (
-              <div key={`c2_${i}`} style={cell(4 * i + 1, 4, 4)}><SvgConn h={ROW_H * 4} /></div>
-            ))}
-
-            {/* Column 5: SF */}
-            {[0, 1].map(i => {
-              const m = isActive ? sf[i] : null
-              const cL = !isActive ? `Vinc. QF${2 * i + 1}` : null
-              const oL = !isActive ? `Vinc. QF${2 * i + 2}` : null
-              return (
-                <div key={`sf${i}`} style={cell(4 * i + 1, 4, 5)}>
-                  <MatchCard
-                    casa={m?.casa} ospite={m?.ospite}
-                    casaLabel={cL} ospiteLabel={oL}
-                    score={m?.score} played={m?.played} winner={m?.winner}
-                    isAdmin={isAdmin} onResult={() => setResultTarget({ round: 2, match: i })}
-                  />
-                </div>
-              )
-            })}
-
-            {/* Connector: SF → F */}
-            <div style={cell(1, 8, 6)}><SvgConn h={ROW_H * 8} /></div>
-
-            {/* Column 7: Finale */}
-            <div style={cell(1, 8, 7)}>
-              {(() => {
-                const m = isActive ? fi : null
-                return (
-                  <MatchCard
-                    casa={m?.casa} ospite={m?.ospite}
-                    casaLabel={!isActive ? 'Vinc. SF1' : null}
-                    ospiteLabel={!isActive ? 'Vinc. SF2' : null}
-                    score={m?.score} played={m?.played} winner={m?.winner}
-                    isAdmin={isAdmin} onResult={() => setResultTarget({ round: 3, match: 0 })}
-                  />
-                )
-              })()}
-            </div>
-          </div>
-        </div>
+        {is24
+          ? <Bracket24 bracket={bracket} isActive={isActive} isAdmin={isAdmin} onResultClick={onResultClick} />
+          : <Bracket12 bracket={bracket} isActive={isActive} isAdmin={isAdmin} onResultClick={onResultClick} />}
 
         {/* Legend */}
         <div className="bg-[#152040] rounded-2xl border border-white/5 p-4">
@@ -307,7 +447,7 @@ export default function Tabellone({ isAdmin, bracket, gironi, onActivate, onResu
           <div className="space-y-1.5 text-xs text-on-surface-variant/60">
             <div className="flex items-start gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-secondary/50 mt-1.5 shrink-0" />
-              <span>I seed 1-4 accedono direttamente ai Quarti di Finale.</span>
+              <span>{is24 ? 'I seed 1-8 accedono direttamente agli Ottavi.' : 'I seed 1-4 accedono direttamente ai Quarti.'}</span>
             </div>
             <div className="flex items-start gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-secondary/50 mt-1.5 shrink-0" />
@@ -318,7 +458,7 @@ export default function Tabellone({ isAdmin, bracket, gironi, onActivate, onResu
       </main>
 
       {resultTarget && isActive && (() => {
-        const m = bracket.rounds[resultTarget.round][resultTarget.match]
+        const m = bracket.rounds[resultTarget.round]?.[resultTarget.match]
         if (!m?.casa || !m?.ospite) return null
         return <ResultModal match={{ casa: m.casa, ospite: m.ospite }} onClose={() => setResultTarget(null)} onConfirm={handleResult} />
       })()}
