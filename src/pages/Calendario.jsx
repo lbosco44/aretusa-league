@@ -118,12 +118,7 @@ export default function Calendario({ matches, setMatches, teams, isAdmin, bracke
 
   return (
     <div className="min-h-screen text-on-surface">
-      <TopAppBar level={level} setLevel={setLevel} actions={isAdmin && !bracketActive ? (
-        <button onClick={() => setShowAdd(true)} className="flex items-center gap-2 bg-gradient-to-r from-[#27F24C] to-[#1DB954] text-[#003909] font-headline font-bold px-4 py-2 rounded-xl text-xs uppercase tracking-widest shadow-lg active:scale-95 transition-all">
-          <span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>add_circle</span>
-          Aggiungi
-        </button>
-      ) : null} />
+      <TopAppBar level={level} setLevel={setLevel} actions={null} />
       <main className="pt-24 px-4 max-w-4xl mx-auto space-y-6 pb-32">
         <div>
           <span className="text-secondary font-headline uppercase tracking-[0.2em] text-xs font-bold">Padel League</span>
@@ -271,6 +266,17 @@ export default function Calendario({ matches, setMatches, teams, isAdmin, bracke
         )}
       </main>
       <BottomNav isAdmin={isAdmin} bracketActive={bracketActive} />
+
+      {/* Floating Action Button — aggiungi partita (admin only, gironi phase) */}
+      {isAdmin && !bracketActive && (
+        <button
+          onClick={() => setShowAdd(true)}
+          aria-label="Aggiungi partita"
+          className="fab-upload"
+        >
+          <span className="material-symbols-outlined" style={{ fontSize: '32px', fontVariationSettings: "'FILL' 1" }}>add</span>
+        </button>
+      )}
 
       {showAdd && <AddMatchModal onClose={() => setShowAdd(false)} onAdd={handleAdd} teams={teams} matches={matches} />}
       {editId !== null && (() => { const m = findMatch(editId); return m ? <EditMatchModal match={m} teams={teams} onClose={() => setEditId(null)} onSave={handleEdit} /> : null })()}
