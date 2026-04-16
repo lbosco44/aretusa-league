@@ -36,8 +36,8 @@ export default function BottomNav({ isAdmin, bracketActive }) {
         className="flex justify-around items-center transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)]"
         style={{
           width: scrolled ? 'min(94%, 420px)' : '100%',
-          paddingTop: scrolled ? '8px' : '12px',
-          paddingBottom: scrolled ? '8px' : '24px',
+          paddingTop: scrolled ? '10px' : '14px',
+          paddingBottom: scrolled ? '10px' : '18px',
           paddingLeft: '8px',
           paddingRight: '8px',
           borderRadius: scrolled ? '9999px' : '16px 16px 0 0',
@@ -54,22 +54,11 @@ export default function BottomNav({ isAdmin, bracketActive }) {
           const active = to === '/' ? pathname === '/' : pathname.startsWith(to)
           const displayIcon = (to === '/admin' && isAdmin && iconActive) ? iconActive : icon
           return (
-            <Link key={to} to={to} className={`flex flex-col items-center justify-center transition-all ${active ? 'text-[#71ff74] scale-110' : 'text-[#dfe3e7]/60 hover:text-[#77db90]'}`}>
-              <span
-                className="transition-all duration-500"
-                style={{ fontSize: scrolled ? '20px' : '24px' }}
-              >
-                <span className="material-symbols-outlined" style={active ? { fontVariationSettings: "'FILL' 1", fontSize: 'inherit' } : { fontSize: 'inherit' }}>{displayIcon}</span>
-              </span>
-              <span
-                className="font-label uppercase tracking-widest font-semibold transition-all duration-500 overflow-hidden"
-                style={{
-                  fontSize: scrolled ? '0px' : '10px',
-                  lineHeight: scrolled ? '0px' : '16px',
-                  marginTop: scrolled ? '0px' : '4px',
-                  opacity: scrolled ? 0 : 1,
-                }}
-              >{label}</span>
+            <Link key={to} to={to} aria-label={label} className={`flex items-center justify-center transition-all ${active ? 'text-[#71ff74] scale-110' : 'text-[#dfe3e7]/60 hover:text-[#77db90]'}`}>
+              <span className="material-symbols-outlined transition-all duration-500" style={{
+                fontSize: scrolled ? '22px' : '26px',
+                ...(active ? { fontVariationSettings: "'FILL' 1" } : {}),
+              }}>{displayIcon}</span>
             </Link>
           )
         })}
