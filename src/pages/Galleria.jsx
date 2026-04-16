@@ -96,9 +96,9 @@ export default function Galleria({ gallery, setGallery, isAdmin, bracketActive, 
         <button
           onClick={() => setShowUpload(true)}
           aria-label="Carica foto"
-          className="fixed bottom-24 right-5 z-40 w-14 h-14 rounded-full bg-gradient-to-br from-[#27F24C] to-[#1DB954] text-[#003909] flex items-center justify-center shadow-2xl shadow-[#1DB954]/40 active:scale-95 transition-transform"
+          className="fab-upload"
         >
-          <span className="material-symbols-outlined text-3xl" style={{ fontVariationSettings: "'FILL' 1" }}>add</span>
+          <span className="material-symbols-outlined" style={{ fontSize: '32px', fontVariationSettings: "'FILL' 1" }}>add</span>
         </button>
       )}
 

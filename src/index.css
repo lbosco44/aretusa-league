@@ -333,6 +333,41 @@ body {
   justify-content: center;
 }
 
+/* Floating Action Button — carica foto */
+.fab-upload {
+  position: fixed;
+  right: 20px;
+  bottom: calc(100px + env(safe-area-inset-bottom, 0px));
+  z-index: 60;
+  width: 60px;
+  height: 60px;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #003909;
+  background: linear-gradient(135deg, #27F24C 0%, #1DB954 100%);
+  box-shadow:
+    0 6px 20px rgba(29, 185, 84, 0.55),
+    0 2px 6px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  animation: fab-pulse 2.5s ease-in-out infinite;
+}
+.fab-upload:active { transform: scale(0.94); }
+.fab-upload:hover {
+  box-shadow:
+    0 8px 28px rgba(29, 185, 84, 0.7),
+    0 3px 8px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+@keyframes fab-pulse {
+  0%, 100% { box-shadow: 0 6px 20px rgba(29, 185, 84, 0.55), 0 2px 6px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 0 0 0 rgba(39, 242, 76, 0.45); }
+  50%      { box-shadow: 0 6px 20px rgba(29, 185, 84, 0.55), 0 2px 6px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 0 0 12px rgba(39, 242, 76, 0); }
+}
+
 .polaroid-date {
   font-family: 'Caveat', cursive;
   font-size: 13px;
