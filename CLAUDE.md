@@ -62,7 +62,8 @@ a different bracket structure.
 
 ### Gironi (Group Stage)
 `buildGironi()` in App.jsx computes standings from match results.
-Stats: pg (played), v (wins), p (losses), sp (sets for), sm (sets against), pts (wins × 3).
+Stats: pg (played), v (wins), p (losses), sp (sets for), sm (sets against), pts (1 punto per set vinto).
+Esempio: partita 2-1 → 2 pts vincente, 1 pt perdente; 3-0 → 3 pts vincente, 0 pts perdente.
 Sorted by points then set difference.
 
 ### Bracket (Tabellone)
