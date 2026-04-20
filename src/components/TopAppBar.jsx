@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 const LEVELS = ['A', 'B', 'C']
 const GENDERS = ['M', 'F']
 
-export default function TopAppBar({ level = 'A', setLevel, gender = 'M', setGender, center = null }) {
+export default function TopAppBar({ level = 'A', setLevel, gender = 'M', setGender, center = null, action = null }) {
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
@@ -48,8 +48,9 @@ export default function TopAppBar({ level = 'A', setLevel, gender = 'M', setGend
           </div>
         )}
 
-        {/* Right side: gender toggle + level selector (level hidden for F) */}
+        {/* Right side: action + gender toggle + level selector (level hidden for F) */}
         <div className="relative z-10 flex items-center gap-2">
+          {action}
           {/* Gender toggle */}
           <div className="glass-radio-group compact gender-toggle" data-count="2" style={{ width: 'auto' }}>
             {GENDERS.map(g => [

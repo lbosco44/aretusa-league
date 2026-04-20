@@ -162,10 +162,9 @@ export default function Admin({ teams, setTeams, matches, setMatches, bracket, s
   // Admin panel
   return (
     <div className="min-h-screen text-on-surface">
-      <TopAppBar level={level} setLevel={setLevel} gender={gender} setGender={setGender} center={
-        <button onClick={logout} className="flex items-center gap-1.5 bg-red-500/20 border border-red-500/30 text-red-400 font-headline font-bold px-3 py-1.5 rounded-full text-[11px] uppercase tracking-widest active:scale-95 transition-all">
-          <span className="material-symbols-outlined" style={{ fontSize: '14px' }}>logout</span>
-          Esci
+      <TopAppBar level={level} setLevel={setLevel} gender={gender} setGender={setGender} action={
+        <button onClick={logout} aria-label="Esci" title="Esci" className="w-8 h-8 rounded-full bg-red-500/20 border border-red-500/30 text-red-400 flex items-center justify-center active:scale-95 transition-all">
+          <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>logout</span>
         </button>
       } />
 
