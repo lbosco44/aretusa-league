@@ -17,8 +17,15 @@ const PREVIEW_PT_12 = [
 
 // Bracket 24 squadre (Livello B): 5 round
 const LABELS_24 = ['Primo Turno', 'Ottavi', 'Quarti', 'Semifinali', 'Finale']
-// R16_TO_R1_MAP[i] = R1 match che alimenta R16[i].ospite
-const R16_TO_R1_MAP = [0, 7, 3, 4, 5, 2, 1, 6]
+// R16_TO_R1_MAP[i] = R1 match che alimenta R16[i].ospite (ora 1:1)
+const R16_TO_R1_MAP = [0, 1, 2, 3, 4, 5, 6, 7]
+// Byes dal disegno: 1°, 1°, 2° migliore, 1°, 1°, 2° migliore, 1°, 1°
+const PREVIEW_BYES_24 = ['1°', '1°', '2° migliore', '1°', '1°', '2° migliore', '1°', '1°']
+// PT shapes dal disegno
+const PREVIEW_PT_24 = [
+  ['3°', '4°'], ['2°', '4°'], ['2°', '4°'], ['2°', '4°'],
+  ['3°', '4°'], ['2°', '4°'], ['3°', '3°'], ['3°', '3°'],
+]
 
 function SvgConn({ h }) {
   const t = h / 4, b = 3 * h / 4, m = h / 2, mx = 14
@@ -206,9 +213,9 @@ function Bracket24({ bracket, isActive, isAdmin, onResultClick }) {
     width: TOTAL_W,
   }
 
-  // Preview labels (based on default seeding order)
-  const byePreview = (i) => `Seed ${i + 1}`
-  const r1Preview = (i) => [`Seed ${9 + i}`, `Seed ${24 - i}`]
+  // Preview labels dal disegno Tabellone B
+  const byePreview = (i) => PREVIEW_BYES_24[i]
+  const r1Preview = (i) => PREVIEW_PT_24[i]
 
   return (
     <div className="overflow-x-auto -mx-4 px-4 pb-2">
@@ -231,7 +238,7 @@ function Bracket24({ bracket, isActive, isAdmin, onResultClick }) {
           const r1P = r1Preview(r1Idx)
           return [
             <div key={`bye${i}`} style={cell(byeRow, 1, 1)}>
-              <ByeSlot team={byeTeam} label={!isActive ? byePreview(i < 4 ? [0, 7, 4, 3][i] : [2, 5, 6, 1][i - 4]) : null} hint="Bye → Ottavi" />
+              <ByeSlot team={byeTeam} label={!isActive ? byePreview(i) : null} hint="Bye → Ottavi" />
             </div>,
             <div key={`r1_${i}`} style={cell(r1Row, 1, 1)}>
               <MatchCard
@@ -253,7 +260,7 @@ function Bracket24({ bracket, isActive, isAdmin, onResultClick }) {
         {/* R16 column: 8 matches */}
         {[0, 1, 2, 3, 4, 5, 6, 7].map(i => {
           const m = isActive ? r16[i] : null
-          const seedLabel = !isActive ? byePreview(i < 4 ? [0, 7, 4, 3][i] : [2, 5, 6, 1][i - 4]) : null
+          const seedLabel = !isActive ? byePreview(i) : null
           return (
             <div key={`r16_${i}`} style={cell(2 * i + 1, 2, 3)}>
               <MatchCard
