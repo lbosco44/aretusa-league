@@ -46,11 +46,11 @@ export default function Home({ matches, teams, isAdmin, bracketActive, level, se
           <div className="sponsor-marquee">
             <div className="sponsor-track">
               {[
-                { src: '/autocanaima-logo.png', alt: 'Auto Canaima', url: 'https://www.facebook.com/AutoCanaima/?locale=it_IT' },
+                { src: '/autocanaimaBIANCO.png', alt: 'Auto Canaima', url: 'https://www.facebook.com/AutoCanaima/?locale=it_IT' },
                 { src: '/La-Lisca-logo-bianco-1920w.png', alt: 'La Lisca', url: 'https://www.laliscacucinaebottega.com/' },
                 { src: '/SIULP.png', alt: 'SIULP', url: 'https://siulp.it/' },
                 { src: '/t2padel.jpg', alt: 'T2 Padel', url: 'https://www.facebook.com/time2padelsr/' },
-                { src: '/autocanaima-logo.png', alt: 'Auto Canaima', url: 'https://www.facebook.com/AutoCanaima/?locale=it_IT' },
+                { src: '/autocanaimaBIANCO.png', alt: 'Auto Canaima', url: 'https://www.facebook.com/AutoCanaima/?locale=it_IT' },
                 { src: '/La-Lisca-logo-bianco-1920w.png', alt: 'La Lisca', url: 'https://www.laliscacucinaebottega.com/' },
                 { src: '/SIULP.png', alt: 'SIULP', url: 'https://siulp.it/' },
                 { src: '/t2padel.jpg', alt: 'T2 Padel', url: 'https://www.facebook.com/time2padelsr/' },
