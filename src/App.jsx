@@ -13,21 +13,25 @@ import LoadingBall from './components/LoadingBall'
 
 const EMPTY_BRACKET = { active: false, rounds: [[], [], [], []] }
 const LEVELS = ['A', 'B', 'C']
+const GENDERS = ['M', 'F']
 
-// Gironi per livello: Livello B ha 6 gironi, gli altri ne hanno 3
+// Gironi per livello maschile
 const GIRONI_BY_LEVEL = {
   A: ['A', 'B', 'C'],
   B: ['A', 'B', 'C', 'D', 'E', 'F'],
   C: ['A', 'B', 'C'],
 }
+// Femminile: un solo livello, 2 gironi
+const GIRONI_FEMMINILE = ['A', 'B']
 
-function getGironiList(level) {
+function getGironiList(level, gender) {
+  if (gender === 'F') return GIRONI_FEMMINILE
   return GIRONI_BY_LEVEL[level] || ['A', 'B', 'C']
 }
 
-function emptyTeamsForLevel(level) {
+function emptyTeamsFor(level, gender) {
   const result = {}
-  getGironiList(level).forEach(g => { result[g] = [] })
+  getGironiList(level, gender).forEach(g => { result[g] = [] })
   return result
 }
 
@@ -37,13 +41,19 @@ function normalizeTeams(teams, gironiList) {
   return result
 }
 
-function collectionForLevel(level) {
+function collectionFor(level, gender) {
+  if (gender === 'F') return 'tournament_F'
   return `tournament_${level}`
 }
 
 function loadLevel() {
   const stored = localStorage.getItem('aretusa_level')
   return LEVELS.includes(stored) ? stored : 'A'
+}
+
+function loadGender() {
+  const stored = localStorage.getItem('aretusa_gender')
+  return GENDERS.includes(stored) ? stored : 'M'
 }
 
 function buildGironi(teams, matches) {
@@ -284,7 +294,8 @@ function makeSyncSetter(rawSetter, docRef, toFirestore) {
 
 export default function App() {
   const [level, setLevelState] = useState(loadLevel)
-  const [teams, setTeams] = useState(() => emptyTeamsForLevel(loadLevel()))
+  const [gender, setGenderState] = useState(loadGender)
+  const [teams, setTeams] = useState(() => emptyTeamsFor(loadLevel(), loadGender()))
   const [matches, setMatches] = useState([])
   const [bracket, setBracket] = useState(EMPTY_BRACKET)
   const [gallery, setGallery] = useState({ list: [] })
@@ -292,8 +303,14 @@ export default function App() {
   const [loading, setLoading] = useState(true)
   const gironi = buildGironi(teams, matches)
 
-  // Firestore refs for current level
-  const col = collectionForLevel(level)
+  // Applica classe female al body per theming rosa
+  useEffect(() => {
+    if (gender === 'F') document.body.classList.add('female')
+    else document.body.classList.remove('female')
+  }, [gender])
+
+  // Firestore refs (collection dipende da level + gender)
+  const col = collectionFor(level, gender)
   const teamsRef = doc(db, col, 'teams')
   const matchesRef = doc(db, col, 'matches')
   const bracketRef = doc(db, col, 'bracket')
@@ -310,12 +327,18 @@ export default function App() {
     setLevelState(newLevel)
   }
 
-  const gironiList = getGironiList(level)
+  function setGender(newGender) {
+    if (!GENDERS.includes(newGender) || newGender === gender) return
+    localStorage.setItem('aretusa_gender', newGender)
+    setGenderState(newGender)
+  }
 
-  // Real-time Firestore listeners (re-subscribe when level changes)
+  const gironiList = getGironiList(level, gender)
+
+  // Real-time Firestore listeners (re-subscribe when level or gender changes)
   useEffect(() => {
     setLoading(true)
-    setTeams(emptyTeamsForLevel(level))
+    setTeams(emptyTeamsFor(level, gender))
     setMatches([])
     setBracket(EMPTY_BRACKET)
     setGallery({ list: [] })
@@ -324,11 +347,11 @@ export default function App() {
     const done = () => { if (++loadCount >= 4) setLoading(false) }
     const onError = (e) => { console.error('Firestore error:', e); done() }
 
-    const list = getGironiList(level)
+    const list = getGironiList(level, gender)
     const unsubs = [
       onSnapshot(teamsRef, snap => {
         if (snap.exists()) setTeams(normalizeTeams(snap.data(), list))
-        else setTeams(emptyTeamsForLevel(level))
+        else setTeams(emptyTeamsFor(level, gender))
         done()
       }, onError),
       onSnapshot(matchesRef, snap => {
@@ -349,7 +372,7 @@ export default function App() {
     const timeout = setTimeout(() => setLoading(false), 8000)
     return () => { unsubs.forEach(u => u()); clearTimeout(timeout) }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [level])
+  }, [level, gender])
 
   // One-time migration: old `tournament` collection → `tournament_A`
   useEffect(() => {
@@ -418,10 +441,11 @@ export default function App() {
   }
 
   if (loading) {
-    return <LoadingBall label={`Caricamento Livello ${level}...`} />
+    const label = gender === 'F' ? 'Caricamento Femminile...' : `Caricamento Livello ${level}...`
+    return <LoadingBall label={label} />
   }
 
-  const commonProps = { level, setLevel, isAdmin, bracketActive: bracket.active, gironiList }
+  const commonProps = { level, setLevel, gender, setGender, isAdmin, bracketActive: bracket.active, gironiList }
 
   return (
     <Routes>

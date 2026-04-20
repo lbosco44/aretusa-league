@@ -2,6 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --secondary: 113 255 116;
+  --primary: 119 219 144;
+  --primary-container: 63 163 95;
+  --on-primary: 0 57 24;
+  --on-secondary: 0 57 9;
+}
+
+body.female {
+  --secondary: 255 113 179;
+  --primary: 219 119 163;
+  --primary-container: 163 63 111;
+  --on-primary: 57 0 24;
+  --on-secondary: 57 0 18;
+}
+
 .material-symbols-outlined {
   font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
 }
@@ -92,6 +108,12 @@ body {
   padding: 0.5rem 0.95rem;
   font-size: 13px;
   letter-spacing: 0.12em;
+}
+.glass-radio-group.compact.gender-toggle label {
+  padding: 0.4rem 0.7rem;
+}
+.glass-radio-group.compact.gender-toggle[data-count="2"] .glass-glider {
+  width: calc(100% / 2);
 }
 .glass-radio-group.compact .glass-glider {
   border-radius: 9999px;

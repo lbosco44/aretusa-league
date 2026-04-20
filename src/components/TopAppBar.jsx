@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
 
 const LEVELS = ['A', 'B', 'C']
+const GENDERS = ['M', 'F']
 
-export default function TopAppBar({ level = 'A', setLevel, center = null }) {
+export default function TopAppBar({ level = 'A', setLevel, gender = 'M', setGender, center = null }) {
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
@@ -47,22 +48,45 @@ export default function TopAppBar({ level = 'A', setLevel, center = null }) {
           </div>
         )}
 
-        {/* Level selector — always on the right */}
-        <div className="relative z-10">
-          <div className="glass-radio-group compact" data-count="3" style={{ width: 'auto' }}>
-            {LEVELS.map(l => [
+        {/* Right side: gender toggle + level selector (level hidden for F) */}
+        <div className="relative z-10 flex items-center gap-2">
+          {/* Gender toggle */}
+          <div className="glass-radio-group compact gender-toggle" data-count="2" style={{ width: 'auto' }}>
+            {GENDERS.map(g => [
               <input
-                key={`r${l}`}
+                key={`rg${g}`}
                 type="radio"
-                name="level"
-                id={`level-${l}`}
-                checked={level === l}
-                onChange={() => setLevel && setLevel(l)}
+                name="gender"
+                id={`gender-${g}`}
+                checked={gender === g}
+                onChange={() => setGender && setGender(g)}
               />,
-              <label key={`l${l}`} htmlFor={`level-${l}`}>{l}</label>,
+              <label key={`lg${g}`} htmlFor={`gender-${g}`} aria-label={g === 'M' ? 'Maschile' : 'Femminile'}>
+                <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>
+                  {g === 'M' ? 'male' : 'female'}
+                </span>
+              </label>,
             ])}
-            <div className="glass-glider" data-pos={LEVELS.indexOf(level)} />
+            <div className="glass-glider" data-pos={GENDERS.indexOf(gender)} />
           </div>
+
+          {/* Level selector (solo maschile) */}
+          {gender === 'M' && (
+            <div className="glass-radio-group compact" data-count="3" style={{ width: 'auto' }}>
+              {LEVELS.map(l => [
+                <input
+                  key={`r${l}`}
+                  type="radio"
+                  name="level"
+                  id={`level-${l}`}
+                  checked={level === l}
+                  onChange={() => setLevel && setLevel(l)}
+                />,
+                <label key={`l${l}`} htmlFor={`level-${l}`}>{l}</label>,
+              ])}
+              <div className="glass-glider" data-pos={LEVELS.indexOf(level)} />
+            </div>
+          )}
         </div>
       </div>
     </header>
