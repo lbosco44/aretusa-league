@@ -4,6 +4,7 @@ import BottomNav from '../components/BottomNav'
 
 export default function Admin({ teams, setTeams, matches, setMatches, bracket, setBracket, isAdmin, login, logout, bracketActive, level, setLevel, gender, setGender, gironiList }) {
   const GIRONI = gironiList || ['A', 'B', 'C']
+  const MAX_PER_GIRONE = gender === 'F' ? 5 : 4
   const [player1, setPlayer1] = useState('')
   const [player2, setPlayer2] = useState('')
   const [club, setClub] = useState('')
@@ -29,7 +30,7 @@ export default function Admin({ teams, setTeams, matches, setMatches, bracket, s
     const p2 = player2.trim()
     const c = club.trim()
     if (!p1 || !p2) { setError('Inserisci entrambi i nomi dei giocatori'); return }
-    if (teams[girone].length >= 4) { setError(`Il girone ${girone} è pieno (max 4 coppie)`); return }
+    if (teams[girone].length >= MAX_PER_GIRONE) { setError(`Il girone ${girone} è pieno (max ${MAX_PER_GIRONE} coppie)`); return }
 
     const name = `${p1} / ${p2}`
     let abbr = (p1[0] + p2[0]).toUpperCase()
@@ -65,7 +66,7 @@ export default function Admin({ teams, setTeams, matches, setMatches, bracket, s
   }
 
   function moveTeam(fromGirone, idx, toGirone) {
-    if (teams[toGirone].length >= 4) { setError(`Il girone ${toGirone} è pieno (max 4 coppie)`); return }
+    if (teams[toGirone].length >= MAX_PER_GIRONE) { setError(`Il girone ${toGirone} è pieno (max ${MAX_PER_GIRONE} coppie)`); return }
     const team = teams[fromGirone][idx]
     setTeams(prev => ({
       ...prev,
@@ -208,7 +209,7 @@ export default function Admin({ teams, setTeams, matches, setMatches, bracket, s
                 <label className="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Girone</label>
                 <select value={girone} onChange={e => setGirone(e.target.value)} className={selectCls}>
                   {GIRONI.map(g => (
-                    <option key={g} value={g} disabled={teams[g].length >= 4}>Girone {g} ({teams[g].length}/4)</option>
+                    <option key={g} value={g} disabled={teams[g].length >= MAX_PER_GIRONE}>Girone {g} ({teams[g].length}/{MAX_PER_GIRONE})</option>
                   ))}
                 </select>
               </div>
@@ -238,10 +239,10 @@ export default function Admin({ teams, setTeams, matches, setMatches, bracket, s
                 </div>
                 <div>
                   <h3 className="font-headline font-black uppercase text-white">Girone {g}</h3>
-                  <p className="text-[10px] text-on-surface-variant font-medium">{teams[g].length}/4 coppie</p>
+                  <p className="text-[10px] text-on-surface-variant font-medium">{teams[g].length}/{MAX_PER_GIRONE} coppie</p>
                 </div>
               </div>
-              {teams[g].length >= 4 && (
+              {teams[g].length >= MAX_PER_GIRONE && (
                 <span className="px-3 py-1 rounded-full bg-secondary/10 text-secondary text-[10px] font-bold uppercase tracking-widest">Completo</span>
               )}
             </div>
@@ -272,7 +273,7 @@ export default function Admin({ teams, setTeams, matches, setMatches, bracket, s
                       >
                         <option value="">Sposta...</option>
                         {GIRONI.filter(x => x !== g).map(x => (
-                          <option key={x} value={x} disabled={teams[x].length >= 4}>Girone {x} ({teams[x].length}/4)</option>
+                          <option key={x} value={x} disabled={teams[x].length >= MAX_PER_GIRONE}>Girone {x} ({teams[x].length}/{MAX_PER_GIRONE})</option>
                         ))}
                       </select>
                       <button onClick={() => removeTeam(g, idx)} className="w-9 h-9 rounded-lg bg-red-500/10 border border-red-500/20 flex items-center justify-center hover:bg-red-500/20 transition-colors">
