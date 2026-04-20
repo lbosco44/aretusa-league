@@ -11,11 +11,11 @@
 }
 
 body.female {
-  --secondary: 255 113 179;
-  --primary: 219 119 163;
-  --primary-container: 163 63 111;
-  --on-primary: 57 0 24;
-  --on-secondary: 57 0 18;
+  --secondary: 255 105 180;
+  --primary: 236 139 180;
+  --primary-container: 194 77 135;
+  --on-primary: 255 255 255;
+  --on-secondary: 255 255 255;
 }
 
 .material-symbols-outlined {
