@@ -20,7 +20,7 @@ export default function Gironi({ gironi, isAdmin, bracketActive, level, setLevel
         <section className="mb-8">
           <div className="glow-card">
             <div className="glow-card-bg relative h-48 w-full">
-              <div className="absolute inset-0 bg-gradient-to-br from-[rgb(var(--on-primary))] to-[#071530]" />
+              <div className="absolute inset-0 bg-gradient-to-br from-[rgb(var(--primary-container))] to-[#071530]" />
               <div className="absolute inset-0 opacity-5" style={{ background: 'repeating-linear-gradient(45deg,rgb(var(--primary)) 0,rgb(var(--primary)) 1px,transparent 1px,transparent 40px)' }} />
               <div className="absolute inset-0 bg-gradient-to-t from-[#0E2044] to-transparent" />
               <div className="absolute bottom-6 left-6 z-10">
