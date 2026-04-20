@@ -10,9 +10,9 @@ const CONN_W = 28
 
 // Bracket 12 squadre (Livello A / C): 4 round
 const LABELS_12 = ['Primo Turno', 'Quarti', 'Semifinali', 'Finale']
-const PREVIEW_BYES_12 = ['1°A', '2°A', '1°C', '1°B']
+const PREVIEW_BYES_12 = ['1°', '2° migliore', '1°', '1°']
 const PREVIEW_PT_12 = [
-  ['3°B', '3°C'], ['2°B', '4°C'], ['2°C', '4°B'], ['3°A', '4°A']
+  ['2°', '4°'], ['3°', '3°'], ['3°', '4°'], ['2°', '4°']
 ]
 
 // Bracket 24 squadre (Livello B): 5 round

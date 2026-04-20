@@ -138,15 +138,68 @@ function generateBracket(gironi, level) {
     }
   }
 
-  // 12-team bracket (default, 4 rounds: PT, QF, SF, F)
+  // 12-team bracket (Livelli A, C): 3 primi di girone + miglior 2° ai bye,
+  // altre 8 squadre al Primo Turno.
   if (allTeams.length < 12) return EMPTY_BRACKET
-  const s = allTeams
+  const gironiKeys = Object.keys(gironi)
+  if (gironiKeys.length !== 3 || !gironiKeys.every(g => gironi[g].length === 4)) {
+    return EMPTY_BRACKET
+  }
+
+  const sortByPts = (a, b) => b.pts - a.pts || (b.sp - b.sm) - (a.sp - a.sm)
+  const withG = (team, girone) => ({ ...team, girone })
+
+  const primi   = gironiKeys.map(g => withG(gironi[g][0], g)).sort(sortByPts)
+  const secondi = gironiKeys.map(g => withG(gironi[g][1], g)).sort(sortByPts)
+  const terzi   = gironiKeys.map(g => withG(gironi[g][2], g))
+  const quarti  = gironiKeys.map(g => withG(gironi[g][3], g))
+
+  const migliore2 = secondi[0]
+  const altri2 = [secondi[1], secondi[2]]
+
+  // Bye QF1..QF4: miglior 1°, miglior 2°, secondo 1°, terzo 1°
+  const byes = [primi[0], migliore2, primi[1], primi[2]]
+
+  // Brute-force abbinamenti PT:
+  //  PT1 (→QF1): 1 da altri2 + 1 da quarti
+  //  PT2 (→QF2): 2 da terzi
+  //  PT3 (→QF3): terzo rimanente + 1 da quarti
+  //  PT4 (→QF4): altro da altri2 + quarto rimanente
+  const permute = arr => arr.length <= 1 ? [arr.slice()] :
+    arr.flatMap((x, i) => permute([...arr.slice(0, i), ...arr.slice(i + 1)]).map(p => [x, ...p]))
+
+  let hardOnly = null
+  let ideal = null
+  outer:
+  for (const a2p of permute(altri2)) {
+    for (const tp of permute(terzi)) {
+      for (const qp of permute(quarti)) {
+        const pairs = [
+          [a2p[0], qp[0]], // PT1
+          [tp[0], tp[1]],  // PT2
+          [tp[2], qp[1]],  // PT3
+          [a2p[1], qp[2]], // PT4
+        ]
+        const hardOk = pairs.every(([x, y]) => x.girone !== y.girone)
+        if (!hardOk) continue
+        const softOk = pairs.every(([x, y], i) =>
+          x.girone !== byes[i].girone && y.girone !== byes[i].girone
+        )
+        if (!hardOnly) hardOnly = pairs
+        if (softOk) { ideal = pairs; break outer }
+      }
+    }
+  }
+
+  const chosen = ideal || hardOnly
+  if (!chosen) return EMPTY_BRACKET
+
   return {
     active: true,
     size: 12,
     rounds: [
-      [m(t(s[7],8), t(s[8],9)), m(t(s[4],5), t(s[11],12)), m(t(s[5],6), t(s[10],11)), m(t(s[6],7), t(s[9],10))],
-      [m(t(s[0],1), null), m(t(s[3],4), null), m(t(s[2],3), null), m(t(s[1],2), null)],
+      chosen.map(([a, b]) => m(t(a, null), t(b, null))),
+      byes.map(bye => m(t(bye, null), null)),
       [m(null, null), m(null, null)],
       [m(null, null)],
     ]
