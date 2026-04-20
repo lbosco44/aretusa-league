@@ -15,6 +15,11 @@ const PREVIEW_PT_12 = [
   ['2°', '4°'], ['3°', '3°'], ['3°', '4°'], ['2°', '4°']
 ]
 
+// Bracket 10 squadre (Femminile): 4 round (PT → QF → SF con bye → F)
+const LABELS_10 = ['Primo Turno', 'Quarti', 'Semifinali', 'Finale']
+const PREVIEW_PT_10 = [['2°', '4°'], ['3°', '5°'], ['2°', '4°'], ['3°', '5°']]
+const PREVIEW_SF_BYES_10 = ['1°', '1°']
+
 // Bracket 24 squadre (Livello B): 5 round
 const LABELS_24 = ['Primo Turno', 'Ottavi', 'Quarti', 'Semifinali', 'Finale']
 // R16_TO_R1_MAP[i] = R1 match che alimenta R16[i].ospite (ora 1:1)
@@ -111,6 +116,103 @@ const cell = (row, span, col) => ({
   alignItems: 'center',
   justifyContent: 'center',
 })
+
+function Bracket10({ bracket, isActive, isAdmin, onResultClick }) {
+  const ROW_H = ROW_H_12
+  const TOTAL_W = CARD_W * 4 + CONN_W * 3
+  const pt = isActive ? bracket.rounds[0] : null
+  const qf = isActive ? bracket.rounds[1] : null
+  const sf = isActive ? bracket.rounds[2] : null
+  const fi = isActive ? bracket.rounds[3]?.[0] : null
+
+  const gridStyle = {
+    display: 'grid',
+    gridTemplateColumns: `${CARD_W}px ${CONN_W}px ${CARD_W}px ${CONN_W}px ${CARD_W}px ${CONN_W}px ${CARD_W}px`,
+    gridTemplateRows: `repeat(8, ${ROW_H}px)`,
+    width: TOTAL_W,
+  }
+
+  return (
+    <div className="overflow-x-auto -mx-4 px-4 pb-2">
+      <div className="flex mb-3" style={{ width: TOTAL_W }}>
+        {LABELS_10.map((label, i) => (
+          <div key={i} className="text-center" style={{ width: CARD_W, marginRight: i < LABELS_10.length - 1 ? CONN_W : 0 }}>
+            <span className="text-[9px] font-bold uppercase tracking-widest text-on-surface-variant/40">{label}</span>
+          </div>
+        ))}
+      </div>
+
+      <div style={gridStyle}>
+        {/* PT: 4 match (col 1) */}
+        {[0, 1, 2, 3].map(i => {
+          const m = isActive ? pt[i] : null
+          return (
+            <div key={`pt${i}`} style={cell(2 * i + 1, 2, 1)}>
+              <MatchCard
+                casa={m?.casa} ospite={m?.ospite}
+                casaLabel={!isActive ? PREVIEW_PT_10[i][0] : null}
+                ospiteLabel={!isActive ? PREVIEW_PT_10[i][1] : null}
+                score={m?.score} played={m?.played} winner={m?.winner}
+                isAdmin={isAdmin} onResult={() => onResultClick(0, i)}
+              />
+            </div>
+          )
+        })}
+        {/* Connettori PT → QF (branching 2:1) */}
+        {[0, 1].map(i => (
+          <div key={`c1_${i}`} style={cell(4 * i + 1, 4, 2)}><SvgConn h={ROW_H * 4} /></div>
+        ))}
+        {/* QF: 2 match intra-girone (col 3) */}
+        {[0, 1].map(i => {
+          const m = isActive ? qf[i] : null
+          return (
+            <div key={`qf${i}`} style={cell(4 * i + 1, 4, 3)}>
+              <MatchCard
+                casa={m?.casa} ospite={m?.ospite}
+                casaLabel={!isActive ? `Vinc. PT${2 * i + 1}` : null}
+                ospiteLabel={!isActive ? `Vinc. PT${2 * i + 2}` : null}
+                score={m?.score} played={m?.played} winner={m?.winner}
+                isAdmin={isAdmin} onResult={() => onResultClick(1, i)}
+              />
+            </div>
+          )
+        })}
+        {/* Connettori QF → SF (1:1 simple) */}
+        {[0, 1].map(i => (
+          <div key={`c2_${i}`} style={cell(4 * i + 1, 4, 4)}><SimpleConn h={ROW_H * 4} /></div>
+        ))}
+        {/* SF: 2 match con bye casa (col 5) */}
+        {[0, 1].map(i => {
+          const m = isActive ? sf[i] : null
+          return (
+            <div key={`sf${i}`} style={cell(4 * i + 1, 4, 5)}>
+              <MatchCard
+                casa={m?.casa} ospite={m?.ospite}
+                casaLabel={!isActive ? PREVIEW_SF_BYES_10[i] : null}
+                ospiteLabel={!isActive ? `Vinc. QF${i + 1}` : null}
+                score={m?.score} played={m?.played} winner={m?.winner}
+                byeCasa={!m?.played}
+                isAdmin={isAdmin} onResult={() => onResultClick(2, i)}
+              />
+            </div>
+          )
+        })}
+        {/* Connettore SF → F (branching 2:1) */}
+        <div style={cell(1, 8, 6)}><SvgConn h={ROW_H * 8} /></div>
+        {/* Finale */}
+        <div style={cell(1, 8, 7)}>
+          <MatchCard
+            casa={fi?.casa} ospite={fi?.ospite}
+            casaLabel={!isActive ? 'Vinc. SF1' : null}
+            ospiteLabel={!isActive ? 'Vinc. SF2' : null}
+            score={fi?.score} played={fi?.played} winner={fi?.winner}
+            isAdmin={isAdmin} onResult={() => onResultClick(3, 0)}
+          />
+        </div>
+      </div>
+    </div>
+  )
+}
 
 function Bracket12({ bracket, isActive, isAdmin, onResultClick }) {
   const ROW_H = ROW_H_12
@@ -340,9 +442,10 @@ export default function Tabellone({ isAdmin, bracket, gironi, onActivate, onResu
   const isActive = bracket.active
   const totalTeams = Object.values(gironi).flat().length
 
-  // 24-team bracket for Livello B, 12-team otherwise
-  const is24 = (bracket.size === 24) || (!isActive && level === 'B')
-  const requiredTeams = is24 ? 24 : 12
+  // Seleziona renderer: 10 (F) / 24 (M-B) / 12 (M-A/C)
+  const is10 = (bracket.size === 10) || (!isActive && gender === 'F')
+  const is24 = !is10 && ((bracket.size === 24) || (!isActive && level === 'B'))
+  const requiredTeams = is10 ? 10 : is24 ? 24 : 12
   const hasTeams = totalTeams >= requiredTeams
 
   const finalRoundIdx = is24 ? 4 : 3
@@ -444,9 +547,11 @@ export default function Tabellone({ isAdmin, bracket, gironi, onActivate, onResu
         )}
 
         {/* Bracket */}
-        {is24
-          ? <Bracket24 bracket={bracket} isActive={isActive} isAdmin={isAdmin} onResultClick={onResultClick} />
-          : <Bracket12 bracket={bracket} isActive={isActive} isAdmin={isAdmin} onResultClick={onResultClick} />}
+        {is10
+          ? <Bracket10 bracket={bracket} isActive={isActive} isAdmin={isAdmin} onResultClick={onResultClick} />
+          : is24
+            ? <Bracket24 bracket={bracket} isActive={isActive} isAdmin={isAdmin} onResultClick={onResultClick} />
+            : <Bracket12 bracket={bracket} isActive={isActive} isAdmin={isAdmin} onResultClick={onResultClick} />}
 
         {/* Legend */}
         <div className="bg-[#152040] rounded-2xl border border-white/5 p-4">
