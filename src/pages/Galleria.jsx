@@ -45,8 +45,8 @@ export default function Galleria({ gallery, setGallery, isAdmin, bracketActive, 
         {/* Header */}
         <section>
           <div className="relative h-44 w-full rounded-xl overflow-hidden shadow-2xl">
-            <div className="absolute inset-0 bg-gradient-to-br from-[#003918] to-[#071530]" />
-            <div className="absolute inset-0 opacity-5" style={{ background: 'repeating-linear-gradient(45deg,#77db90 0,#77db90 1px,transparent 1px,transparent 40px)' }} />
+            <div className="absolute inset-0 bg-gradient-to-br from-[rgb(var(--on-primary))] to-[#071530]" />
+            <div className="absolute inset-0 opacity-5" style={{ background: 'repeating-linear-gradient(45deg,rgb(var(--primary)) 0,rgb(var(--primary)) 1px,transparent 1px,transparent 40px)' }} />
             <div className="absolute inset-0 bg-gradient-to-t from-[#0E2044] to-transparent" />
             <div className="absolute bottom-6 left-6">
               <h2 className="font-headline text-4xl font-black italic uppercase tracking-tighter text-white">GALLERIA</h2>

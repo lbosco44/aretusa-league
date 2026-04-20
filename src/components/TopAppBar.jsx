@@ -29,7 +29,7 @@ export default function TopAppBar({ level = 'A', setLevel, gender = 'M', setGend
           backdropFilter: 'blur(24px)',
           WebkitBackdropFilter: 'blur(24px)',
           boxShadow: scrolled
-            ? '0 8px 32px rgba(0,0,0,0.4), 0 0 0 1px rgba(113,255,116,0.08), inset 0 1px 0 rgba(255,255,255,0.05)'
+            ? '0 8px 32px rgba(0,0,0,0.4), 0 0 0 1px rgb(var(--secondary) / 0.08), inset 0 1px 0 rgba(255,255,255,0.05)'
             : '0 8px 30px rgba(0,0,0,0.4)',
           border: scrolled ? '1px solid rgba(255,255,255,0.08)' : 'none',
         }}

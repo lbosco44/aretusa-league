@@ -84,7 +84,7 @@ export default function AddMatchModal({ onClose, onAdd, teams, matches }) {
           </div>
         </div>
         <div className="p-6 pt-0">
-          <button onClick={handleAdd} className="w-full h-14 bg-gradient-to-r from-[#27F24C] to-[#1DB954] text-[#003909] font-headline font-black uppercase tracking-widest text-sm rounded-xl shadow-xl active:scale-[0.98] transition-transform flex items-center justify-center gap-2">
+          <button onClick={handleAdd} className="w-full h-14 bg-gradient-to-r from-[rgb(var(--secondary))] to-[rgb(var(--primary-container))] text-[rgb(var(--on-secondary))] font-headline font-black uppercase tracking-widest text-sm rounded-xl shadow-xl active:scale-[0.98] transition-transform flex items-center justify-center gap-2">
             <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
             Aggiungi al Calendario
           </button>

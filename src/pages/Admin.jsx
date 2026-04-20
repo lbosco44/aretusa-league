@@ -146,7 +146,7 @@ export default function Admin({ teams, setTeams, matches, setMatches, bracket, s
               )}
               <button
                 type="submit"
-                className="w-full h-14 bg-gradient-to-r from-[#27F24C] to-[#1DB954] text-[#003909] font-headline font-black uppercase tracking-widest text-sm rounded-xl shadow-xl active:scale-[0.98] transition-transform flex items-center justify-center gap-2"
+                className="w-full h-14 bg-gradient-to-r from-[rgb(var(--secondary))] to-[rgb(var(--primary-container))] text-[rgb(var(--on-secondary))] font-headline font-black uppercase tracking-widest text-sm rounded-xl shadow-xl active:scale-[0.98] transition-transform flex items-center justify-center gap-2"
               >
                 <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>lock_open</span>
                 Accedi
@@ -173,8 +173,8 @@ export default function Admin({ teams, setTeams, matches, setMatches, bracket, s
         {/* Header */}
         <section>
           <div className="relative h-48 w-full rounded-xl overflow-hidden shadow-2xl">
-            <div className="absolute inset-0 bg-gradient-to-br from-[#003918] to-[#071530]" />
-            <div className="absolute inset-0 opacity-5" style={{ background: 'repeating-linear-gradient(45deg,#77db90 0,#77db90 1px,transparent 1px,transparent 40px)' }} />
+            <div className="absolute inset-0 bg-gradient-to-br from-[rgb(var(--on-primary))] to-[#071530]" />
+            <div className="absolute inset-0 opacity-5" style={{ background: 'repeating-linear-gradient(45deg,rgb(var(--primary)) 0,rgb(var(--primary)) 1px,transparent 1px,transparent 40px)' }} />
             <div className="absolute inset-0 bg-gradient-to-t from-[#0E2044] to-transparent" />
             <div className="absolute bottom-6 left-6">
               <h2 className="font-headline text-4xl font-black italic uppercase tracking-tighter text-white">ADMIN</h2>
@@ -222,7 +222,7 @@ export default function Admin({ teams, setTeams, matches, setMatches, bracket, s
               </div>
             )}
 
-            <button onClick={addTeam} className="w-full h-14 bg-gradient-to-r from-[#27F24C] to-[#1DB954] text-[#003909] font-headline font-black uppercase tracking-widest text-sm rounded-xl shadow-xl active:scale-[0.98] transition-transform flex items-center justify-center gap-2">
+            <button onClick={addTeam} className="w-full h-14 bg-gradient-to-r from-[rgb(var(--secondary))] to-[rgb(var(--primary-container))] text-[rgb(var(--on-secondary))] font-headline font-black uppercase tracking-widest text-sm rounded-xl shadow-xl active:scale-[0.98] transition-transform flex items-center justify-center gap-2">
               <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>group_add</span>
               Aggiungi Coppia
             </button>

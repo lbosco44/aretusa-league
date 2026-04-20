@@ -64,7 +64,7 @@ body {
 }
 
 .glass-radio-group label:hover { color: rgba(255, 255, 255, 0.8); }
-.glass-radio-group input:checked + label { color: #003909; }
+.glass-radio-group input:checked + label { color: rgb(var(--on-secondary)); }
 
 .glass-glider {
   position: absolute;
@@ -72,10 +72,10 @@ body {
   bottom: 0;
   border-radius: 1rem;
   z-index: 1;
-  background: linear-gradient(135deg, rgba(119, 219, 144, 0.35), #71ff74);
+  background: linear-gradient(135deg, rgb(var(--primary) / 0.35), rgb(var(--secondary)));
   box-shadow:
-    0 0 18px rgba(113, 255, 116, 0.4),
-    0 0 10px rgba(119, 219, 144, 0.3) inset;
+    0 0 18px rgb(var(--secondary) / 0.4),
+    0 0 10px rgb(var(--primary) / 0.3) inset;
   transition:
     transform 0.5s cubic-bezier(0.37, 1.95, 0.66, 0.56);
 }
@@ -149,7 +149,7 @@ body {
   background: conic-gradient(
     from 0deg,
     transparent 0%,
-    #71ff74 10%,
+    rgb(var(--secondary)) 10%,
     transparent 20%,
     transparent 100%
   );
@@ -167,8 +167,8 @@ body {
 
 /* CTA arrow button */
 .cta-btn {
-  background: #71ff74;
-  color: #003918;
+  background: rgb(var(--secondary));
+  color: rgb(var(--on-primary));
   padding: 0.35em;
   padding-left: 1.2em;
   padding-right: 3.3em;
@@ -176,7 +176,7 @@ body {
   border: none;
   display: flex;
   align-items: center;
-  box-shadow: inset 0 0 1.6em -0.6em rgba(0,57,24,0.4);
+  box-shadow: inset 0 0 1.6em -0.6em rgb(var(--on-primary) / 0.4);
   overflow: hidden;
   position: relative;
   height: 2.8em;
@@ -195,10 +195,10 @@ body {
   height: 2.2em;
   width: 2.2em;
   border-radius: 0.7em;
-  box-shadow: 0.1em 0.1em 0.6em 0.2em rgba(0,57,24,0.3);
+  box-shadow: 0.1em 0.1em 0.6em 0.2em rgb(var(--on-primary) / 0.3);
   right: 0.3em;
   transition: all 0.3s;
-  color: #003918;
+  color: rgb(var(--on-primary));
 }
 
 .cta-btn:hover .cta-btn-icon {
@@ -369,8 +369,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #003909;
-  background: linear-gradient(135deg, #27F24C 0%, #1DB954 100%);
+  color: rgb(var(--on-secondary));
+  background: linear-gradient(135deg, rgb(var(--secondary)) 0%, rgb(var(--primary-container)) 100%);
   box-shadow:
     0 6px 20px rgba(29, 185, 84, 0.55),
     0 2px 6px rgba(0, 0, 0, 0.3),

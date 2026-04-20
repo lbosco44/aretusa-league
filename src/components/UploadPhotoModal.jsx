@@ -139,7 +139,7 @@ export default function UploadPhotoModal({ onClose, onUploaded }) {
           <button
             onClick={handleUpload}
             disabled={!file || uploading}
-            className="w-full h-14 bg-gradient-to-r from-[#27F24C] to-[#1DB954] text-[#003909] font-headline font-black uppercase tracking-widest text-sm rounded-xl shadow-xl active:scale-[0.98] transition-transform disabled:opacity-30 disabled:pointer-events-none flex items-center justify-center gap-2"
+            className="w-full h-14 bg-gradient-to-r from-[rgb(var(--secondary))] to-[rgb(var(--primary-container))] text-[rgb(var(--on-secondary))] font-headline font-black uppercase tracking-widest text-sm rounded-xl shadow-xl active:scale-[0.98] transition-transform disabled:opacity-30 disabled:pointer-events-none flex items-center justify-center gap-2"
           >
             <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>
               {uploading ? 'hourglass_top' : 'cloud_upload'}

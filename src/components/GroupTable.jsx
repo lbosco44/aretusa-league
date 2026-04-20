@@ -19,7 +19,7 @@ export default function GroupTable({ rows }) {
             {rows.map((r) => {
               const isFirst = r.pos === 1
               return (
-                <tr key={r.pos} className={isFirst ? 'bg-[#1e3368] hover:bg-[#254E8F] transition-colors border-l-4 border-[#71ff74] shadow-lg' : 'bg-[#071530]/40 hover:bg-[#1e3368] transition-colors'}>
+                <tr key={r.pos} className={isFirst ? 'bg-[#1e3368] hover:bg-[#254E8F] transition-colors border-l-4 border-[rgb(var(--secondary))] shadow-lg' : 'bg-[#071530]/40 hover:bg-[#1e3368] transition-colors'}>
                   <td className={`px-4 py-4 font-headline font-bold italic text-lg ${isFirst ? 'text-secondary' : 'text-on-surface-variant'}`}>{r.pos}</td>
                   <td className="px-4 py-4">
                     <div className="flex items-center gap-3">

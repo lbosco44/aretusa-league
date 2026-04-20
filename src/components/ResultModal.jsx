@@ -57,12 +57,12 @@ export default function ResultModal({ match, onClose, onConfirm }) {
               <div className="flex items-center gap-3">
                 <div className="flex-1 min-w-0">
                   {showNames && <p className="text-[10px] text-on-surface-variant text-center truncate mb-1">{match.casa.name}</p>}
-                  <input type="number" min="0" max="7" placeholder="0" value={va} onChange={e => setA(e.target.value)} className={`${inp} focus:border-[#71ff74]`} />
+                  <input type="number" min="0" max="7" placeholder="0" value={va} onChange={e => setA(e.target.value)} className={`${inp} focus:border-[rgb(var(--secondary))]`} />
                 </div>
                 <span className="text-on-surface-variant font-black shrink-0">&ndash;</span>
                 <div className="flex-1 min-w-0">
                   {showNames && <p className="text-[10px] text-on-surface-variant text-center truncate mb-1">{match.ospite.name}</p>}
-                  <input type="number" min="0" max="7" placeholder="0" value={vb} onChange={e => setB(e.target.value)} className={`${inp} focus:border-[#71ff74]`} />
+                  <input type="number" min="0" max="7" placeholder="0" value={vb} onChange={e => setB(e.target.value)} className={`${inp} focus:border-[rgb(var(--secondary))]`} />
                 </div>
               </div>
             </div>

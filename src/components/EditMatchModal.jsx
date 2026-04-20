@@ -52,7 +52,7 @@ export default function EditMatchModal({ match, teams, onClose, onSave }) {
       <div className="w-full max-w-lg bg-[#1e3368] rounded-3xl rounded-b-none md:rounded-3xl shadow-2xl border border-white/10 overflow-hidden">
         <div className="flex items-center justify-between p-6 border-b border-white/10 bg-[#254E8F]/40">
           <div className="flex items-center gap-3">
-            <div className="w-2 h-8 bg-[#77db90] rounded-full" />
+            <div className="w-2 h-8 bg-[rgb(var(--primary))] rounded-full" />
             <h3 className="font-headline text-xl font-black uppercase">Modifica Partita</h3>
           </div>
           <button onClick={onClose} className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20">
@@ -100,7 +100,7 @@ export default function EditMatchModal({ match, teams, onClose, onSave }) {
         </div>
 
         <div className="p-6 pt-0">
-          <button onClick={handleSave} className="w-full h-14 bg-gradient-to-r from-[#27F24C] to-[#1DB954] text-[#003909] font-headline font-black uppercase tracking-widest text-sm rounded-xl shadow-xl active:scale-[0.98] transition-transform flex items-center justify-center gap-2">
+          <button onClick={handleSave} className="w-full h-14 bg-gradient-to-r from-[rgb(var(--secondary))] to-[rgb(var(--primary-container))] text-[rgb(var(--on-secondary))] font-headline font-black uppercase tracking-widest text-sm rounded-xl shadow-xl active:scale-[0.98] transition-transform flex items-center justify-center gap-2">
             <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>save</span>
             Salva Modifiche
           </button>

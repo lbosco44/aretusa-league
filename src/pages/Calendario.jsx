@@ -158,11 +158,11 @@ export default function Calendario({ matches, setMatches, teams, isAdmin, bracke
                   key={i}
                   onClick={() => setSelectedDate(isSelected ? null : dateKey)}
                   className={`flex flex-col items-center justify-center py-1.5 rounded-xl transition-all relative
-                    ${isSelected ? 'bg-secondary text-[#003909]' : isToday ? 'bg-white/10 text-white' : 'text-on-surface/70 hover:bg-white/5'}`}
+                    ${isSelected ? 'bg-secondary text-[rgb(var(--on-secondary))]' : isToday ? 'bg-white/10 text-white' : 'text-on-surface/70 hover:bg-white/5'}`}
                 >
                   <span className={`text-sm font-semibold ${isSelected ? 'font-black' : ''}`}>{day}</span>
                   {hasMatch && (
-                    <span className={`w-1.5 h-1.5 rounded-full mt-0.5 ${isSelected ? 'bg-[#003909]' : 'bg-secondary'}`} />
+                    <span className={`w-1.5 h-1.5 rounded-full mt-0.5 ${isSelected ? 'bg-[rgb(var(--on-secondary))]' : 'bg-secondary'}`} />
                   )}
                 </button>
               )

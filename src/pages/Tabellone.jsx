@@ -31,10 +31,10 @@ function SvgConn({ h }) {
   const t = h / 4, b = 3 * h / 4, m = h / 2, mx = 14
   return (
     <svg width={CONN_W} height={h} className="block">
-      <line x1="0" y1={t} x2={mx} y2={t} stroke="rgba(113,255,116,0.15)" strokeWidth="2" />
-      <line x1={mx} y1={t} x2={mx} y2={b} stroke="rgba(113,255,116,0.15)" strokeWidth="2" />
-      <line x1="0" y1={b} x2={mx} y2={b} stroke="rgba(113,255,116,0.15)" strokeWidth="2" />
-      <line x1={mx} y1={m} x2={CONN_W} y2={m} stroke="rgba(113,255,116,0.15)" strokeWidth="2" />
+      <line x1="0" y1={t} x2={mx} y2={t} stroke="rgb(var(--secondary) / 0.15)" strokeWidth="2" />
+      <line x1={mx} y1={t} x2={mx} y2={b} stroke="rgb(var(--secondary) / 0.15)" strokeWidth="2" />
+      <line x1="0" y1={b} x2={mx} y2={b} stroke="rgb(var(--secondary) / 0.15)" strokeWidth="2" />
+      <line x1={mx} y1={m} x2={CONN_W} y2={m} stroke="rgb(var(--secondary) / 0.15)" strokeWidth="2" />
     </svg>
   )
 }
@@ -43,7 +43,7 @@ function SimpleConn({ h }) {
   const m = h / 2
   return (
     <svg width={CONN_W} height={h} className="block">
-      <line x1="0" y1={m} x2={CONN_W} y2={m} stroke="rgba(113,255,116,0.15)" strokeWidth="2" />
+      <line x1="0" y1={m} x2={CONN_W} y2={m} stroke="rgb(var(--secondary) / 0.15)" strokeWidth="2" />
     </svg>
   )
 }
@@ -369,10 +369,10 @@ export default function Tabellone({ isAdmin, bracket, gironi, onActivate, onResu
           <div className="absolute inset-0 bg-gradient-to-t from-[#071530] via-[#0E2044]/70 to-[#0E2044]/40" />
           <div className="relative z-10 flex flex-col items-center text-center max-w-lg">
             <div className="mb-10 p-8 rounded-full bg-[#0E2044]/40 backdrop-blur-md shadow-inner border border-white/5">
-              <span className="material-symbols-outlined text-8xl text-[#77db90]" style={{ fontVariationSettings: "'FILL' 1" }}>emoji_events</span>
+              <span className="material-symbols-outlined text-8xl text-[rgb(var(--primary))]" style={{ fontVariationSettings: "'FILL' 1" }}>emoji_events</span>
             </div>
-            <h2 className="font-headline text-3xl md:text-5xl font-black text-[#dfe3e7] mb-6 tracking-tight leading-none">TABELLONE <span className="text-[#77db90]">FINALE</span></h2>
-            <div className="h-1 w-24 bg-gradient-to-r from-transparent via-[#77db90] to-transparent mb-8" />
+            <h2 className="font-headline text-3xl md:text-5xl font-black text-[#dfe3e7] mb-6 tracking-tight leading-none">TABELLONE <span className="text-[rgb(var(--primary))]">FINALE</span></h2>
+            <div className="h-1 w-24 bg-gradient-to-r from-transparent via-[rgb(var(--primary))] to-transparent mb-8" />
             <p className="font-body text-on-surface/70 text-lg leading-relaxed">Il tabellone sarà disponibile al termine della fase a gironi.</p>
           </div>
         </main>
@@ -388,8 +388,8 @@ export default function Tabellone({ isAdmin, bracket, gironi, onActivate, onResu
         {/* Header */}
         <section>
           <div className="relative h-44 w-full rounded-xl overflow-hidden shadow-2xl">
-            <div className="absolute inset-0 bg-gradient-to-br from-[#003918] to-[#071530]" />
-            <div className="absolute inset-0 opacity-5" style={{ background: 'repeating-linear-gradient(45deg,#77db90 0,#77db90 1px,transparent 1px,transparent 40px)' }} />
+            <div className="absolute inset-0 bg-gradient-to-br from-[rgb(var(--on-primary))] to-[#071530]" />
+            <div className="absolute inset-0 opacity-5" style={{ background: 'repeating-linear-gradient(45deg,rgb(var(--primary)) 0,rgb(var(--primary)) 1px,transparent 1px,transparent 40px)' }} />
             <div className="absolute inset-0 bg-gradient-to-t from-[#0E2044] to-transparent" />
             <div className="absolute bottom-6 left-6">
               <h2 className="font-headline text-4xl font-black italic uppercase tracking-tighter text-white">TABELLONE</h2>
@@ -403,7 +403,7 @@ export default function Tabellone({ isAdmin, bracket, gironi, onActivate, onResu
 
         {/* Champion */}
         {champion && (
-          <div className="bg-gradient-to-r from-[#27F24C]/10 to-[#1DB954]/10 border border-secondary/30 rounded-2xl p-6 text-center">
+          <div className="bg-gradient-to-r from-[rgb(var(--secondary))]/10 to-[rgb(var(--primary-container))]/10 border border-secondary/30 rounded-2xl p-6 text-center">
             <span className="material-symbols-outlined text-5xl text-secondary mb-2" style={{ fontVariationSettings: "'FILL' 1" }}>emoji_events</span>
             <p className="text-[10px] font-bold uppercase tracking-widest text-secondary mb-1">Campioni</p>
             <h3 className="font-headline text-2xl font-black text-white uppercase">{champion.name}</h3>
@@ -426,7 +426,7 @@ export default function Tabellone({ isAdmin, bracket, gironi, onActivate, onResu
               </div>
             </div>
             {!confirmActivate ? (
-              <button onClick={() => setConfirmActivate(true)} disabled={!hasTeams} className="w-full h-12 bg-gradient-to-r from-[#27F24C] to-[#1DB954] text-[#003909] font-headline font-black uppercase tracking-widest text-xs rounded-xl shadow-xl active:scale-[0.98] transition-transform disabled:opacity-30 disabled:pointer-events-none flex items-center justify-center gap-2">
+              <button onClick={() => setConfirmActivate(true)} disabled={!hasTeams} className="w-full h-12 bg-gradient-to-r from-[rgb(var(--secondary))] to-[rgb(var(--primary-container))] text-[rgb(var(--on-secondary))] font-headline font-black uppercase tracking-widest text-xs rounded-xl shadow-xl active:scale-[0.98] transition-transform disabled:opacity-30 disabled:pointer-events-none flex items-center justify-center gap-2">
                 <span className="material-symbols-outlined text-sm">play_arrow</span>Procedi
               </button>
             ) : (
@@ -434,7 +434,7 @@ export default function Tabellone({ isAdmin, bracket, gironi, onActivate, onResu
                 <p className="text-on-surface-variant text-xs text-center">Sei sicuro? Non sarà più possibile aggiungere partite ai gironi.</p>
                 <div className="flex gap-3">
                   <button onClick={() => setConfirmActivate(false)} className="flex-1 h-11 bg-white/5 border border-white/10 text-on-surface font-headline font-bold text-xs uppercase rounded-xl hover:bg-white/10 transition-colors">Annulla</button>
-                  <button onClick={() => { onActivate(); setConfirmActivate(false) }} className="flex-1 h-11 bg-gradient-to-r from-[#27F24C] to-[#1DB954] text-[#003909] font-headline font-black uppercase text-xs rounded-xl active:scale-[0.98] transition-transform flex items-center justify-center gap-2">
+                  <button onClick={() => { onActivate(); setConfirmActivate(false) }} className="flex-1 h-11 bg-gradient-to-r from-[rgb(var(--secondary))] to-[rgb(var(--primary-container))] text-[rgb(var(--on-secondary))] font-headline font-black uppercase text-xs rounded-xl active:scale-[0.98] transition-transform flex items-center justify-center gap-2">
                     <span className="material-symbols-outlined text-sm">check</span>Conferma
                   </button>
                 </div>

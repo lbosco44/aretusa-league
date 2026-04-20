@@ -45,7 +45,7 @@ export default function BottomNav({ isAdmin, bracketActive }) {
           backdropFilter: 'blur(24px)',
           WebkitBackdropFilter: 'blur(24px)',
           boxShadow: scrolled
-            ? '0 -4px 32px rgba(0,0,0,0.4), 0 0 0 1px rgba(113,255,116,0.08), inset 0 -1px 0 rgba(255,255,255,0.05)'
+            ? '0 -4px 32px rgba(0,0,0,0.4), 0 0 0 1px rgb(var(--secondary) / 0.08), inset 0 -1px 0 rgba(255,255,255,0.05)'
             : '0 -8px 30px rgba(0,0,0,0.5)',
           border: scrolled ? '1px solid rgba(255,255,255,0.08)' : 'none',
         }}
@@ -54,7 +54,7 @@ export default function BottomNav({ isAdmin, bracketActive }) {
           const active = to === '/' ? pathname === '/' : pathname.startsWith(to)
           const displayIcon = (to === '/admin' && isAdmin && iconActive) ? iconActive : icon
           return (
-            <Link key={to} to={to} aria-label={label} className={`flex items-center justify-center transition-all ${active ? 'text-[#71ff74] scale-110' : 'text-[#dfe3e7]/60 hover:text-[#77db90]'}`}>
+            <Link key={to} to={to} aria-label={label} className={`flex items-center justify-center transition-all ${active ? 'text-[rgb(var(--secondary))] scale-110' : 'text-[#dfe3e7]/60 hover:text-[rgb(var(--primary))]'}`}>
               <span className="material-symbols-outlined transition-all duration-500" style={{
                 fontSize: scrolled ? '22px' : '26px',
                 ...(active ? { fontVariationSettings: "'FILL' 1" } : {}),

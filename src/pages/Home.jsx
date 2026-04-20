@@ -110,7 +110,7 @@ export default function Home({ matches, teams, isAdmin, bracketActive, level, se
 
       </main>
       {isAdmin && (
-        <Link to="/admin" className="fixed bottom-24 right-4 z-40 bg-gradient-to-r from-[#77db90] to-[#3fa35f] text-on-primary w-14 h-14 rounded-full flex items-center justify-center shadow-xl shadow-primary/30 active:scale-95 transition-all">
+        <Link to="/admin" className="fixed bottom-24 right-4 z-40 bg-gradient-to-r from-[rgb(var(--primary))] to-[rgb(var(--primary-container))] text-on-primary w-14 h-14 rounded-full flex items-center justify-center shadow-xl shadow-primary/30 active:scale-95 transition-all">
           <span className="material-symbols-outlined">admin_panel_settings</span>
         </Link>
       )}
