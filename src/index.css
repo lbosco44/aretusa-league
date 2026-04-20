@@ -88,6 +88,7 @@ body {
 .glass-glider[data-pos="5"] { transform: translateX(500%); }
 .glass-glider[data-pos="6"] { transform: translateX(600%); }
 
+.glass-radio-group[data-count="2"] .glass-glider { width: calc(100% / 2); }
 .glass-radio-group[data-count="3"] .glass-glider { width: calc(100% / 3); }
 .glass-radio-group[data-count="4"] .glass-glider { width: calc(100% / 4); }
 .glass-radio-group[data-count="5"] .glass-glider { width: calc(100% / 5); }
