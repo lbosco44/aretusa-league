@@ -84,10 +84,10 @@ const sections = [
   },
 ]
 
-export default function Regolamento({ isAdmin, bracketActive, level, setLevel }) {
+export default function Regolamento({ isAdmin, bracketActive, level, setLevel, gender, setGender }) {
   return (
     <div className="min-h-screen text-on-surface">
-      <TopAppBar level={level} setLevel={setLevel} />
+      <TopAppBar level={level} setLevel={setLevel} gender={gender} setGender={setGender} />
 
       <main className="pt-24 pb-32 px-4 max-w-3xl mx-auto space-y-6">
         {/* Header */}

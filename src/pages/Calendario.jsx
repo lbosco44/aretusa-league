@@ -34,7 +34,7 @@ function getCalendarDays(year, month) {
 
 const sortMatches = (a, b) => a.date === b.date ? a.ora.localeCompare(b.ora) : a.date.localeCompare(b.date)
 
-export default function Calendario({ matches, setMatches, teams, isAdmin, bracketActive, level, setLevel, gironiList }) {
+export default function Calendario({ matches, setMatches, teams, isAdmin, bracketActive, level, setLevel, gender, setGender, gironiList }) {
   const GIRONI = gironiList || ['A', 'B', 'C']
   const [showAdd, setShowAdd] = useState(false)
   const [resultId, setResultId] = useState(null)
@@ -118,7 +118,7 @@ export default function Calendario({ matches, setMatches, teams, isAdmin, bracke
 
   return (
     <div className="min-h-screen text-on-surface">
-      <TopAppBar level={level} setLevel={setLevel} />
+      <TopAppBar level={level} setLevel={setLevel} gender={gender} setGender={setGender} />
       <main className="pt-24 px-4 max-w-4xl mx-auto space-y-6 pb-32">
         <div>
           <span className="text-secondary font-headline uppercase tracking-[0.2em] text-xs font-bold">Padel League</span>

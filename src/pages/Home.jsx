@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import TopAppBar from '../components/TopAppBar'
 import BottomNav from '../components/BottomNav'
 
-export default function Home({ matches, teams, isAdmin, bracketActive, level, setLevel }) {
+export default function Home({ matches, teams, isAdmin, bracketActive, level, setLevel, gender, setGender }) {
   const now = new Date()
   const pad = n => String(n).padStart(2, '0')
   const todayStr = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`
@@ -16,7 +16,7 @@ export default function Home({ matches, teams, isAdmin, bracketActive, level, se
 
   return (
     <div className="bg-surface text-on-surface font-body min-h-screen">
-      <TopAppBar level={level} setLevel={setLevel} />
+      <TopAppBar level={level} setLevel={setLevel} gender={gender} setGender={setGender} />
       <main className="pt-20 pb-32 px-4 max-w-5xl mx-auto space-y-8">
         <section className="glow-card" style={{ borderRadius: '1.5rem' }}>
           <div className="glow-card-bg relative h-64 flex items-end p-6" style={{ borderRadius: 'calc(1.5rem - 2px)' }}>

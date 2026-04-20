@@ -16,7 +16,7 @@ function fmtDate(ts) {
   return `${day}/${month}/${d.getFullYear()}`
 }
 
-export default function Galleria({ gallery, setGallery, isAdmin, bracketActive, level, setLevel }) {
+export default function Galleria({ gallery, setGallery, isAdmin, bracketActive, level, setLevel, gender, setGender }) {
   const [showUpload, setShowUpload] = useState(false)
   const [lightboxIdx, setLightboxIdx] = useState(null)
   const [deleteConfirm, setDeleteConfirm] = useState(null)
@@ -39,7 +39,7 @@ export default function Galleria({ gallery, setGallery, isAdmin, bracketActive, 
 
   return (
     <div className="min-h-screen text-on-surface">
-      <TopAppBar level={level} setLevel={setLevel} />
+      <TopAppBar level={level} setLevel={setLevel} gender={gender} setGender={setGender} />
 
       <main className="pt-24 pb-32 px-4 max-w-5xl mx-auto space-y-6">
         {/* Header */}

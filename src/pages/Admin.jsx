@@ -2,7 +2,7 @@ import { useState, useRef } from 'react'
 import TopAppBar from '../components/TopAppBar'
 import BottomNav from '../components/BottomNav'
 
-export default function Admin({ teams, setTeams, matches, setMatches, bracket, setBracket, isAdmin, login, logout, bracketActive, level, setLevel, gironiList }) {
+export default function Admin({ teams, setTeams, matches, setMatches, bracket, setBracket, isAdmin, login, logout, bracketActive, level, setLevel, gender, setGender, gironiList }) {
   const GIRONI = gironiList || ['A', 'B', 'C']
   const [player1, setPlayer1] = useState('')
   const [player2, setPlayer2] = useState('')
@@ -116,7 +116,7 @@ export default function Admin({ teams, setTeams, matches, setMatches, bracket, s
   if (!isAdmin) {
     return (
       <div className="min-h-screen text-on-surface">
-        <TopAppBar level={level} setLevel={setLevel} />
+        <TopAppBar level={level} setLevel={setLevel} gender={gender} setGender={setGender} />
         <main className="pt-24 pb-32 px-4 max-w-md mx-auto flex flex-col items-center justify-center min-h-[70vh]">
           <div className="w-full bg-[#152040] rounded-2xl border border-white/5 overflow-hidden">
             <div className="p-6 border-b border-white/10 bg-[#254E8F]/40 text-center">
@@ -162,7 +162,7 @@ export default function Admin({ teams, setTeams, matches, setMatches, bracket, s
   // Admin panel
   return (
     <div className="min-h-screen text-on-surface">
-      <TopAppBar level={level} setLevel={setLevel} center={
+      <TopAppBar level={level} setLevel={setLevel} gender={gender} setGender={setGender} center={
         <button onClick={logout} className="flex items-center gap-1.5 bg-red-500/20 border border-red-500/30 text-red-400 font-headline font-bold px-3 py-1.5 rounded-full text-[11px] uppercase tracking-widest active:scale-95 transition-all">
           <span className="material-symbols-outlined" style={{ fontSize: '14px' }}>logout</span>
           Esci

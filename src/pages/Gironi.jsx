@@ -3,7 +3,7 @@ import TopAppBar from '../components/TopAppBar'
 import BottomNav from '../components/BottomNav'
 import GroupTable from '../components/GroupTable'
 
-export default function Gironi({ gironi, isAdmin, bracketActive, level, setLevel, gironiList }) {
+export default function Gironi({ gironi, isAdmin, bracketActive, level, setLevel, gender, setGender, gironiList }) {
   const GIRONI = gironiList || ['A', 'B', 'C']
   const [active, setActive] = useState(GIRONI[0])
   const totalTeams = Object.values(gironi).flat().length
@@ -15,7 +15,7 @@ export default function Gironi({ gironi, isAdmin, bracketActive, level, setLevel
 
   return (
     <div className="min-h-screen text-on-surface">
-      <TopAppBar level={level} setLevel={setLevel} />
+      <TopAppBar level={level} setLevel={setLevel} gender={gender} setGender={setGender} />
       <main className="pt-24 pb-32 px-4 max-w-5xl mx-auto">
         <section className="mb-8">
           <div className="glow-card">
