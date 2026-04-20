@@ -34,7 +34,7 @@ export default function TopAppBar({ level = 'A', setLevel, center = null }) {
         }}
       >
         <img
-          src="/logo-white.png"
+          src="/nuovo-logo-white.png"
           alt="Aretusa League"
           className="w-auto object-contain transition-all duration-500 relative z-10"
           style={{ height: scrolled ? '28px' : '36px' }}
