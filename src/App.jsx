@@ -89,7 +89,7 @@ function buildGironi(teams, matches) {
   return gironi
 }
 
-function generateBracket(gironi, level) {
+function generateBracket(gironi, level, gender) {
   const allTeams = []
   for (const [g, list] of Object.entries(gironi)) {
     list.forEach(t => allTeams.push({ name: t.name, abbr: t.abbr, club: t.club, girone: g, pos: t.pos, pts: t.pts, sp: t.sp, sm: t.sm }))
@@ -98,6 +98,40 @@ function generateBracket(gironi, level) {
 
   const t = (team, seed) => team ? { name: team.name, abbr: team.abbr, club: team.club, seed, seedLabel: `${team.pos}°${team.girone}` } : null
   const m = (casa, ospite) => ({ casa, ospite, score: null, sets: null, played: false, winner: null })
+
+  // 10-team bracket femminile (2 gironi × 5): 2 primi → bye in semifinale,
+  // 2°/3°/4°/5° di ogni girone giocano primo turno e quarti intra-girone,
+  // poi SF cross-girone e finale.
+  if (gender === 'F') {
+    if (allTeams.length < 10) return EMPTY_BRACKET
+    const gKeys = Object.keys(gironi)
+    if (gKeys.length !== 2 || !gKeys.every(g => gironi[g].length === 5)) {
+      return EMPTY_BRACKET
+    }
+    const withG = (team, gg) => ({ ...team, girone: gg })
+    const [gA, gB] = gKeys
+    const A = gironi[gA].map(x => withG(x, gA))
+    const B = gironi[gB].map(x => withG(x, gB))
+    return {
+      active: true,
+      size: 10,
+      rounds: [
+        // PT: 4 match intra-girone (2°A+4°A, 3°A+5°A, 2°B+4°B, 3°B+5°B)
+        [
+          m(t(A[1], null), t(A[3], null)),
+          m(t(A[2], null), t(A[4], null)),
+          m(t(B[1], null), t(B[3], null)),
+          m(t(B[2], null), t(B[4], null)),
+        ],
+        // QF: 2 match intra-girone (vincenti di coppie PT)
+        [m(null, null), m(null, null)],
+        // SF: bye (1°) casa + vincente QF ospite
+        [m(t(A[0], null), null), m(t(B[0], null), null)],
+        // F
+        [m(null, null)],
+      ]
+    }
+  }
 
   // 24-team bracket per Livello B (6 gironi × 4): 6 primi + 2 migliori 2° ai bye,
   // altre 16 squadre al Primo Turno.
@@ -263,9 +297,16 @@ function advanceBracket(bracket, roundIdx, matchIdx, result) {
   // Last round has no next
   if (roundIdx >= totalRounds - 1) return next
 
-  // PT → next round (R16 per 24-team, QF per 12-team): 1:1 mapping a .ospite
-  if (roundIdx === 0) {
-    next.rounds[1][matchIdx].ospite = winner
+  // Round con bye feeder: winner va nell'`.ospite` del prossimo round (stesso matchIdx).
+  // - 10-team (F): QF → SF (roundIdx 1). PT → QF usa halving standard.
+  // - 12-team (A/C): PT → QF (roundIdx 0).
+  // - 24-team (B): R1 → R16 (roundIdx 0).
+  const isByeFeeder =
+    (bracket.size === 10 && roundIdx === 1) ||
+    (bracket.size === 12 && roundIdx === 0) ||
+    (bracket.size === 24 && roundIdx === 0)
+  if (isByeFeeder) {
+    next.rounds[roundIdx + 1][matchIdx].ospite = winner
     return next
   }
 
@@ -432,7 +473,7 @@ export default function App() {
   }
 
   function activateTabellone() {
-    const newBracket = generateBracket(gironi, level)
+    const newBracket = generateBracket(gironi, level, gender)
     syncBracket(newBracket)
   }
 
