@@ -48,19 +48,21 @@ function SimpleConn({ h }) {
   )
 }
 
-function TeamRow({ team, label, score, won, lost }) {
+function TeamRow({ team, label, score, won, lost, isBye }) {
   const name = team?.name || label || 'Da definire'
   const abbr = team?.abbr || (label ? label.slice(0, 2) : '?')
   const ok = !!team || !!label
+  const bgCls = won ? 'bg-secondary/10' : isBye ? 'bg-secondary/25' : ''
   return (
-    <div className={`flex items-center justify-between px-2 py-1 ${won ? 'bg-secondary/10' : ''}`}>
+    <div className={`flex items-center justify-between px-2 py-1 ${bgCls}`}>
       <div className="flex items-center gap-1.5 min-w-0 flex-1">
         <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[7px] font-bold shrink-0 ${
-          won ? 'bg-secondary/20 text-secondary' : lost ? 'bg-red-500/10 text-red-400/40' : ok ? 'bg-[#2d5aa0] text-on-surface-variant/60' : 'bg-[#071530] text-white/10'
+          won ? 'bg-secondary/20 text-secondary' : lost ? 'bg-red-500/10 text-red-400/40' : isBye ? 'bg-secondary/40 text-secondary' : ok ? 'bg-[#2d5aa0] text-on-surface-variant/60' : 'bg-[#071530] text-white/10'
         }`}>{abbr}</span>
         <span className={`text-[10px] font-semibold truncate ${
-          won ? 'text-white' : lost ? 'text-on-surface-variant/25 line-through' : ok ? 'text-on-surface/70' : 'text-on-surface-variant/20 italic'
+          won ? 'text-white' : lost ? 'text-on-surface-variant/25 line-through' : isBye ? 'text-white' : ok ? 'text-on-surface/70' : 'text-on-surface-variant/20 italic'
         }`}>{name}</span>
+        {isBye && <span className="text-[7px] font-black text-secondary bg-secondary/30 px-1 py-0.5 rounded uppercase tracking-wider shrink-0">BYE</span>}
       </div>
       {score != null && <span className={`text-[11px] font-black ml-1 shrink-0 ${won ? 'text-secondary' : 'text-on-surface-variant/25'}`}>{score}</span>}
     </div>
@@ -73,13 +75,7 @@ function MatchCard({ casa, ospite, score, played, winner, isAdmin, onResult, cas
   const canPlay = (casa || casaLabel) && (ospite || ospiteLabel) && !played && casa && ospite
   return (
     <div className={`bg-[#152040] rounded-lg border overflow-hidden ${played ? 'border-secondary/20' : 'border-white/10'}`} style={{ width: CARD_W }}>
-      {byeCasa && (
-        <div className="bg-secondary/15 border-b border-secondary/30 px-2 py-0.5 flex items-center justify-center gap-1">
-          <span className="material-symbols-outlined text-secondary text-[10px]" style={{ fontVariationSettings: "'FILL' 1" }}>bolt</span>
-          <span className="text-secondary text-[8px] font-black uppercase tracking-widest">Bye — passa direttamente</span>
-        </div>
-      )}
-      <TeamRow team={casa} label={casaLabel} score={played ? score?.split('-')[0] : null} won={cW} lost={oW} />
+      <TeamRow team={casa} label={casaLabel} score={played ? score?.split('-')[0] : null} won={cW} lost={oW} isBye={byeCasa} />
       <div className="h-px bg-white/5" />
       <TeamRow team={ospite} label={ospiteLabel} score={played ? score?.split('-')[1] : null} won={oW} lost={cW} />
       {isAdmin && canPlay && (
