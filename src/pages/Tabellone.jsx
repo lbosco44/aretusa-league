@@ -39,6 +39,15 @@ function SvgConn({ h }) {
   )
 }
 
+function SimpleConn({ h }) {
+  const m = h / 2
+  return (
+    <svg width={CONN_W} height={h} className="block">
+      <line x1="0" y1={m} x2={CONN_W} y2={m} stroke="rgba(113,255,116,0.15)" strokeWidth="2" />
+    </svg>
+  )
+}
+
 function TeamRow({ team, label, score, won, lost }) {
   const name = team?.name || label || 'Da definire'
   const abbr = team?.abbr || (label ? label.slice(0, 2) : '?')
@@ -58,12 +67,18 @@ function TeamRow({ team, label, score, won, lost }) {
   )
 }
 
-function MatchCard({ casa, ospite, score, played, winner, isAdmin, onResult, casaLabel, ospiteLabel }) {
+function MatchCard({ casa, ospite, score, played, winner, isAdmin, onResult, casaLabel, ospiteLabel, byeCasa }) {
   const cW = played && winner === 'casa'
   const oW = played && winner === 'ospite'
   const canPlay = (casa || casaLabel) && (ospite || ospiteLabel) && !played && casa && ospite
   return (
     <div className={`bg-[#152040] rounded-lg border overflow-hidden ${played ? 'border-secondary/20' : 'border-white/10'}`} style={{ width: CARD_W }}>
+      {byeCasa && (
+        <div className="bg-secondary/15 border-b border-secondary/30 px-2 py-0.5 flex items-center justify-center gap-1">
+          <span className="material-symbols-outlined text-secondary text-[10px]" style={{ fontVariationSettings: "'FILL' 1" }}>bolt</span>
+          <span className="text-secondary text-[8px] font-black uppercase tracking-widest">Bye — passa direttamente</span>
+        </div>
+      )}
       <TeamRow team={casa} label={casaLabel} score={played ? score?.split('-')[0] : null} won={cW} lost={oW} />
       <div className="h-px bg-white/5" />
       <TeamRow team={ospite} label={ospiteLabel} score={played ? score?.split('-')[1] : null} won={oW} lost={cW} />
@@ -128,16 +143,9 @@ function Bracket12({ bracket, isActive, isAdmin, onResultClick }) {
 
       <div style={gridStyle}>
         {[0, 1, 2, 3].map(i => {
-          const byeRow = 2 * i + 1
-          const ptRow = 2 * i + 2
-          const byeTeam = isActive ? qf[i]?.casa : null
-          const byeLabel = !isActive ? PREVIEW_BYES_12[i] : null
           const ptMatch = isActive ? pt[i] : null
-          return [
-            <div key={`bye${i}`} style={cell(byeRow, 1, 1)}>
-              <ByeSlot team={byeTeam} label={byeLabel} hint="Bye → Quarti" />
-            </div>,
-            <div key={`pt${i}`} style={cell(ptRow, 1, 1)}>
+          return (
+            <div key={`pt${i}`} style={cell(2 * i + 1, 2, 1)}>
               <MatchCard
                 casa={ptMatch?.casa} ospite={ptMatch?.ospite}
                 casaLabel={!isActive ? PREVIEW_PT_12[i][0] : null}
@@ -145,11 +153,11 @@ function Bracket12({ bracket, isActive, isAdmin, onResultClick }) {
                 score={ptMatch?.score} played={ptMatch?.played} winner={ptMatch?.winner}
                 isAdmin={isAdmin} onResult={() => onResultClick(0, i)}
               />
-            </div>,
-          ]
+            </div>
+          )
         })}
         {[0, 1, 2, 3].map(i => (
-          <div key={`c1_${i}`} style={cell(2 * i + 1, 2, 2)}><SvgConn h={ROW_H * 2} /></div>
+          <div key={`c1_${i}`} style={cell(2 * i + 1, 2, 2)}><SimpleConn h={ROW_H * 2} /></div>
         ))}
         {[0, 1, 2, 3].map(i => {
           const m = isActive ? qf[i] : null
@@ -160,6 +168,7 @@ function Bracket12({ bracket, isActive, isAdmin, onResultClick }) {
                 casaLabel={!isActive ? PREVIEW_BYES_12[i] : null}
                 ospiteLabel={!isActive ? `Vinc. PT${i + 1}` : null}
                 score={m?.score} played={m?.played} winner={m?.winner}
+                byeCasa={!m?.played}
                 isAdmin={isAdmin} onResult={() => onResultClick(1, i)}
               />
             </div>
@@ -228,19 +237,13 @@ function Bracket24({ bracket, isActive, isAdmin, onResultClick }) {
       </div>
 
       <div style={gridStyle}>
-        {/* Entry column: 8 byes + 8 R1 matches interleaved per R16 slot */}
+        {/* Entry column: 8 R1 matches (no BYE — bye visible in R16) */}
         {[0, 1, 2, 3, 4, 5, 6, 7].map(i => {
-          const byeRow = 2 * i + 1
-          const r1Row = 2 * i + 2
           const r1Idx = R16_TO_R1_MAP[i]
-          const byeTeam = isActive ? r16[i]?.casa : null
           const r1Match = isActive ? r1[r1Idx] : null
           const r1P = r1Preview(r1Idx)
-          return [
-            <div key={`bye${i}`} style={cell(byeRow, 1, 1)}>
-              <ByeSlot team={byeTeam} label={!isActive ? byePreview(i) : null} hint="Bye → Ottavi" />
-            </div>,
-            <div key={`r1_${i}`} style={cell(r1Row, 1, 1)}>
+          return (
+            <div key={`r1_${i}`} style={cell(2 * i + 1, 2, 1)}>
               <MatchCard
                 casa={r1Match?.casa} ospite={r1Match?.ospite}
                 casaLabel={!isActive ? r1P[0] : null}
@@ -248,13 +251,13 @@ function Bracket24({ bracket, isActive, isAdmin, onResultClick }) {
                 score={r1Match?.score} played={r1Match?.played} winner={r1Match?.winner}
                 isAdmin={isAdmin} onResult={() => onResultClick(0, r1Idx)}
               />
-            </div>,
-          ]
+            </div>
+          )
         })}
 
-        {/* Connectors entries → R16 */}
+        {/* Connectors entries → R16 (1:1 mapping, simple line) */}
         {[0, 1, 2, 3, 4, 5, 6, 7].map(i => (
-          <div key={`c1_${i}`} style={cell(2 * i + 1, 2, 2)}><SvgConn h={ROW_H * 2} /></div>
+          <div key={`c1_${i}`} style={cell(2 * i + 1, 2, 2)}><SimpleConn h={ROW_H * 2} /></div>
         ))}
 
         {/* R16 column: 8 matches */}
@@ -268,6 +271,7 @@ function Bracket24({ bracket, isActive, isAdmin, onResultClick }) {
                 casaLabel={seedLabel}
                 ospiteLabel={!isActive ? `Vinc. R1` : null}
                 score={m?.score} played={m?.played} winner={m?.winner}
+                byeCasa={!m?.played}
                 isAdmin={isAdmin} onResult={() => onResultClick(1, i)}
               />
             </div>
