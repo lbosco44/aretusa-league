@@ -8,11 +8,11 @@ export default function GroupTable({ rows }) {
               <th className="px-4 py-2">#</th>
               <th className="px-4 py-2">Coppia</th>
               <th className="px-4 py-2 text-center">PG</th>
+              <th className="px-4 py-2 text-center text-secondary">Pts</th>
               <th className="px-4 py-2 text-center">V</th>
               <th className="px-4 py-2 text-center">P</th>
               <th className="px-4 py-2 text-center">S+</th>
               <th className="px-4 py-2 text-center">S-</th>
-              <th className="px-4 py-2 text-center text-secondary">Pts</th>
             </tr>
           </thead>
           <tbody className="text-sm font-medium">
@@ -33,11 +33,11 @@ export default function GroupTable({ rows }) {
                     </div>
                   </td>
                   <td className="px-4 py-4 text-center text-on-surface-variant">{r.pg}</td>
+                  <td className={`px-4 py-4 text-center font-headline font-black text-lg ${isFirst ? 'text-secondary' : 'text-on-surface'}`}>{r.pts}</td>
                   <td className="px-4 py-4 text-center text-on-surface-variant">{r.v}</td>
                   <td className="px-4 py-4 text-center text-on-surface-variant">{r.p}</td>
                   <td className="px-4 py-4 text-center text-on-surface-variant">{r.sp}</td>
                   <td className="px-4 py-4 text-center text-on-surface-variant">{r.sm}</td>
-                  <td className={`px-4 py-4 text-center font-headline font-black text-lg ${isFirst ? 'text-secondary' : 'text-on-surface'}`}>{r.pts}</td>
                 </tr>
               )
             })}

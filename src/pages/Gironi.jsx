@@ -2,8 +2,9 @@ import { useState } from 'react'
 import TopAppBar from '../components/TopAppBar'
 import BottomNav from '../components/BottomNav'
 import GroupTable from '../components/GroupTable'
+import MatchCard from '../components/MatchCard'
 
-export default function Gironi({ gironi, isAdmin, bracketActive, level, setLevel, gender, setGender, gironiList }) {
+export default function Gironi({ gironi, matches = [], isAdmin, bracketActive, level, setLevel, gender, setGender, gironiList }) {
   const GIRONI = gironiList || ['A', 'B', 'C']
   const [active, setActive] = useState(GIRONI[0])
   const totalTeams = Object.values(gironi).flat().length
@@ -47,6 +48,25 @@ export default function Gironi({ gironi, isAdmin, bracketActive, level, setLevel
             <p className="text-on-surface-variant/30 text-xs mt-1">Vai al pannello Admin per aggiungere le coppie</p>
           </div>
         )}
+
+        {/* Ultimi incontri del girone attivo */}
+        {(() => {
+          const recent = matches
+            .filter(m => m.girone === active && m.played)
+            .sort((a, b) => a.date === b.date ? b.ora.localeCompare(a.ora) : b.date.localeCompare(a.date))
+          if (recent.length === 0) return null
+          return (
+            <section className="mt-8 space-y-4">
+              <h3 className="font-headline text-lg font-bold tracking-tight uppercase text-secondary px-2">Ultimi Incontri</h3>
+              <div className="space-y-3">
+                {recent.map(m => (
+                  <MatchCard key={m.id} match={m} isAdmin={false} />
+                ))}
+              </div>
+            </section>
+          )
+        })()}
+
         <div className="mt-8">
           <div className="bg-[#152040] p-6 rounded-2xl flex items-center gap-4 border border-secondary/10">
             <div className="w-12 h-12 rounded-xl bg-secondary/10 border border-secondary/30 flex items-center justify-center shrink-0">

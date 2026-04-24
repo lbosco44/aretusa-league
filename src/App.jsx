@@ -491,7 +491,7 @@ export default function App() {
   return (
     <Routes>
       <Route path="/" element={<Home matches={matches} teams={teams} {...commonProps} />} />
-      <Route path="/gironi" element={<Gironi gironi={gironi} {...commonProps} />} />
+      <Route path="/gironi" element={<Gironi gironi={gironi} matches={matches} {...commonProps} />} />
       <Route path="/calendario" element={<Calendario matches={matches} setMatches={syncMatches} teams={teams} {...commonProps} />} />
       <Route path="/tabellone" element={
         <Tabellone
