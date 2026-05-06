@@ -215,7 +215,7 @@ function Bracket10({ bracket, isActive, isAdmin, onResultClick }) {
   )
 }
 
-function Bracket12({ bracket, isActive, isAdmin, onResultClick }) {
+function Bracket12({ bracket, isActive, isAdmin, onResultClick, level }) {
   const ROW_H = ROW_H_12
   const TOTAL_W = CARD_W * 4 + CONN_W * 3
   const pt = isActive ? bracket.rounds[0] : null
@@ -552,7 +552,7 @@ export default function Tabellone({ isAdmin, bracket, gironi, onActivate, onResu
           ? <Bracket10 bracket={bracket} isActive={isActive} isAdmin={isAdmin} onResultClick={onResultClick} />
           : is24
             ? <Bracket24 bracket={bracket} isActive={isActive} isAdmin={isAdmin} onResultClick={onResultClick} />
-            : <Bracket12 bracket={bracket} isActive={isActive} isAdmin={isAdmin} onResultClick={onResultClick} />}
+            : <Bracket12 bracket={bracket} isActive={isActive} isAdmin={isAdmin} onResultClick={onResultClick} level={level} />}
 
         {/* Legend */}
         <div className="bg-[#152040] rounded-2xl border border-white/5 p-4">
