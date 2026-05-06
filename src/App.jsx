@@ -263,17 +263,20 @@ function generateBracket(gironi, level, gender) {
       for (const qp of permute(quarti)) {
         // Livello C: PT1=3°+3°, PT2=2°+4° (come da tabellone fisico)
         // Livello A: PT1=2°+4°, PT2=3°+3°
-        const pairs = level === 'C' ? [
+        // Livello A e C: PT1=3°+3°, PT2=2°+4°, PT3=3°+4°, PT4=2°+4°
+        const pairsA = [
           [tp[0], tp[1]],  // PT1: 3° + 3°
           [a2p[0], qp[0]], // PT2: 2° + 4°
           [tp[2], qp[1]],  // PT3: 3° + 4°
           [a2p[1], qp[2]], // PT4: 2° + 4°
-        ] : [
-          [a2p[0], qp[0]], // PT1: 2° + 4°
-          [tp[0], tp[1]],  // PT2: 3° + 3°
+        ]
+        const pairsC = [
+          [tp[0], tp[1]],  // PT1: 3° + 3°
+          [a2p[0], qp[0]], // PT2: 2° + 4°
           [tp[2], qp[1]],  // PT3: 3° + 4°
           [a2p[1], qp[2]], // PT4: 2° + 4°
         ]
+        const pairs = level === 'C' ? pairsC : pairsA
         const hardOk = pairs.every(([x, y]) => x.girone !== y.girone)
         if (!hardOk) continue
         const softOk = pairs.every(([x, y], i) =>
