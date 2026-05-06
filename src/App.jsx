@@ -83,7 +83,22 @@ function buildGironi(teams, matches) {
         ...stats,
         pts: stats.sp,
       }
-    }).sort((a, b) => b.pts - a.pts || (b.sp - b.sm) - (a.sp - a.sm))
+    }).sort((a, b) => {
+        if (b.pts !== a.pts) return b.pts - a.pts
+        const h2h = matches.find(m =>
+          m.girone === girone && m.played &&
+          ((m.casa.name === a.name && m.ospite.name === b.name) ||
+           (m.casa.name === b.name && m.ospite.name === a.name))
+        )
+        if (h2h) {
+          const [cs, os] = (h2h.score || '0-0').split('-').map(Number)
+          const aWins = (h2h.casa.name === a.name && cs > os) || (h2h.ospite.name === a.name && os > cs)
+          const bWins = (h2h.casa.name === b.name && cs > os) || (h2h.ospite.name === b.name && os > cs)
+          if (aWins) return -1
+          if (bWins) return 1
+        }
+        return (b.sp - b.sm) - (a.sp - a.sm)
+      })
       .map((r, i) => ({ ...r, pos: i + 1 }))
   }
   return gironi
