@@ -11,9 +11,10 @@ const CONN_W = 28
 // Bracket 12 squadre (Livello A / C): 4 round
 const LABELS_12 = ['Primo Turno', 'Quarti', 'Semifinali', 'Finale']
 const PREVIEW_BYES_12 = ['1°', '2° migliore', '1°', '1°']
-const PREVIEW_PT_12 = [
-  ['2°', '4°'], ['3°', '3°'], ['3°', '4°'], ['2°', '4°']
-]
+const PREVIEW_PT_12 = {
+  A: [['2°', '4°'], ['3°', '3°'], ['3°', '4°'], ['2°', '4°']],
+  C: [['3°', '3°'], ['2°', '4°'], ['3°', '4°'], ['2°', '4°']],
+}
 
 // Bracket 10 squadre (Femminile): 4 round (PT → QF → SF con bye → F)
 const LABELS_10 = ['Primo Turno', 'Quarti', 'Semifinali', 'Finale']
@@ -246,8 +247,8 @@ function Bracket12({ bracket, isActive, isAdmin, onResultClick }) {
             <div key={`pt${i}`} style={cell(2 * i + 1, 2, 1)}>
               <MatchCard
                 casa={ptMatch?.casa} ospite={ptMatch?.ospite}
-                casaLabel={!isActive ? PREVIEW_PT_12[i][0] : null}
-                ospiteLabel={!isActive ? PREVIEW_PT_12[i][1] : null}
+                casaLabel={!isActive ? (PREVIEW_PT_12[level] ?? PREVIEW_PT_12.A)[i][0] : null}
+                ospiteLabel={!isActive ? (PREVIEW_PT_12[level] ?? PREVIEW_PT_12.A)[i][1] : null}
                 score={ptMatch?.score} played={ptMatch?.played} winner={ptMatch?.winner}
                 isAdmin={isAdmin} onResult={() => onResultClick(0, i)}
               />
