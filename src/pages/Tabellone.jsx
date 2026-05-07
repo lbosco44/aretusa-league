@@ -75,16 +75,21 @@ function TeamRow({ team, label, score, won, lost, isBye }) {
   )
 }
 
-function MatchCard({ casa, ospite, score, played, winner, isAdmin, onResult, casaLabel, ospiteLabel, byeCasa }) {
+function MatchCard({ casa, ospite, score, played, winner, isAdmin, onResult, casaLabel, ospiteLabel, byeCasa,
+  swapMode, casaSelected, ospiteSelected, onSwapCasa, onSwapOspite }) {
   const cW = played && winner === 'casa'
   const oW = played && winner === 'ospite'
   const canPlay = (casa || casaLabel) && (ospite || ospiteLabel) && !played && casa && ospite
   return (
-    <div className={`bg-[#152040] rounded-lg border overflow-hidden ${played ? 'border-secondary/20' : 'border-white/10'}`} style={{ width: CARD_W }}>
-      <TeamRow team={casa} label={casaLabel} score={played ? score?.split('-')[0] : null} won={cW} lost={oW} isBye={byeCasa} />
+    <div className={`bg-[#152040] rounded-lg border overflow-hidden ${swapMode ? 'border-secondary/40' : played ? 'border-secondary/20' : 'border-white/10'}`} style={{ width: CARD_W }}>
+      <div onClick={onSwapCasa} className={onSwapCasa ? `cursor-pointer transition-colors ${casaSelected ? 'bg-secondary/30' : 'hover:bg-secondary/10'}` : ''}>
+        <TeamRow team={casa} label={casaLabel} score={played ? score?.split('-')[0] : null} won={cW} lost={oW} isBye={byeCasa} />
+      </div>
       <div className="h-px bg-white/5" />
-      <TeamRow team={ospite} label={ospiteLabel} score={played ? score?.split('-')[1] : null} won={oW} lost={cW} />
-      {isAdmin && canPlay && (
+      <div onClick={onSwapOspite} className={onSwapOspite ? `cursor-pointer transition-colors ${ospiteSelected ? 'bg-secondary/30' : 'hover:bg-secondary/10'}` : ''}>
+        <TeamRow team={ospite} label={ospiteLabel} score={played ? score?.split('-')[1] : null} won={oW} lost={cW} />
+      </div>
+      {isAdmin && canPlay && !swapMode && (
         <button onClick={onResult} className="w-full py-1 bg-secondary/10 border-t border-secondary/20 text-secondary text-[8px] font-bold uppercase tracking-wider hover:bg-secondary/20 transition-colors flex items-center justify-center gap-1">
           <span className="material-symbols-outlined text-[10px]" style={{ fontVariationSettings: "'FILL' 1" }}>edit_note</span>
           Risultato
@@ -215,13 +220,15 @@ function Bracket10({ bracket, isActive, isAdmin, onResultClick }) {
   )
 }
 
-function Bracket12({ bracket, isActive, isAdmin, onResultClick, level }) {
+function Bracket12({ bracket, isActive, isAdmin, onResultClick, level, swapMode, swapSrc, onSwapClick }) {
   const ROW_H = ROW_H_12
   const TOTAL_W = CARD_W * 4 + CONN_W * 3
   const pt = isActive ? bracket.rounds[0] : null
   const qf = isActive ? bracket.rounds[1] : null
   const sf = isActive ? bracket.rounds[2] : null
   const fi = isActive ? bracket.rounds[3]?.[0] : null
+  const sel = (r, m, s) => swapMode && swapSrc?.round === r && swapSrc?.match === m && swapSrc?.side === s
+  const swapH = (r, m, s) => (swapMode && isActive) ? () => onSwapClick(r, m, s) : undefined
 
   const gridStyle = {
     display: 'grid',
@@ -251,6 +258,8 @@ function Bracket12({ bracket, isActive, isAdmin, onResultClick, level }) {
                 ospiteLabel={!isActive ? (PREVIEW_PT_12[level] ?? PREVIEW_PT_12.A)[i][1] : null}
                 score={ptMatch?.score} played={ptMatch?.played} winner={ptMatch?.winner}
                 isAdmin={isAdmin} onResult={() => onResultClick(0, i)}
+                swapMode={swapMode} casaSelected={sel(0, i, 'casa')} ospiteSelected={sel(0, i, 'ospite')}
+                onSwapCasa={swapH(0, i, 'casa')} onSwapOspite={swapH(0, i, 'ospite')}
               />
             </div>
           )
@@ -269,6 +278,8 @@ function Bracket12({ bracket, isActive, isAdmin, onResultClick, level }) {
                 score={m?.score} played={m?.played} winner={m?.winner}
                 byeCasa={!m?.played}
                 isAdmin={isAdmin} onResult={() => onResultClick(1, i)}
+                swapMode={swapMode} casaSelected={sel(1, i, 'casa')}
+                onSwapCasa={swapH(1, i, 'casa')}
               />
             </div>
           )
@@ -305,7 +316,7 @@ function Bracket12({ bracket, isActive, isAdmin, onResultClick, level }) {
   )
 }
 
-function Bracket24({ bracket, isActive, isAdmin, onResultClick }) {
+function Bracket24({ bracket, isActive, isAdmin, onResultClick, swapMode, swapSrc, onSwapClick }) {
   const ROW_H = ROW_H_24
   const TOTAL_W = CARD_W * 5 + CONN_W * 4
   const r1 = isActive ? bracket.rounds[0] : null
@@ -313,6 +324,8 @@ function Bracket24({ bracket, isActive, isAdmin, onResultClick }) {
   const qf = isActive ? bracket.rounds[2] : null
   const sf = isActive ? bracket.rounds[3] : null
   const fi = isActive ? bracket.rounds[4]?.[0] : null
+  const sel = (r, m, s) => swapMode && swapSrc?.round === r && swapSrc?.match === m && swapSrc?.side === s
+  const swapH = (r, m, s) => (swapMode && isActive) ? () => onSwapClick(r, m, s) : undefined
 
   const gridStyle = {
     display: 'grid',
@@ -349,6 +362,8 @@ function Bracket24({ bracket, isActive, isAdmin, onResultClick }) {
                 ospiteLabel={!isActive ? r1P[1] : null}
                 score={r1Match?.score} played={r1Match?.played} winner={r1Match?.winner}
                 isAdmin={isAdmin} onResult={() => onResultClick(0, r1Idx)}
+                swapMode={swapMode} casaSelected={sel(0, r1Idx, 'casa')} ospiteSelected={sel(0, r1Idx, 'ospite')}
+                onSwapCasa={swapH(0, r1Idx, 'casa')} onSwapOspite={swapH(0, r1Idx, 'ospite')}
               />
             </div>
           )
@@ -372,6 +387,8 @@ function Bracket24({ bracket, isActive, isAdmin, onResultClick }) {
                 score={m?.score} played={m?.played} winner={m?.winner}
                 byeCasa={!m?.played}
                 isAdmin={isAdmin} onResult={() => onResultClick(1, i)}
+                swapMode={swapMode} casaSelected={sel(1, i, 'casa')}
+                onSwapCasa={swapH(1, i, 'casa')}
               />
             </div>
           )
@@ -437,10 +454,22 @@ function Bracket24({ bracket, isActive, isAdmin, onResultClick }) {
   )
 }
 
-export default function Tabellone({ isAdmin, bracket, gironi, onActivate, onResult, level, setLevel, gender, setGender }) {
+export default function Tabellone({ isAdmin, bracket, gironi, onActivate, onResult, onSwap, level, setLevel, gender, setGender }) {
   const [resultTarget, setResultTarget] = useState(null)
   const [confirmActivate, setConfirmActivate] = useState(false)
+  const [swapMode, setSwapMode] = useState(false)
+  const [swapSrc, setSwapSrc] = useState(null)
   const isActive = bracket.active
+  const noResultsYet = isActive && bracket.rounds?.[0] && !bracket.rounds[0].some(m => m.played)
+
+  function handleSwapClick(round, match, side) {
+    if (!swapSrc) { setSwapSrc({ round, match, side }); return }
+    if (swapSrc.round === round && swapSrc.match === match && swapSrc.side === side) { setSwapSrc(null); return }
+    onSwap(swapSrc, { round, match, side })
+    setSwapSrc(null)
+  }
+
+  function toggleSwapMode() { setSwapMode(m => !m); setSwapSrc(null) }
   const totalTeams = Object.values(gironi).flat().length
 
   // Seleziona renderer: 10 (F) / 24 (M-B) / 12 (M-A/C)
@@ -547,12 +576,26 @@ export default function Tabellone({ isAdmin, bracket, gironi, onActivate, onResu
           </div>
         )}
 
+        {/* Swap mode toggle */}
+        {isAdmin && noResultsYet && (
+          <div className="flex items-center justify-between bg-[#152040] rounded-2xl border border-white/5 px-4 py-3">
+            <div className="flex items-center gap-2">
+              <span className="material-symbols-outlined text-secondary text-sm">swap_horiz</span>
+              <span className="text-xs font-bold uppercase text-on-surface-variant tracking-widest">Abbinamenti</span>
+              {swapMode && <span className="text-[10px] text-secondary/70">{swapSrc ? 'Seleziona la seconda squadra' : 'Tocca una squadra'}</span>}
+            </div>
+            <button onClick={toggleSwapMode} className={`px-3 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-colors ${swapMode ? 'bg-secondary/20 text-secondary border border-secondary/40' : 'bg-white/5 border border-white/10 text-on-surface-variant hover:bg-white/10'}`}>
+              {swapMode ? 'Fine' : 'Modifica'}
+            </button>
+          </div>
+        )}
+
         {/* Bracket */}
         {is10
           ? <Bracket10 bracket={bracket} isActive={isActive} isAdmin={isAdmin} onResultClick={onResultClick} />
           : is24
-            ? <Bracket24 bracket={bracket} isActive={isActive} isAdmin={isAdmin} onResultClick={onResultClick} />
-            : <Bracket12 bracket={bracket} isActive={isActive} isAdmin={isAdmin} onResultClick={onResultClick} level={level} />}
+            ? <Bracket24 bracket={bracket} isActive={isActive} isAdmin={isAdmin} onResultClick={onResultClick} swapMode={swapMode} swapSrc={swapSrc} onSwapClick={handleSwapClick} />
+            : <Bracket12 bracket={bracket} isActive={isActive} isAdmin={isAdmin} onResultClick={onResultClick} level={level} swapMode={swapMode} swapSrc={swapSrc} onSwapClick={handleSwapClick} />}
 
         {/* Legend */}
         <div className="bg-[#152040] rounded-2xl border border-white/5 p-4">

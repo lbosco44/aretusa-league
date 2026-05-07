@@ -506,6 +506,17 @@ export default function App() {
     syncBracket(prev => advanceBracket(prev, roundIdx, matchIdx, result))
   }
 
+  function handleBracketSwap(src, dst) {
+    syncBracket(prev => {
+      const next = JSON.parse(JSON.stringify(prev))
+      const a = next.rounds[src.round][src.match][src.side]
+      const b = next.rounds[dst.round][dst.match][dst.side]
+      next.rounds[src.round][src.match][src.side] = b
+      next.rounds[dst.round][dst.match][dst.side] = a
+      return next
+    })
+  }
+
   if (loading) {
     const label = gender === 'F' ? 'Caricamento Femminile...' : `Caricamento Livello ${level}...`
     return <LoadingBall label={label} />
@@ -524,6 +535,7 @@ export default function App() {
           gironi={gironi}
           onActivate={activateTabellone}
           onResult={handleBracketResult}
+          onSwap={handleBracketSwap}
           {...commonProps}
         />
       } />
