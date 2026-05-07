@@ -12,6 +12,28 @@ import Galleria from './pages/Galleria'
 import LoadingBall from './components/LoadingBall'
 
 const EMPTY_BRACKET = { active: false, rounds: [[], [], [], []] }
+
+// Firestore non supporta array annidati: wrappiamo ogni round in { matches: [...] }
+function bracketToFirestore(b) {
+  if (!b) return b
+  return {
+    ...b,
+    rounds: (b.rounds || []).map(r => ({
+      matches: Array.isArray(r) ? r : (r?.matches || []),
+    })),
+  }
+}
+function bracketFromFirestore(data) {
+  if (!data) return EMPTY_BRACKET
+  return {
+    ...data,
+    rounds: (data.rounds || []).map(r => {
+      if (Array.isArray(r)) return r
+      if (r && Array.isArray(r.matches)) return r.matches
+      return []
+    }),
+  }
+}
 const LEVELS = ['A', 'B', 'C']
 const GENDERS = ['M', 'F']
 
@@ -384,7 +406,7 @@ export default function App() {
 
   const syncTeams = makeSyncSetter(setTeams, teamsRef)
   const syncMatches = makeSyncSetter(setMatches, matchesRef, list => ({ list }))
-  const syncBracket = makeSyncSetter(setBracket, bracketRef)
+  const syncBracket = makeSyncSetter(setBracket, bracketRef, bracketToFirestore)
   const syncGallery = makeSyncSetter(setGallery, galleryRef)
 
   function setLevel(newLevel) {
@@ -425,7 +447,7 @@ export default function App() {
         done()
       }, onError),
       onSnapshot(bracketRef, snap => {
-        if (snap.exists()) setBracket(snap.data())
+        if (snap.exists()) setBracket(bracketFromFirestore(snap.data()))
         done()
       }, onError),
       onSnapshot(galleryRef, snap => {
@@ -507,28 +529,23 @@ export default function App() {
   }
 
   function handleBracketSwap(currentBracket, src, dst) {
-    try {
-      if (!currentBracket?.rounds) return
-      const teamA = currentBracket.rounds?.[src.round]?.[src.match]?.[src.side]
-      const teamB = currentBracket.rounds?.[dst.round]?.[dst.match]?.[dst.side]
-      if (!teamA || !teamB) return
-      const rounds = currentBracket.rounds.map((round, ri) => {
-        if (!Array.isArray(round)) return round
-        return round.map((match, mi) => {
-          if (!match) return match
-          if (ri === src.round && mi === src.match && ri === dst.round && mi === dst.match) {
-            return { ...match, [src.side]: teamB, [dst.side]: teamA }
-          }
-          if (ri === src.round && mi === src.match) return { ...match, [src.side]: teamB }
-          if (ri === dst.round && mi === dst.match) return { ...match, [dst.side]: teamA }
-          return match
-        })
+    if (!currentBracket?.rounds) return
+    const teamA = currentBracket.rounds?.[src.round]?.[src.match]?.[src.side]
+    const teamB = currentBracket.rounds?.[dst.round]?.[dst.match]?.[dst.side]
+    if (!teamA || !teamB) return
+    const rounds = currentBracket.rounds.map((round, ri) => {
+      if (!Array.isArray(round)) return round
+      return round.map((match, mi) => {
+        if (!match) return match
+        if (ri === src.round && mi === src.match && ri === dst.round && mi === dst.match) {
+          return { ...match, [src.side]: teamB, [dst.side]: teamA }
+        }
+        if (ri === src.round && mi === src.match) return { ...match, [src.side]: teamB }
+        if (ri === dst.round && mi === dst.match) return { ...match, [dst.side]: teamA }
+        return match
       })
-      syncBracket({ ...currentBracket, rounds })
-    } catch (e) {
-      console.error('Swap error:', e)
-      alert('Errore durante lo scambio: ' + (e?.message || e))
-    }
+    })
+    syncBracket({ ...currentBracket, rounds })
   }
 
   if (loading) {
