@@ -465,7 +465,7 @@ export default function Tabellone({ isAdmin, bracket, gironi, onActivate, onResu
   function handleSwapClick(round, match, side) {
     if (!swapSrc) { setSwapSrc({ round, match, side }); return }
     if (swapSrc.round === round && swapSrc.match === match && swapSrc.side === side) { setSwapSrc(null); return }
-    onSwap(swapSrc, { round, match, side })
+    onSwap(bracket, swapSrc, { round, match, side })
     setSwapSrc(null)
   }
 
