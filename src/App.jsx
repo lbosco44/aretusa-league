@@ -506,15 +506,29 @@ export default function App() {
     syncBracket(prev => advanceBracket(prev, roundIdx, matchIdx, result))
   }
 
-  function handleBracketSwap(src, dst) {
-    syncBracket(prev => {
-      const next = JSON.parse(JSON.stringify(prev))
-      const a = next.rounds[src.round][src.match][src.side]
-      const b = next.rounds[dst.round][dst.match][dst.side]
-      next.rounds[src.round][src.match][src.side] = b
-      next.rounds[dst.round][dst.match][dst.side] = a
-      return next
-    })
+  function handleBracketSwap(currentBracket, src, dst) {
+    try {
+      if (!currentBracket?.rounds) return
+      const teamA = currentBracket.rounds?.[src.round]?.[src.match]?.[src.side]
+      const teamB = currentBracket.rounds?.[dst.round]?.[dst.match]?.[dst.side]
+      if (!teamA || !teamB) return
+      const rounds = currentBracket.rounds.map((round, ri) => {
+        if (!Array.isArray(round)) return round
+        return round.map((match, mi) => {
+          if (!match) return match
+          if (ri === src.round && mi === src.match && ri === dst.round && mi === dst.match) {
+            return { ...match, [src.side]: teamB, [dst.side]: teamA }
+          }
+          if (ri === src.round && mi === src.match) return { ...match, [src.side]: teamB }
+          if (ri === dst.round && mi === dst.match) return { ...match, [dst.side]: teamA }
+          return match
+        })
+      })
+      syncBracket({ ...currentBracket, rounds })
+    } catch (e) {
+      console.error('Swap error:', e)
+      alert('Errore durante lo scambio: ' + (e?.message || e))
+    }
   }
 
   if (loading) {
