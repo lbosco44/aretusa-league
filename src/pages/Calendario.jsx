@@ -146,6 +146,16 @@ export default function Calendario({ matches, setMatches, teams, isAdmin, bracke
   const [scheduleTarget, setScheduleTarget] = useState(null) // { round, match }
   const [bracketResultTarget, setBracketResultTarget] = useState(null) // { round, match }
 
+  // Toggle rounds: solo il primo aperto di default
+  const [openRounds, setOpenRounds] = useState(new Set([0]))
+  function toggleRound(ri) {
+    setOpenRounds(prev => {
+      const next = new Set(prev)
+      next.has(ri) ? next.delete(ri) : next.add(ri)
+      return next
+    })
+  }
+
   // Calendar state
   const today = new Date()
   const [calYear, setCalYear] = useState(today.getFullYear())
@@ -312,27 +322,45 @@ export default function Calendario({ matches, setMatches, teams, isAdmin, bracke
 
         {/* ── TABELLONE SECTION ── */}
         {activeSection === 'tabellone' && bracketActive && (
-          <div className="space-y-6">
+          <div className="space-y-2">
             {roundLabels.map((label, ri) => {
               const round = bracket.rounds[ri] || []
               if (round.length === 0) return null
+              const isOpen = openRounds.has(ri)
+              const played = round.filter(m => m?.played).length
+              const total = round.length
               return (
-                <section key={ri} className="space-y-3">
-                  <div className="flex items-center gap-3">
-                    <span className="text-[9px] font-black uppercase tracking-widest text-secondary">{label}</span>
-                    <div className="h-px flex-grow bg-white/5" />
-                  </div>
-                  {round.map((match, mi) => (
-                    <BracketMatchRow
-                      key={`${ri}-${mi}`}
-                      match={match}
-                      roundLabel={label}
-                      matchNum={mi + 1}
-                      isAdmin={isAdmin}
-                      onSchedule={() => setScheduleTarget({ round: ri, match: mi })}
-                      onResult={() => setBracketResultTarget({ round: ri, match: mi })}
-                    />
-                  ))}
+                <section key={ri} className="bg-[#152040] rounded-2xl border border-white/5 overflow-hidden">
+                  <button
+                    onClick={() => toggleRound(ri)}
+                    className="w-full flex items-center gap-3 px-4 py-3.5 hover:bg-white/5 transition-colors text-left"
+                  >
+                    <span className={`material-symbols-outlined text-base transition-transform duration-200 text-secondary ${isOpen ? 'rotate-90' : ''}`}>
+                      chevron_right
+                    </span>
+                    <span className="font-headline font-black text-sm uppercase tracking-wide text-white flex-1">{label}</span>
+                    <span className="text-[10px] font-bold text-on-surface-variant/50 shrink-0">
+                      {played}/{total}
+                    </span>
+                    {played === total && (
+                      <span className="material-symbols-outlined text-secondary text-sm shrink-0" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
+                    )}
+                  </button>
+                  {isOpen && (
+                    <div className="px-3 pb-3 space-y-2 border-t border-white/5 pt-3">
+                      {round.map((match, mi) => (
+                        <BracketMatchRow
+                          key={`${ri}-${mi}`}
+                          match={match}
+                          roundLabel={label}
+                          matchNum={mi + 1}
+                          isAdmin={isAdmin}
+                          onSchedule={() => setScheduleTarget({ round: ri, match: mi })}
+                          onResult={() => setBracketResultTarget({ round: ri, match: mi })}
+                        />
+                      ))}
+                    </div>
+                  )}
                 </section>
               )
             })}
