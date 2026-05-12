@@ -106,7 +106,7 @@ function BracketMatchRow({ match, roundLabel, matchNum, isAdmin, onSchedule, onR
           )}
           {played && (
             <p className="text-[10px] text-secondary font-bold mt-0.5">
-              {match.score} · {fmtDate(match.date)} {match.time}
+              {match.score}{match.date ? ` · ${fmtDate(match.date)} ${match.time}` : ''}
             </p>
           )}
           {!scheduled && !played && (
