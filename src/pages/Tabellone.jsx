@@ -4,9 +4,11 @@ import BottomNav from '../components/BottomNav'
 import ResultModal from '../components/ResultModal'
 
 const ROW_H_12 = 64
-const ROW_H_24 = 52
+const ROW_H_24 = 40
 const CARD_W = 152
 const CONN_W = 28
+const CARD_W_24 = 116
+const CONN_W_24 = 22
 
 // Bracket 12 squadre (Livello A / C): 4 round
 const LABELS_12 = ['Primo Turno', 'Quarti', 'Semifinali', 'Finale']
@@ -54,44 +56,44 @@ function SimpleConn({ h }) {
   )
 }
 
-function TeamRow({ team, label, score, won, lost, isBye }) {
+function TeamRow({ team, label, score, won, lost, isBye, compact }) {
   const name = team?.name || label || 'Da definire'
   const abbr = team?.abbr || (label ? label.slice(0, 2) : '?')
   const ok = !!team || !!label
   const bgCls = won ? 'bg-secondary/10' : isBye ? 'bg-secondary/25' : ''
   return (
-    <div className={`flex items-center justify-between px-2 py-1 ${bgCls}`}>
-      <div className="flex items-center gap-1.5 min-w-0 flex-1">
-        <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[7px] font-bold shrink-0 ${
+    <div className={`flex items-center justify-between ${compact ? 'px-1.5 py-0.5' : 'px-2 py-1'} ${bgCls}`}>
+      <div className={`flex items-center ${compact ? 'gap-1' : 'gap-1.5'} min-w-0 flex-1`}>
+        <span className={`${compact ? 'w-4 h-4 text-[6px]' : 'w-5 h-5 text-[7px]'} rounded-full flex items-center justify-center font-bold shrink-0 ${
           won ? 'bg-secondary/20 text-secondary' : lost ? 'bg-red-500/10 text-red-400/40' : isBye ? 'bg-secondary/40 text-secondary' : ok ? 'bg-[#2d5aa0] text-on-surface-variant/60' : 'bg-[#071530] text-white/10'
         }`}>{abbr}</span>
-        <span className={`text-[10px] font-semibold truncate ${
+        <span className={`${compact ? 'text-[8px]' : 'text-[10px]'} font-semibold truncate ${
           won ? 'text-white' : lost ? 'text-on-surface-variant/25 line-through' : isBye ? 'text-white' : ok ? 'text-on-surface/70' : 'text-on-surface-variant/20 italic'
         }`}>{name}</span>
-        {isBye && <span className="text-[7px] font-black text-secondary bg-secondary/30 px-1 py-0.5 rounded uppercase tracking-wider shrink-0">BYE</span>}
+        {isBye && <span className={`${compact ? 'text-[5px] px-0.5 py-0.5' : 'text-[7px] px-1 py-0.5'} font-black text-secondary bg-secondary/30 rounded uppercase tracking-wider shrink-0`}>BYE</span>}
       </div>
-      {score != null && <span className={`text-[11px] font-black ml-1 shrink-0 ${won ? 'text-secondary' : 'text-on-surface-variant/25'}`}>{score}</span>}
+      {score != null && <span className={`${compact ? 'text-[9px]' : 'text-[11px]'} font-black ml-1 shrink-0 ${won ? 'text-secondary' : 'text-on-surface-variant/25'}`}>{score}</span>}
     </div>
   )
 }
 
 function MatchCard({ casa, ospite, score, played, winner, isAdmin, onResult, casaLabel, ospiteLabel, byeCasa,
-  swapMode, casaSelected, ospiteSelected, onSwapCasa, onSwapOspite }) {
+  swapMode, casaSelected, ospiteSelected, onSwapCasa, onSwapOspite, compact, cardWidth }) {
   const cW = played && winner === 'casa'
   const oW = played && winner === 'ospite'
   const canPlay = (casa || casaLabel) && (ospite || ospiteLabel) && !played && casa && ospite
   return (
-    <div className={`bg-[#152040] rounded-lg border overflow-hidden ${swapMode ? 'border-secondary/40' : played ? 'border-secondary/20' : 'border-white/10'}`} style={{ width: CARD_W }}>
+    <div className={`bg-[#152040] rounded-lg border overflow-hidden ${swapMode ? 'border-secondary/40' : played ? 'border-secondary/20' : 'border-white/10'}`} style={{ width: cardWidth ?? CARD_W }}>
       <div onClick={onSwapCasa} className={onSwapCasa ? `cursor-pointer transition-colors ${casaSelected ? 'bg-secondary/30' : 'hover:bg-secondary/10'}` : ''}>
-        <TeamRow team={casa} label={casaLabel} score={played ? score?.split('-')[0] : null} won={cW} lost={oW} isBye={byeCasa} />
+        <TeamRow team={casa} label={casaLabel} score={played ? score?.split('-')[0] : null} won={cW} lost={oW} isBye={byeCasa} compact={compact} />
       </div>
       <div className="h-px bg-white/5" />
       <div onClick={onSwapOspite} className={onSwapOspite ? `cursor-pointer transition-colors ${ospiteSelected ? 'bg-secondary/30' : 'hover:bg-secondary/10'}` : ''}>
-        <TeamRow team={ospite} label={ospiteLabel} score={played ? score?.split('-')[1] : null} won={oW} lost={cW} />
+        <TeamRow team={ospite} label={ospiteLabel} score={played ? score?.split('-')[1] : null} won={oW} lost={cW} compact={compact} />
       </div>
       {isAdmin && canPlay && !swapMode && (
-        <button onClick={onResult} className="w-full py-1 bg-secondary/10 border-t border-secondary/20 text-secondary text-[8px] font-bold uppercase tracking-wider hover:bg-secondary/20 transition-colors flex items-center justify-center gap-1">
-          <span className="material-symbols-outlined text-[10px]" style={{ fontVariationSettings: "'FILL' 1" }}>edit_note</span>
+        <button onClick={onResult} className={`w-full bg-secondary/10 border-t border-secondary/20 text-secondary font-bold uppercase tracking-wider hover:bg-secondary/20 transition-colors flex items-center justify-center gap-1 ${compact ? 'py-0.5 text-[6px]' : 'py-1 text-[8px]'}`}>
+          <span className={`material-symbols-outlined ${compact ? 'text-[8px]' : 'text-[10px]'}`} style={{ fontVariationSettings: "'FILL' 1" }}>edit_note</span>
           Risultato
         </button>
       )}
@@ -318,7 +320,9 @@ function Bracket12({ bracket, isActive, isAdmin, onResultClick, level, swapMode,
 
 function Bracket24({ bracket, isActive, isAdmin, onResultClick, swapMode, swapSrc, onSwapClick }) {
   const ROW_H = ROW_H_24
-  const TOTAL_W = CARD_W * 5 + CONN_W * 4
+  const CW = CARD_W_24
+  const CNW = CONN_W_24
+  const TOTAL_W = CW * 5 + CNW * 4
   const r1 = isActive ? bracket.rounds[0] : null
   const r16 = isActive ? bracket.rounds[1] : null
   const qf = isActive ? bracket.rounds[2] : null
@@ -329,7 +333,7 @@ function Bracket24({ bracket, isActive, isAdmin, onResultClick, swapMode, swapSr
 
   const gridStyle = {
     display: 'grid',
-    gridTemplateColumns: `${CARD_W}px ${CONN_W}px ${CARD_W}px ${CONN_W}px ${CARD_W}px ${CONN_W}px ${CARD_W}px ${CONN_W}px ${CARD_W}px`,
+    gridTemplateColumns: `${CW}px ${CNW}px ${CW}px ${CNW}px ${CW}px ${CNW}px ${CW}px ${CNW}px ${CW}px`,
     gridTemplateRows: `repeat(16, ${ROW_H}px)`,
     width: TOTAL_W,
   }
@@ -342,14 +346,13 @@ function Bracket24({ bracket, isActive, isAdmin, onResultClick, swapMode, swapSr
     <div className="overflow-x-auto -mx-4 px-4 pb-2">
       <div className="flex mb-3" style={{ width: TOTAL_W }}>
         {LABELS_24.map((label, i) => (
-          <div key={i} className="text-center" style={{ width: CARD_W, marginRight: i < LABELS_24.length - 1 ? CONN_W : 0 }}>
-            <span className="text-[9px] font-bold uppercase tracking-widest text-on-surface-variant/40">{label}</span>
+          <div key={i} className="text-center" style={{ width: CW, marginRight: i < LABELS_24.length - 1 ? CNW : 0 }}>
+            <span className="text-[8px] font-bold uppercase tracking-widest text-on-surface-variant/40">{label}</span>
           </div>
         ))}
       </div>
 
       <div style={gridStyle}>
-        {/* Entry column: 8 R1 matches (no BYE — bye visible in R16) */}
         {[0, 1, 2, 3, 4, 5, 6, 7].map(i => {
           const r1Idx = R16_TO_R1_MAP[i]
           const r1Match = isActive ? r1[r1Idx] : null
@@ -364,17 +367,16 @@ function Bracket24({ bracket, isActive, isAdmin, onResultClick, swapMode, swapSr
                 isAdmin={isAdmin} onResult={() => onResultClick(0, r1Idx)}
                 swapMode={swapMode} casaSelected={sel(0, r1Idx, 'casa')} ospiteSelected={sel(0, r1Idx, 'ospite')}
                 onSwapCasa={swapH(0, r1Idx, 'casa')} onSwapOspite={swapH(0, r1Idx, 'ospite')}
+                compact cardWidth={CW}
               />
             </div>
           )
         })}
 
-        {/* Connectors entries → R16 (1:1 mapping, simple line) */}
         {[0, 1, 2, 3, 4, 5, 6, 7].map(i => (
           <div key={`c1_${i}`} style={cell(2 * i + 1, 2, 2)}><SimpleConn h={ROW_H * 2} /></div>
         ))}
 
-        {/* R16 column: 8 matches */}
         {[0, 1, 2, 3, 4, 5, 6, 7].map(i => {
           const m = isActive ? r16[i] : null
           const seedLabel = !isActive ? byePreview(i) : null
@@ -389,17 +391,16 @@ function Bracket24({ bracket, isActive, isAdmin, onResultClick, swapMode, swapSr
                 isAdmin={isAdmin} onResult={() => onResultClick(1, i)}
                 swapMode={swapMode} casaSelected={sel(1, i, 'casa')}
                 onSwapCasa={swapH(1, i, 'casa')}
+                compact cardWidth={CW}
               />
             </div>
           )
         })}
 
-        {/* Connectors R16 → QF */}
         {[0, 1, 2, 3].map(i => (
           <div key={`c2_${i}`} style={cell(4 * i + 1, 4, 4)}><SvgConn h={ROW_H * 4} /></div>
         ))}
 
-        {/* QF column: 4 matches */}
         {[0, 1, 2, 3].map(i => {
           const m = isActive ? qf[i] : null
           return (
@@ -410,17 +411,16 @@ function Bracket24({ bracket, isActive, isAdmin, onResultClick, swapMode, swapSr
                 ospiteLabel={!isActive ? `Vinc. R16 ${2 * i + 2}` : null}
                 score={m?.score} played={m?.played} winner={m?.winner}
                 isAdmin={isAdmin} onResult={() => onResultClick(2, i)}
+                compact cardWidth={CW}
               />
             </div>
           )
         })}
 
-        {/* Connectors QF → SF */}
         {[0, 1].map(i => (
           <div key={`c3_${i}`} style={cell(8 * i + 1, 8, 6)}><SvgConn h={ROW_H * 8} /></div>
         ))}
 
-        {/* SF column: 2 matches */}
         {[0, 1].map(i => {
           const m = isActive ? sf[i] : null
           return (
@@ -431,15 +431,14 @@ function Bracket24({ bracket, isActive, isAdmin, onResultClick, swapMode, swapSr
                 ospiteLabel={!isActive ? `Vinc. QF${2 * i + 2}` : null}
                 score={m?.score} played={m?.played} winner={m?.winner}
                 isAdmin={isAdmin} onResult={() => onResultClick(3, i)}
+                compact cardWidth={CW}
               />
             </div>
           )
         })}
 
-        {/* Connector SF → F */}
         <div style={cell(1, 16, 8)}><SvgConn h={ROW_H * 16} /></div>
 
-        {/* Final */}
         <div style={cell(1, 16, 9)}>
           <MatchCard
             casa={fi?.casa} ospite={fi?.ospite}
@@ -447,6 +446,7 @@ function Bracket24({ bracket, isActive, isAdmin, onResultClick, swapMode, swapSr
             ospiteLabel={!isActive ? 'Vinc. SF2' : null}
             score={fi?.score} played={fi?.played} winner={fi?.winner}
             isAdmin={isAdmin} onResult={() => onResultClick(4, 0)}
+            compact cardWidth={CW}
           />
         </div>
       </div>
