@@ -528,6 +528,16 @@ export default function App() {
     syncBracket(prev => advanceBracket(prev, roundIdx, matchIdx, result))
   }
 
+  function handleBracketSchedule(roundIdx, matchIdx, { date, time }) {
+    syncBracket(prev => {
+      const rounds = prev.rounds.map((round, ri) =>
+        ri !== roundIdx ? round :
+        round.map((match, mi) => mi !== matchIdx ? match : { ...match, date, time })
+      )
+      return { ...prev, rounds }
+    })
+  }
+
   function handleBracketSwap(currentBracket, src, dst) {
     if (!currentBracket?.rounds) return
     const teamA = currentBracket.rounds?.[src.round]?.[src.match]?.[src.side]
@@ -559,7 +569,7 @@ export default function App() {
     <Routes>
       <Route path="/" element={<Home matches={matches} teams={teams} {...commonProps} />} />
       <Route path="/gironi" element={<Gironi gironi={gironi} matches={matches} {...commonProps} />} />
-      <Route path="/calendario" element={<Calendario matches={matches} setMatches={syncMatches} teams={teams} {...commonProps} />} />
+      <Route path="/calendario" element={<Calendario matches={matches} setMatches={syncMatches} teams={teams} bracket={bracket} onBracketResult={handleBracketResult} onBracketSchedule={handleBracketSchedule} {...commonProps} />} />
       <Route path="/tabellone" element={
         <Tabellone
           bracket={bracket}
