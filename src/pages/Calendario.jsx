@@ -484,6 +484,7 @@ export default function Calendario({ matches, setMatches, teams, isAdmin, bracke
           match={bracketResultMatch}
           onClose={() => setBracketResultTarget(null)}
           onConfirm={handleBracketResultConfirm}
+          knockout
         />
       )}
     </div>

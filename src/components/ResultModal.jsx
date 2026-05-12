@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export default function ResultModal({ match, onClose, onConfirm }) {
+export default function ResultModal({ match, onClose, onConfirm, knockout = false }) {
   const [s1a, setS1a] = useState('')
   const [s1b, setS1b] = useState('')
   const [s2a, setS2a] = useState('')
@@ -9,14 +9,34 @@ export default function ResultModal({ match, onClose, onConfirm }) {
   const [s3b, setS3b] = useState('')
   const [tbTarget, setTbTarget] = useState(null)
 
-  // Capisce dopo i primi due set se il match è già deciso (2-0)
+  // Solo per knockout: match già deciso a 2-0
   const s1Done = s1a !== '' && s1b !== '' && Number(s1a) !== Number(s1b)
   const s2Done = s2a !== '' && s2b !== '' && Number(s2a) !== Number(s2b)
   const set1Winner = s1Done ? (Number(s1a) > Number(s1b) ? 'casa' : 'ospite') : null
   const set2Winner = s2Done ? (Number(s2a) > Number(s2b) ? 'casa' : 'ospite') : null
-  const matchDecided = set1Winner && set2Winner && set1Winner === set2Winner
+  const matchDecided = knockout && set1Winner && set2Winner && set1Winner === set2Winner
 
   function handleConfirm() {
+    const vals = [s1a, s1b, s2a, s2b, s3a, s3b]
+    if (!knockout) {
+      // Gironi: tutti e 3 i set obbligatori
+      if (vals.some(v => v === '')) { alert('Inserisci tutti e 3 i punteggi dei set'); return }
+      const nums = vals.map(Number)
+      if (nums.some(isNaN)) { alert('I punteggi devono essere numeri'); return }
+      const [n1a, n1b, n2a, n2b, n3a, n3b] = nums
+      if (n1a === n1b || n2a === n2b || n3a === n3b) { alert('Nessun set può finire in parità'); return }
+      if (n1a > 7 || n1b > 7 || n2a > 7 || n2b > 7) { alert('Il punteggio massimo di un set è 7'); return }
+      if (tbTarget == null && (n3a > 7 || n3b > 7)) { alert('Il punteggio massimo del set è 7'); return }
+      let cW = 0, oW = 0
+      if (n1a > n1b) cW++; else oW++
+      if (n2a > n2b) cW++; else oW++
+      if (n3a > n3b) cW++; else oW++
+      if (cW === oW) { alert('Il risultato deve avere un vincitore'); return }
+      onConfirm({ score: `${cW}-${oW}`, sets: [`${n1a}-${n1b}`, `${n2a}-${n2b}`, `${n3a}-${n3b}`], tbTarget })
+      return
+    }
+
+    // Tabellone knockout: al meglio di 3
     if (s1a === '' || s1b === '' || s2a === '' || s2b === '') {
       alert('Inserisci i punteggi dei primi due set'); return
     }
@@ -26,18 +46,13 @@ export default function ResultModal({ match, onClose, onConfirm }) {
     if (n2a === n2b) { alert('Il Set 2 non può finire in parità'); return }
     if (n1a > 7 || n1b > 7) { alert('Il punteggio massimo del Set 1 è 7'); return }
     if (n2a > 7 || n2b > 7) { alert('Il punteggio massimo del Set 2 è 7'); return }
-
     let cW = 0, oW = 0
     if (n1a > n1b) cW++; else oW++
     if (n2a > n2b) cW++; else oW++
-
-    // 2-0: match chiuso, terzo set non necessario
     if (cW === 2 || oW === 2) {
       onConfirm({ score: `${cW}-${oW}`, sets: [`${n1a}-${n1b}`, `${n2a}-${n2b}`], tbTarget: null })
       return
     }
-
-    // 1-1: terzo set obbligatorio
     if (s3a === '' || s3b === '') { alert('È 1-1: inserisci il punteggio del terzo set'); return }
     const n3a = Number(s3a), n3b = Number(s3b)
     if (isNaN(n3a) || isNaN(n3b)) { alert('I punteggi devono essere numeri'); return }

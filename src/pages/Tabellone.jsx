@@ -616,7 +616,7 @@ export default function Tabellone({ isAdmin, bracket, gironi, onActivate, onResu
       {resultTarget && isActive && (() => {
         const m = bracket.rounds[resultTarget.round]?.[resultTarget.match]
         if (!m?.casa || !m?.ospite) return null
-        return <ResultModal match={{ casa: m.casa, ospite: m.ospite }} onClose={() => setResultTarget(null)} onConfirm={handleResult} />
+        return <ResultModal match={{ casa: m.casa, ospite: m.ospite }} onClose={() => setResultTarget(null)} onConfirm={handleResult} knockout />
       })()}
 
       <BottomNav isAdmin={isAdmin} bracketActive={isActive} />
