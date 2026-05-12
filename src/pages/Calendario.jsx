@@ -100,7 +100,9 @@ function BracketMatchRow({ match, roundLabel, matchNum, isAdmin, onSchedule, onR
           <span className="text-[10px] font-black text-secondary">#{matchNum}</span>
         </div>
         <div className="flex-1 min-w-0">
-          <p className="text-sm font-bold text-white truncate">{teamA} <span className="text-on-surface-variant/40 font-normal text-xs">vs</span> {teamB}</p>
+          <p className="text-xs font-bold text-white leading-snug">{teamA}</p>
+          <p className="text-[9px] font-bold text-on-surface-variant/40 uppercase tracking-widest leading-none my-0.5">vs</p>
+          <p className="text-xs font-bold text-white leading-snug">{teamB}</p>
           {scheduled && !played && (
             <p className="text-[10px] text-on-surface-variant/60 mt-0.5">{fmtDate(match.date)} · {match.time}</p>
           )}
