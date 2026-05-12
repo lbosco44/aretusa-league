@@ -339,11 +339,11 @@ export default function Calendario({ matches, setMatches, teams, isAdmin, bracke
                       chevron_right
                     </span>
                     <span className="font-headline font-black text-sm uppercase tracking-wide text-white flex-1">{label}</span>
-                    <span className="text-[10px] font-bold text-on-surface-variant/50 shrink-0">
-                      {played}/{total}
+                    <span className={`text-sm font-black shrink-0 tabular-nums ${played === total ? 'text-secondary' : 'text-on-surface-variant/60'}`}>
+                      {played}<span className="text-on-surface-variant/30 font-bold">/{total}</span>
                     </span>
                     {played === total && (
-                      <span className="material-symbols-outlined text-secondary text-sm shrink-0" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
+                      <span className="material-symbols-outlined text-secondary text-base shrink-0" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
                     )}
                   </button>
                   {isOpen && (
