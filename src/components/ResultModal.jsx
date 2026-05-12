@@ -7,26 +7,43 @@ export default function ResultModal({ match, onClose, onConfirm }) {
   const [s2b, setS2b] = useState('')
   const [s3a, setS3a] = useState('')
   const [s3b, setS3b] = useState('')
-  // tbTarget: null = normal set (max 7), 7 = super tiebreak to 7, 10 = super tiebreak to 10
   const [tbTarget, setTbTarget] = useState(null)
 
+  // Capisce dopo i primi due set se il match è già deciso (2-0)
+  const s1Done = s1a !== '' && s1b !== '' && Number(s1a) !== Number(s1b)
+  const s2Done = s2a !== '' && s2b !== '' && Number(s2a) !== Number(s2b)
+  const set1Winner = s1Done ? (Number(s1a) > Number(s1b) ? 'casa' : 'ospite') : null
+  const set2Winner = s2Done ? (Number(s2a) > Number(s2b) ? 'casa' : 'ospite') : null
+  const matchDecided = set1Winner && set2Winner && set1Winner === set2Winner
+
   function handleConfirm() {
-    const vals = [s1a, s1b, s2a, s2b, s3a, s3b]
-    if (vals.some(v => v === '')) { alert('Inserisci tutti e 3 i punteggi dei set'); return }
-    const nums = vals.map(Number)
-    if (nums.some(isNaN)) { alert('I punteggi devono essere numeri'); return }
-    const [n1a, n1b, n2a, n2b, n3a, n3b] = nums
-    if (n1a === n1b || n2a === n2b || n3a === n3b) { alert('Nessun set può finire in parità'); return }
-    if (n1a > 7 || n1b > 7 || n2a > 7 || n2b > 7) { alert('Il punteggio massimo di un set è 7'); return }
-    if (tbTarget == null) {
-      if (n3a > 7 || n3b > 7) { alert('Il punteggio massimo del set è 7'); return }
+    if (s1a === '' || s1b === '' || s2a === '' || s2b === '') {
+      alert('Inserisci i punteggi dei primi due set'); return
     }
-    // Tiebreak: nessun limite massimo (può andare a oltranza, es. 18-16)
+    const n1a = Number(s1a), n1b = Number(s1b), n2a = Number(s2a), n2b = Number(s2b)
+    if ([n1a, n1b, n2a, n2b].some(isNaN)) { alert('I punteggi devono essere numeri'); return }
+    if (n1a === n1b) { alert('Il Set 1 non può finire in parità'); return }
+    if (n2a === n2b) { alert('Il Set 2 non può finire in parità'); return }
+    if (n1a > 7 || n1b > 7) { alert('Il punteggio massimo del Set 1 è 7'); return }
+    if (n2a > 7 || n2b > 7) { alert('Il punteggio massimo del Set 2 è 7'); return }
+
     let cW = 0, oW = 0
     if (n1a > n1b) cW++; else oW++
     if (n2a > n2b) cW++; else oW++
+
+    // 2-0: match chiuso, terzo set non necessario
+    if (cW === 2 || oW === 2) {
+      onConfirm({ score: `${cW}-${oW}`, sets: [`${n1a}-${n1b}`, `${n2a}-${n2b}`], tbTarget: null })
+      return
+    }
+
+    // 1-1: terzo set obbligatorio
+    if (s3a === '' || s3b === '') { alert('È 1-1: inserisci il punteggio del terzo set'); return }
+    const n3a = Number(s3a), n3b = Number(s3b)
+    if (isNaN(n3a) || isNaN(n3b)) { alert('I punteggi devono essere numeri'); return }
+    if (n3a === n3b) { alert('Il terzo set non può finire in parità'); return }
+    if (tbTarget == null && (n3a > 7 || n3b > 7)) { alert('Il punteggio massimo del set è 7'); return }
     if (n3a > n3b) cW++; else oW++
-    if (cW === oW) { alert('Il risultato deve avere un vincitore'); return }
     onConfirm({ score: `${cW}-${oW}`, sets: [`${n1a}-${n1b}`, `${n2a}-${n2b}`, `${n3a}-${n3b}`], tbTarget })
   }
 
@@ -51,63 +68,67 @@ export default function ResultModal({ match, onClose, onConfirm }) {
           <button onClick={onClose} className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20"><span className="material-symbols-outlined text-on-surface">close</span></button>
         </div>
         <div className="p-6 space-y-5">
-          {[['Set 1', s1a, setS1a, s1b, setS1b, true], ['Set 2', s2a, setS2a, s2b, setS2b, false]].map(([label, va, setA, vb, setB, showNames]) => (
-            <div key={label} className="space-y-2">
-              <label className="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">{label}</label>
-              <div className="flex items-center gap-3">
-                <div className="flex-1 min-w-0">
-                  {showNames && <p className="text-[10px] text-on-surface-variant text-center truncate mb-1">{match.casa.name}</p>}
-                  <input type="number" min="0" max="7" placeholder="0" value={va} onChange={e => setA(e.target.value)} className={`${inp} focus:border-[rgb(var(--secondary))]`} />
-                </div>
-                <span className="text-on-surface-variant font-black shrink-0">&ndash;</span>
-                <div className="flex-1 min-w-0">
-                  {showNames && <p className="text-[10px] text-on-surface-variant text-center truncate mb-1">{match.ospite.name}</p>}
-                  <input type="number" min="0" max="7" placeholder="0" value={vb} onChange={e => setB(e.target.value)} className={`${inp} focus:border-[rgb(var(--secondary))]`} />
-                </div>
-              </div>
-            </div>
-          ))}
-          <div className="space-y-3">
-            <div className="flex items-center justify-between flex-wrap gap-2">
-              <label className="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant flex items-center gap-1.5">
-                <span className="w-2 h-2 rounded-full bg-[#f36238] inline-block" />Terzo Set
-              </label>
-              <div className="flex bg-[#071530] border border-white/10 p-1 rounded-xl gap-1">
-                {options.map(opt => (
-                  <button
-                    key={String(opt.value)}
-                    onClick={() => setTbTarget(opt.value)}
-                    className={`px-3 py-1.5 rounded-lg text-xs font-black uppercase transition-all ${tbTarget === opt.value ? 'bg-[#f36238] text-white' : 'text-on-surface-variant'}`}
-                  >{opt.label}</button>
-                ))}
-              </div>
-            </div>
+          {/* Set 1 */}
+          <div className="space-y-2">
+            <label className="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Set 1</label>
             <div className="flex items-center gap-3">
               <div className="flex-1 min-w-0">
-                <input
-                  type="number"
-                  min="0"
-                  {...(tbTarget == null ? { max: 7 } : {})}
-                  placeholder="0"
-                  value={s3a}
-                  onChange={e => setS3a(e.target.value)}
-                  className={`${inp} focus:border-[#f36238]`}
-                />
+                <p className="text-[10px] text-on-surface-variant text-center truncate mb-1">{match.casa.name}</p>
+                <input type="number" min="0" max="7" placeholder="0" value={s1a} onChange={e => setS1a(e.target.value)} className={`${inp} focus:border-[rgb(var(--secondary))]`} />
               </div>
               <span className="text-on-surface-variant font-black shrink-0">&ndash;</span>
               <div className="flex-1 min-w-0">
-                <input
-                  type="number"
-                  min="0"
-                  {...(tbTarget == null ? { max: 7 } : {})}
-                  placeholder="0"
-                  value={s3b}
-                  onChange={e => setS3b(e.target.value)}
-                  className={`${inp} focus:border-[#f36238]`}
-                />
+                <p className="text-[10px] text-on-surface-variant text-center truncate mb-1">{match.ospite.name}</p>
+                <input type="number" min="0" max="7" placeholder="0" value={s1b} onChange={e => setS1b(e.target.value)} className={`${inp} focus:border-[rgb(var(--secondary))]`} />
               </div>
             </div>
           </div>
+
+          {/* Set 2 */}
+          <div className="space-y-2">
+            <label className="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Set 2</label>
+            <div className="flex items-center gap-3">
+              <div className="flex-1 min-w-0">
+                <input type="number" min="0" max="7" placeholder="0" value={s2a} onChange={e => setS2a(e.target.value)} className={`${inp} focus:border-[rgb(var(--secondary))]`} />
+              </div>
+              <span className="text-on-surface-variant font-black shrink-0">&ndash;</span>
+              <div className="flex-1 min-w-0">
+                <input type="number" min="0" max="7" placeholder="0" value={s2b} onChange={e => setS2b(e.target.value)} className={`${inp} focus:border-[rgb(var(--secondary))]`} />
+              </div>
+            </div>
+          </div>
+
+          {/* Badge 2-0 o Set 3 */}
+          {matchDecided ? (
+            <div className="flex items-center gap-2 bg-secondary/10 border border-secondary/20 rounded-xl px-4 py-3">
+              <span className="material-symbols-outlined text-secondary text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
+              <p className="text-xs font-bold text-secondary">Match concluso 2-0 — terzo set non necessario</p>
+            </div>
+          ) : (
+            <div className="space-y-3">
+              <div className="flex items-center justify-between flex-wrap gap-2">
+                <label className="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-[#f36238] inline-block" />Terzo Set
+                </label>
+                <div className="flex bg-[#071530] border border-white/10 p-1 rounded-xl gap-1">
+                  {options.map(opt => (
+                    <button key={String(opt.value)} onClick={() => setTbTarget(opt.value)}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-black uppercase transition-all ${tbTarget === opt.value ? 'bg-[#f36238] text-white' : 'text-on-surface-variant'}`}
+                    >{opt.label}</button>
+                  ))}
+                </div>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="flex-1 min-w-0">
+                  <input type="number" min="0" {...(tbTarget == null ? { max: 7 } : {})} placeholder="0" value={s3a} onChange={e => setS3a(e.target.value)} className={`${inp} focus:border-[#f36238]`} />
+                </div>
+                <span className="text-on-surface-variant font-black shrink-0">&ndash;</span>
+                <div className="flex-1 min-w-0">
+                  <input type="number" min="0" {...(tbTarget == null ? { max: 7 } : {})} placeholder="0" value={s3b} onChange={e => setS3b(e.target.value)} className={`${inp} focus:border-[#f36238]`} />
+                </div>
+              </div>
+            </div>
+          )}
         </div>
         <div className="p-6 pt-0">
           <button onClick={handleConfirm} className="w-full h-14 bg-gradient-to-r from-[#f36238] to-[#d44e28] text-white font-headline font-black uppercase tracking-widest text-sm rounded-xl shadow-xl active:scale-[0.98] transition-transform flex items-center justify-center gap-2">
