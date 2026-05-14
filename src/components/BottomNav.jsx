@@ -24,7 +24,6 @@ export default function BottomNav({ isAdmin, bracketActive }) {
   }, [])
 
   const visibleTabs = tabs.filter(({ to }) => {
-    if (to === '/tabellone' && !isAdmin && !bracketActive) return false
     return true
   })
 
