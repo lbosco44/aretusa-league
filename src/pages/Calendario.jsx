@@ -44,14 +44,12 @@ function getCalendarDays(year, month) {
 
 const sortMatches = (a, b) => a.date === b.date ? a.ora.localeCompare(b.ora) : a.date.localeCompare(b.date)
 
-function BracketScheduleModal({ matchLabel, match, onClose, onSave, existing }) {
+const CIRCOLI_TABELLONE = ['SEVEN PADEL', 'STAZIONE PADEL', 'RG PADEL', 'PIZZUTA PADEL']
+
+function BracketScheduleModal({ matchLabel, onClose, onSave, existing }) {
   const [date, setDate] = useState(existing?.date || '')
   const [time, setTime] = useState(existing?.time || '')
   const [circolo, setCircolo] = useState(existing?.circolo || '')
-
-  const clubA = match?.casa?.club || ''
-  const clubB = match?.ospite?.club || ''
-  const clubOptions = [...new Set([clubA, clubB].filter(Boolean))]
 
   function handleSave() {
     if (!date || !time) { alert('Inserisci data e orario'); return }
@@ -80,19 +78,17 @@ function BracketScheduleModal({ matchLabel, match, onClose, onSave, existing }) 
             <input type="time" value={time} onChange={e => setTime(e.target.value)}
               className="w-full h-12 bg-[#071530] border border-white/10 rounded-xl px-3 text-white text-sm focus:outline-none focus:border-secondary" />
           </div>
-          {clubOptions.length > 0 && (
-            <div className="space-y-1.5">
-              <label className="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Circolo</label>
-              <div className="flex gap-2">
-                {clubOptions.map(club => (
-                  <button key={club} onClick={() => setCircolo(prev => prev === club ? '' : club)}
-                    className={`flex-1 h-12 rounded-xl border text-xs font-black uppercase tracking-wide transition-all ${circolo === club ? 'bg-secondary/20 border-secondary text-secondary' : 'bg-[#071530] border-white/10 text-on-surface-variant hover:border-white/20'}`}>
-                    {club}
-                  </button>
-                ))}
-              </div>
+          <div className="space-y-1.5">
+            <label className="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Circolo</label>
+            <div className="grid grid-cols-2 gap-2">
+              {CIRCOLI_TABELLONE.map(club => (
+                <button key={club} onClick={() => setCircolo(prev => prev === club ? '' : club)}
+                  className={`h-12 rounded-xl border text-[10px] font-black uppercase tracking-wide transition-all ${circolo === club ? 'bg-secondary/20 border-secondary text-secondary' : 'bg-[#071530] border-white/10 text-on-surface-variant hover:border-white/20'}`}>
+                  {club}
+                </button>
+              ))}
             </div>
-          )}
+          </div>
         </div>
         <div className="p-5 pt-0">
           <button onClick={handleSave} className="w-full h-12 bg-gradient-to-r from-secondary to-primary-container text-on-secondary font-headline font-black uppercase tracking-widest text-xs rounded-xl active:scale-[0.98] transition-transform">
@@ -495,7 +491,6 @@ export default function Calendario({ matches, setMatches, teams, isAdmin, bracke
       {scheduleTarget && (
         <BracketScheduleModal
           matchLabel={scheduleMatch ? `${roundLabels[scheduleTarget.round]} #${scheduleTarget.match + 1}${scheduleMatch.casa ? ` · ${scheduleMatch.casa.name} vs ${scheduleMatch.ospite?.name || 'TBD'}` : ''}` : ''}
-          match={scheduleMatch}
           existing={scheduleMatch}
           onClose={() => setScheduleTarget(null)}
           onSave={handleBracketScheduleSave}
