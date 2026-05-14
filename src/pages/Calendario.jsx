@@ -44,12 +44,18 @@ function getCalendarDays(year, month) {
 
 const sortMatches = (a, b) => a.date === b.date ? a.ora.localeCompare(b.ora) : a.date.localeCompare(b.date)
 
-function BracketScheduleModal({ matchLabel, onClose, onSave, existing }) {
+function BracketScheduleModal({ matchLabel, match, onClose, onSave, existing }) {
   const [date, setDate] = useState(existing?.date || '')
   const [time, setTime] = useState(existing?.time || '')
+  const [circolo, setCircolo] = useState(existing?.circolo || '')
+
+  const clubA = match?.casa?.club || ''
+  const clubB = match?.ospite?.club || ''
+  const clubOptions = [...new Set([clubA, clubB].filter(Boolean))]
+
   function handleSave() {
     if (!date || !time) { alert('Inserisci data e orario'); return }
-    onSave({ date, time })
+    onSave({ date, time, circolo: circolo || null })
   }
   return (
     <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-end md:items-center justify-center p-4" onClick={e => e.target === e.currentTarget && onClose()}>
@@ -74,6 +80,19 @@ function BracketScheduleModal({ matchLabel, onClose, onSave, existing }) {
             <input type="time" value={time} onChange={e => setTime(e.target.value)}
               className="w-full h-12 bg-[#071530] border border-white/10 rounded-xl px-3 text-white text-sm focus:outline-none focus:border-secondary" />
           </div>
+          {clubOptions.length > 0 && (
+            <div className="space-y-1.5">
+              <label className="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Circolo</label>
+              <div className="flex gap-2">
+                {clubOptions.map(club => (
+                  <button key={club} onClick={() => setCircolo(prev => prev === club ? '' : club)}
+                    className={`flex-1 h-12 rounded-xl border text-xs font-black uppercase tracking-wide transition-all ${circolo === club ? 'bg-secondary/20 border-secondary text-secondary' : 'bg-[#071530] border-white/10 text-on-surface-variant hover:border-white/20'}`}>
+                    {club}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
         <div className="p-5 pt-0">
           <button onClick={handleSave} className="w-full h-12 bg-gradient-to-r from-secondary to-primary-container text-on-secondary font-headline font-black uppercase tracking-widest text-xs rounded-xl active:scale-[0.98] transition-transform">
@@ -104,11 +123,13 @@ function BracketMatchRow({ match, roundLabel, matchNum, isAdmin, onSchedule, onR
           <p className="text-[9px] font-bold text-on-surface-variant/40 uppercase tracking-widest leading-none my-0.5">vs</p>
           <p className="text-xs font-bold text-white leading-snug">{teamB}</p>
           {scheduled && !played && (
-            <p className="text-[10px] text-on-surface-variant/60 mt-0.5">{fmtDate(match.date)} · {match.time}</p>
+            <p className="text-[10px] text-on-surface-variant/60 mt-0.5">
+              {fmtDate(match.date)} · {match.time}{match.circolo ? ` · ${match.circolo}` : ''}
+            </p>
           )}
           {played && (
             <p className="text-[10px] text-secondary font-bold mt-0.5">
-              {match.score}{match.date ? ` · ${fmtDate(match.date)} ${match.time}` : ''}
+              {match.score}{match.date ? ` · ${fmtDate(match.date)} ${match.time}` : ''}{match.circolo ? ` · ${match.circolo}` : ''}
             </p>
           )}
           {!scheduled && !played && (
@@ -227,9 +248,9 @@ export default function Calendario({ matches, setMatches, teams, isAdmin, bracke
     setBracketResultTarget(null)
   }
 
-  function handleBracketScheduleSave({ date, time }) {
+  function handleBracketScheduleSave({ date, time, circolo }) {
     if (!scheduleTarget) return
-    onBracketSchedule(scheduleTarget.round, scheduleTarget.match, { date, time })
+    onBracketSchedule(scheduleTarget.round, scheduleTarget.match, { date, time, circolo })
     setScheduleTarget(null)
   }
 
@@ -474,6 +495,7 @@ export default function Calendario({ matches, setMatches, teams, isAdmin, bracke
       {scheduleTarget && (
         <BracketScheduleModal
           matchLabel={scheduleMatch ? `${roundLabels[scheduleTarget.round]} #${scheduleTarget.match + 1}${scheduleMatch.casa ? ` · ${scheduleMatch.casa.name} vs ${scheduleMatch.ospite?.name || 'TBD'}` : ''}` : ''}
+          match={scheduleMatch}
           existing={scheduleMatch}
           onClose={() => setScheduleTarget(null)}
           onSave={handleBracketScheduleSave}

@@ -528,11 +528,11 @@ export default function App() {
     syncBracket(prev => advanceBracket(prev, roundIdx, matchIdx, result))
   }
 
-  function handleBracketSchedule(roundIdx, matchIdx, { date, time }) {
+  function handleBracketSchedule(roundIdx, matchIdx, { date, time, circolo }) {
     syncBracket(prev => {
       const rounds = prev.rounds.map((round, ri) =>
         ri !== roundIdx ? round :
-        round.map((match, mi) => mi !== matchIdx ? match : { ...match, date, time })
+        round.map((match, mi) => mi !== matchIdx ? match : { ...match, date, time, ...(circolo != null ? { circolo } : {}) })
       )
       return { ...prev, rounds }
     })
