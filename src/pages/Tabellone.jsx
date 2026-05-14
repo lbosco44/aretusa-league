@@ -492,28 +492,6 @@ export default function Tabellone({ isAdmin, bracket, gironi, onActivate, onResu
     setResultTarget({ round, match })
   }
 
-  // Non-admin placeholder
-  if (!isAdmin && !isActive) {
-    return (
-      <div className="min-h-screen flex flex-col text-on-surface">
-        <TopAppBar level={level} setLevel={setLevel} gender={gender} setGender={setGender} />
-        <main className="flex-grow flex flex-col items-center justify-center relative px-6 py-20">
-          <img src="/court-sunset.png" alt="Campo" className="absolute inset-0 w-full h-full object-cover opacity-30" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#071530] via-[#0E2044]/70 to-[#0E2044]/40" />
-          <div className="relative z-10 flex flex-col items-center text-center max-w-lg">
-            <div className="mb-10 p-8 rounded-full bg-[#0E2044]/40 backdrop-blur-md shadow-inner border border-white/5">
-              <span className="material-symbols-outlined text-8xl text-[rgb(var(--primary))]" style={{ fontVariationSettings: "'FILL' 1" }}>emoji_events</span>
-            </div>
-            <h2 className="font-headline text-3xl md:text-5xl font-black text-[#dfe3e7] mb-6 tracking-tight leading-none">TABELLONE <span className="text-[rgb(var(--primary))]">FINALE</span></h2>
-            <div className="h-1 w-24 bg-gradient-to-r from-transparent via-[rgb(var(--primary))] to-transparent mb-8" />
-            <p className="font-body text-on-surface/70 text-lg leading-relaxed">Il tabellone sarà disponibile al termine della fase a gironi.</p>
-          </div>
-        </main>
-        <BottomNav isAdmin={isAdmin} bracketActive={isActive} />
-      </div>
-    )
-  }
-
   return (
     <div className="min-h-screen text-on-surface">
       <TopAppBar level={level} setLevel={setLevel} gender={gender} setGender={setGender} />
