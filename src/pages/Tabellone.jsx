@@ -125,13 +125,15 @@ const cell = (row, span, col) => ({
   justifyContent: 'center',
 })
 
-function Bracket10({ bracket, isActive, isAdmin, onResultClick }) {
+function Bracket10({ bracket, isActive, isAdmin, onResultClick, swapMode, swapSrc, onSwapClick }) {
   const ROW_H = ROW_H_12
   const TOTAL_W = CARD_W * 4 + CONN_W * 3
   const pt = isActive ? bracket.rounds[0] : null
   const qf = isActive ? bracket.rounds[1] : null
   const sf = isActive ? bracket.rounds[2] : null
   const fi = isActive ? bracket.rounds[3]?.[0] : null
+  const sel = (r, m, s) => swapMode && swapSrc?.round === r && swapSrc?.match === m && swapSrc?.side === s
+  const swapH = (r, m, s) => (swapMode && isActive) ? () => onSwapClick(r, m, s) : undefined
 
   const gridStyle = {
     display: 'grid',
@@ -162,6 +164,8 @@ function Bracket10({ bracket, isActive, isAdmin, onResultClick }) {
                 ospiteLabel={!isActive ? PREVIEW_PT_10[i][1] : null}
                 score={m?.score} played={m?.played} winner={m?.winner}
                 isAdmin={isAdmin} onResult={() => onResultClick(0, i)}
+                swapMode={swapMode} casaSelected={sel(0, i, 'casa')} ospiteSelected={sel(0, i, 'ospite')}
+                onSwapCasa={swapH(0, i, 'casa')} onSwapOspite={swapH(0, i, 'ospite')}
               />
             </div>
           )
@@ -201,6 +205,8 @@ function Bracket10({ bracket, isActive, isAdmin, onResultClick }) {
                 score={m?.score} played={m?.played} winner={m?.winner}
                 byeCasa={!m?.played}
                 isAdmin={isAdmin} onResult={() => onResultClick(2, i)}
+                swapMode={swapMode} casaSelected={sel(2, i, 'casa')}
+                onSwapCasa={swapH(2, i, 'casa')}
               />
             </div>
           )
@@ -570,7 +576,7 @@ export default function Tabellone({ isAdmin, bracket, gironi, onActivate, onResu
 
         {/* Bracket */}
         {is10
-          ? <Bracket10 bracket={bracket} isActive={isActive} isAdmin={isAdmin} onResultClick={onResultClick} />
+          ? <Bracket10 bracket={bracket} isActive={isActive} isAdmin={isAdmin} onResultClick={onResultClick} swapMode={swapMode} swapSrc={swapSrc} onSwapClick={handleSwapClick} />
           : is24
             ? <Bracket24 bracket={bracket} isActive={isActive} isAdmin={isAdmin} onResultClick={onResultClick} swapMode={swapMode} swapSrc={swapSrc} onSwapClick={handleSwapClick} />
             : <Bracket12 bracket={bracket} isActive={isActive} isAdmin={isAdmin} onResultClick={onResultClick} level={level} swapMode={swapMode} swapSrc={swapSrc} onSwapClick={handleSwapClick} />}
