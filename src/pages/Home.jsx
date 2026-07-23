@@ -46,18 +46,22 @@ export default function Home({ matches, teams, isAdmin, bracketActive, level, se
           <div className="sponsor-marquee">
             <div className="sponsor-track">
               {[
-                { src: '/autocanaimaBIANCO.png', alt: 'Auto Canaima', url: 'https://www.facebook.com/AutoCanaima/?locale=it_IT' },
+                { src: '/genovese2.png', alt: 'Genovese Umberto', url: null },
                 { src: '/La-Lisca-logo-bianco-1920w.png', alt: 'La Lisca', url: 'https://www.laliscacucinaebottega.com/' },
-                { src: '/SIULP.png', alt: 'SIULP', url: 'https://siulp.it/' },
                 { src: '/t2padel.jpg', alt: 'T2 Padel', url: 'https://www.facebook.com/time2padelsr/' },
-                { src: '/autocanaimaBIANCO.png', alt: 'Auto Canaima', url: 'https://www.facebook.com/AutoCanaima/?locale=it_IT' },
+                { src: '/genovese2.png', alt: 'Genovese Umberto', url: null },
                 { src: '/La-Lisca-logo-bianco-1920w.png', alt: 'La Lisca', url: 'https://www.laliscacucinaebottega.com/' },
-                { src: '/SIULP.png', alt: 'SIULP', url: 'https://siulp.it/' },
                 { src: '/t2padel.jpg', alt: 'T2 Padel', url: 'https://www.facebook.com/time2padelsr/' },
               ].map((logo, i) => (
-                <a key={i} href={logo.url} target="_blank" rel="noopener noreferrer" className="sponsor-item">
-                  <img src={logo.src} alt={logo.alt} loading="lazy" />
-                </a>
+                logo.url ? (
+                  <a key={i} href={logo.url} target="_blank" rel="noopener noreferrer" className="sponsor-item">
+                    <img src={logo.src} alt={logo.alt} loading="lazy" />
+                  </a>
+                ) : (
+                  <div key={i} className="sponsor-item">
+                    <img src={logo.src} alt={logo.alt} loading="lazy" />
+                  </div>
+                )
               ))}
             </div>
           </div>

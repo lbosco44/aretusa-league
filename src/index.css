@@ -250,10 +250,9 @@ body {
 }
 
 .sponsor-item img {
-  max-height: 100%;
-  max-width: 140px;
+  height: 60px;
   width: auto;
-  height: auto;
+  max-width: none;
   object-fit: contain;
   border-radius: 6px;
 }
