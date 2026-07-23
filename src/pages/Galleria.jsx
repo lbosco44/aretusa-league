@@ -16,13 +16,17 @@ function fmtDate(ts) {
   return `${day}/${month}/${d.getFullYear()}`
 }
 
-export default function Galleria({ gallery, setGallery, isAdmin, bracketActive, level, setLevel, gender, setGender }) {
+export default function Galleria({ gallery, setGallery, galleryArchive, isAdmin, bracketActive, level, setLevel, gender, setGender }) {
   const [showUpload, setShowUpload] = useState(false)
-  const [lightboxIdx, setLightboxIdx] = useState(null)
+  const [lightbox, setLightbox] = useState(null) // { photos, idx, archive }
   const [deleteConfirm, setDeleteConfirm] = useState(null)
+  const [showArchive, setShowArchive] = useState(false)
 
   const photos = gallery?.list || []
   const sortedPhotos = [...photos].sort((a, b) => (b.uploadedAt || 0) - (a.uploadedAt || 0))
+
+  const archivePhotos = galleryArchive?.list || []
+  const sortedArchive = [...archivePhotos].sort((a, b) => (b.uploadedAt || 0) - (a.uploadedAt || 0))
 
   function handleUploaded(photo) {
     setGallery(prev => ({ list: [...(prev?.list || []), photo] }))
@@ -32,10 +36,10 @@ export default function Galleria({ gallery, setGallery, isAdmin, bracketActive, 
   function handleDelete(id) {
     setGallery(prev => ({ list: (prev?.list || []).filter(p => p.id !== id) }))
     setDeleteConfirm(null)
-    setLightboxIdx(null)
+    setLightbox(null)
   }
 
-  const lightboxPhoto = lightboxIdx != null ? sortedPhotos[lightboxIdx] : null
+  const lightboxPhoto = lightbox ? lightbox.photos[lightbox.idx] : null
 
   return (
     <div className="min-h-screen text-on-surface">
@@ -69,7 +73,7 @@ export default function Galleria({ gallery, setGallery, isAdmin, bracketActive, 
             {sortedPhotos.map((photo, i) => (
               <button
                 key={photo.id}
-                onClick={() => setLightboxIdx(i)}
+                onClick={() => setLightbox({ photos: sortedPhotos, idx: i, archive: false })}
                 className="polaroid"
               >
                 <div className="polaroid-photo">
@@ -86,6 +90,49 @@ export default function Galleria({ gallery, setGallery, isAdmin, bracketActive, 
               </button>
             ))}
           </div>
+        )}
+
+        {/* Archivio: foto ultimo torneo (read-only) */}
+        {sortedArchive.length > 0 && (
+          <section className="pt-2">
+            <button
+              onClick={() => setShowArchive(v => !v)}
+              className="w-full flex items-center justify-between bg-[#152040] rounded-2xl border border-white/5 px-4 py-3.5 hover:bg-[#182a55] transition-colors"
+            >
+              <div className="flex items-center gap-2.5 min-w-0">
+                <span className="material-symbols-outlined text-secondary text-lg">history</span>
+                <div className="text-left min-w-0">
+                  <p className="text-xs font-bold uppercase tracking-widest text-on-surface">Foto Ultimo Torneo</p>
+                  <p className="text-[10px] text-on-surface-variant/60">{sortedArchive.length} foto dell'edizione precedente</p>
+                </div>
+              </div>
+              <span className={`material-symbols-outlined text-on-surface-variant transition-transform ${showArchive ? 'rotate-180' : ''}`}>expand_more</span>
+            </button>
+
+            {showArchive && (
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-8 py-6">
+                {sortedArchive.map((photo, i) => (
+                  <button
+                    key={photo.id}
+                    onClick={() => setLightbox({ photos: sortedArchive, idx: i, archive: true })}
+                    className="polaroid"
+                  >
+                    <div className="polaroid-photo">
+                      <img
+                        src={cloudinaryUrl(photo.url, 'w_500,h_500,c_fill,q_auto,f_auto')}
+                        alt={photo.caption || 'Foto'}
+                        loading="lazy"
+                      />
+                    </div>
+                    <div className="polaroid-caption">
+                      {photo.caption || 'Aretusa League'}
+                    </div>
+                    <div className="polaroid-date">{fmtDate(photo.uploadedAt)}</div>
+                  </button>
+                ))}
+              </div>
+            )}
+          </section>
         )}
       </main>
 
@@ -107,27 +154,27 @@ export default function Galleria({ gallery, setGallery, isAdmin, bracketActive, 
 
       {/* Lightbox */}
       {lightboxPhoto && (
-        <div className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4" onClick={() => setLightboxIdx(null)}>
+        <div className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4" onClick={() => setLightbox(null)}>
           <button
-            onClick={() => setLightboxIdx(null)}
+            onClick={() => setLightbox(null)}
             className="absolute top-4 right-4 w-11 h-11 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 z-10"
           >
             <span className="material-symbols-outlined text-white">close</span>
           </button>
 
           {/* Prev */}
-          {lightboxIdx > 0 && (
+          {lightbox.idx > 0 && (
             <button
-              onClick={e => { e.stopPropagation(); setLightboxIdx(lightboxIdx - 1) }}
+              onClick={e => { e.stopPropagation(); setLightbox(l => ({ ...l, idx: l.idx - 1 })) }}
               className="absolute left-4 w-11 h-11 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 z-10"
             >
               <span className="material-symbols-outlined text-white">chevron_left</span>
             </button>
           )}
           {/* Next */}
-          {lightboxIdx < sortedPhotos.length - 1 && (
+          {lightbox.idx < lightbox.photos.length - 1 && (
             <button
-              onClick={e => { e.stopPropagation(); setLightboxIdx(lightboxIdx + 1) }}
+              onClick={e => { e.stopPropagation(); setLightbox(l => ({ ...l, idx: l.idx + 1 })) }}
               className="absolute right-4 w-11 h-11 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 z-10"
             >
               <span className="material-symbols-outlined text-white">chevron_right</span>
@@ -148,7 +195,7 @@ export default function Galleria({ gallery, setGallery, isAdmin, bracketActive, 
               )}
               <p className="text-white/50 text-xs font-medium">{fmtDate(lightboxPhoto.uploadedAt)}</p>
             </div>
-            {isAdmin && (
+            {isAdmin && !lightbox.archive && (
               <button
                 onClick={() => setDeleteConfirm(lightboxPhoto.id)}
                 className="px-5 py-2 bg-red-500/20 border border-red-500/30 text-red-400 font-headline font-bold text-xs uppercase tracking-widest rounded-xl hover:bg-red-500/30 flex items-center gap-2"

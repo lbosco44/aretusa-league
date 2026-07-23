@@ -387,6 +387,7 @@ export default function App() {
   const [matches, setMatches] = useState([])
   const [bracket, setBracket] = useState(EMPTY_BRACKET)
   const [gallery, setGallery] = useState({ list: [] })
+  const [galleryArchive, setGalleryArchive] = useState({ list: [] })
   const [isAdmin, setIsAdmin] = useState(false)
   const [loading, setLoading] = useState(true)
   const gironi = buildGironi(teams, matches)
@@ -403,6 +404,7 @@ export default function App() {
   const matchesRef = doc(db, col, 'matches')
   const bracketRef = doc(db, col, 'bracket')
   const galleryRef = doc(db, col, 'gallery')
+  const galleryArchiveRef = doc(db, col, 'gallery_archive')
 
   const syncTeams = makeSyncSetter(setTeams, teamsRef)
   const syncMatches = makeSyncSetter(setMatches, matchesRef, list => ({ list }))
@@ -430,9 +432,10 @@ export default function App() {
     setMatches([])
     setBracket(EMPTY_BRACKET)
     setGallery({ list: [] })
+    setGalleryArchive({ list: [] })
 
     let loadCount = 0
-    const done = () => { if (++loadCount >= 4) setLoading(false) }
+    const done = () => { if (++loadCount >= 5) setLoading(false) }
     const onError = (e) => { console.error('Firestore error:', e); done() }
 
     const list = getGironiList(level, gender)
@@ -452,6 +455,11 @@ export default function App() {
       }, onError),
       onSnapshot(galleryRef, snap => {
         if (snap.exists()) setGallery(snap.data())
+        done()
+      }, onError),
+      onSnapshot(galleryArchiveRef, snap => {
+        if (snap.exists()) setGalleryArchive(snap.data())
+        else setGalleryArchive({ list: [] })
         done()
       }, onError),
     ]
@@ -581,7 +589,7 @@ export default function App() {
         />
       } />
       <Route path="/regolamento" element={<Regolamento {...commonProps} />} />
-      <Route path="/galleria" element={<Galleria gallery={gallery} setGallery={syncGallery} {...commonProps} />} />
+      <Route path="/galleria" element={<Galleria gallery={gallery} setGallery={syncGallery} galleryArchive={galleryArchive} {...commonProps} />} />
       <Route path="/admin" element={<Admin teams={teams} setTeams={syncTeams} matches={matches} setMatches={syncMatches} bracket={bracket} setBracket={syncBracket} login={login} logout={logout} {...commonProps} />} />
     </Routes>
   )

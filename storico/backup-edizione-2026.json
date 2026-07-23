@@ -1,0 +1,4422 @@
+{
+  "exportedAt": "2026-07-23T09:44:32.245Z",
+  "projectId": "aretusa-league",
+  "data": {
+    "tournament_A": {
+      "teams": {
+        "C": [
+          {
+            "club": "Seven Padel",
+            "name": "Caltabiano / Formica",
+            "abbr": "CF"
+          },
+          {
+            "abbr": "AB",
+            "name": "Abate / Burgio",
+            "club": "Stazione Padel"
+          },
+          {
+            "abbr": "AC",
+            "club": "Stazione Padel",
+            "name": "Aliano / Campisi"
+          },
+          {
+            "name": "Esposito / Bosco bis",
+            "club": "Stazione padel",
+            "abbr": "EB"
+          }
+        ],
+        "B": [
+          {
+            "abbr": "RN",
+            "club": "Seven Padel",
+            "name": "Raudino / Nieli"
+          },
+          {
+            "club": "Seven Padel",
+            "name": "Faraci / Prado",
+            "abbr": "FP"
+          },
+          {
+            "abbr": "LL",
+            "name": "Lopez / Lopez",
+            "club": "Stazione Padel"
+          },
+          {
+            "name": "Amato P. / Maganuco",
+            "club": "Seven Padel",
+            "abbr": "AM"
+          }
+        ],
+        "A": [
+          {
+            "abbr": "BC",
+            "name": "Bosco / Calvo",
+            "club": "Seven Padel"
+          },
+          {
+            "name": "Ragusa / Risuglia",
+            "club": "Stazione Padel",
+            "abbr": "RR"
+          },
+          {
+            "name": "Vinci / Izzo",
+            "club": "Stazione Padel",
+            "abbr": "VI"
+          },
+          {
+            "name": "Amato G. / Bordonaro",
+            "club": "Seven Padel",
+            "abbr": "AB"
+          }
+        ]
+      },
+      "matches": {
+        "list": [
+          {
+            "score": "0-3",
+            "casa": {
+              "abbr": "AB",
+              "name": "Amato G. / Bordonaro",
+              "club": "Seven Padel"
+            },
+            "ora": "18:00",
+            "tbTarget": null,
+            "girone": "A",
+            "date": "2026-04-15",
+            "id": 102,
+            "played": true,
+            "ospite": {
+              "abbr": "BC",
+              "name": "Bosco / Calvo",
+              "club": "Seven Padel"
+            },
+            "sets": [
+              "6-7",
+              "1-6",
+              "2-6"
+            ]
+          },
+          {
+            "sets": [
+              "7-5",
+              "6-0",
+              "6-2"
+            ],
+            "ospite": {
+              "club": "Stazione Padel",
+              "name": "Vinci / Izzo",
+              "abbr": "VI"
+            },
+            "played": true,
+            "id": 103,
+            "date": "2026-04-16",
+            "girone": "A",
+            "tbTarget": null,
+            "ora": "16:30",
+            "casa": {
+              "name": "Ragusa / Risuglia",
+              "club": "Stazione Padel",
+              "abbr": "RR"
+            },
+            "score": "3-0"
+          },
+          {
+            "id": 1776460192848,
+            "played": true,
+            "ospite": {
+              "club": "Seven Padel",
+              "name": "Faraci / Prado",
+              "abbr": "FP"
+            },
+            "sets": [
+              "2-6",
+              "6-3",
+              "6-0"
+            ],
+            "score": "2-1",
+            "casa": {
+              "abbr": "RN",
+              "name": "Raudino / Nieli",
+              "club": "Seven Padel"
+            },
+            "ora": "18:30",
+            "girone": "B",
+            "tbTarget": null,
+            "date": "2026-04-20"
+          },
+          {
+            "casa": {
+              "club": "Stazione padel",
+              "name": "Esposito / Bosco bis",
+              "abbr": "EB"
+            },
+            "ora": "20:30",
+            "score": "1-2",
+            "date": "2026-04-22",
+            "tbTarget": null,
+            "girone": "C",
+            "id": 1777655674496,
+            "ospite": {
+              "abbr": "AB",
+              "name": "Abate / Burgio",
+              "club": "Stazione Padel"
+            },
+            "played": true,
+            "sets": [
+              "3-6",
+              "6-4",
+              "6-7"
+            ]
+          },
+          {
+            "sets": [
+              "2-6",
+              "3-6",
+              "3-6"
+            ],
+            "ospite": {
+              "abbr": "CF",
+              "club": "Seven Padel",
+              "name": "Caltabiano / Formica"
+            },
+            "played": true,
+            "id": 1776460351233,
+            "date": "2026-04-23",
+            "girone": "C",
+            "tbTarget": null,
+            "score": "0-3",
+            "ora": "16:30",
+            "casa": {
+              "abbr": "AC",
+              "club": "Stazione Padel",
+              "name": "Aliano / Campisi"
+            }
+          },
+          {
+            "id": 1776460443963,
+            "sets": [
+              "7-6",
+              "6-3",
+              "6-0"
+            ],
+            "played": true,
+            "ospite": {
+              "club": "Seven Padel",
+              "name": "Amato P. / Maganuco",
+              "abbr": "AM"
+            },
+            "ora": "17:30",
+            "casa": {
+              "abbr": "LL",
+              "club": "Stazione Padel",
+              "name": "Lopez / Lopez"
+            },
+            "score": "3-0",
+            "tbTarget": null,
+            "girone": "B",
+            "date": "2026-04-23"
+          },
+          {
+            "played": true,
+            "ospite": {
+              "abbr": "BC",
+              "club": "Seven Padel",
+              "name": "Bosco / Calvo"
+            },
+            "sets": [
+              "7-5",
+              "3-6",
+              "6-7"
+            ],
+            "id": 1777054665921,
+            "tbTarget": null,
+            "girone": "A",
+            "date": "2026-04-24",
+            "score": "1-2",
+            "ora": "17:00",
+            "casa": {
+              "club": "Stazione Padel",
+              "name": "Vinci / Izzo",
+              "abbr": "VI"
+            }
+          },
+          {
+            "id": 1777067565246,
+            "sets": [
+              "6-4",
+              "6-4",
+              "5-7"
+            ],
+            "ospite": {
+              "abbr": "FP",
+              "club": "Seven Padel",
+              "name": "Faraci / Prado"
+            },
+            "played": true,
+            "ora": "18:30",
+            "casa": {
+              "abbr": "AM",
+              "club": "Seven Padel",
+              "name": "Amato P. / Maganuco"
+            },
+            "score": "2-1",
+            "date": "2026-04-28",
+            "tbTarget": null,
+            "girone": "B"
+          },
+          {
+            "casa": {
+              "abbr": "AC",
+              "club": "Stazione Padel",
+              "name": "Aliano / Campisi"
+            },
+            "ora": "17:00",
+            "score": "2-1",
+            "date": "2026-04-29",
+            "tbTarget": null,
+            "girone": "C",
+            "id": 1777655632849,
+            "sets": [
+              "6-2",
+              "0-6",
+              "7-5"
+            ],
+            "ospite": {
+              "abbr": "EB",
+              "name": "Esposito / Bosco bis",
+              "club": "Stazione padel"
+            },
+            "played": true
+          },
+          {
+            "casa": {
+              "abbr": "VI",
+              "club": "Stazione Padel",
+              "name": "Vinci / Izzo"
+            },
+            "score": "0-3",
+            "ora": "17:00",
+            "date": "2026-04-30",
+            "girone": "A",
+            "tbTarget": null,
+            "id": 1776868666838,
+            "ospite": {
+              "abbr": "AB",
+              "name": "Amato G. / Bordonaro",
+              "club": "Seven Padel"
+            },
+            "played": true,
+            "sets": [
+              "3-6",
+              "4-6",
+              "1-6"
+            ]
+          },
+          {
+            "ospite": {
+              "club": "Seven Padel",
+              "name": "Bosco / Calvo",
+              "abbr": "BC"
+            },
+            "played": true,
+            "sets": [
+              "4-6",
+              "6-7",
+              "6-7"
+            ],
+            "id": 1776880552283,
+            "date": "2026-04-30",
+            "girone": "A",
+            "tbTarget": null,
+            "casa": {
+              "abbr": "RR",
+              "club": "Stazione Padel",
+              "name": "Ragusa / Risuglia"
+            },
+            "ora": "17:30",
+            "score": "0-3"
+          },
+          {
+            "ora": "17:30",
+            "score": "0-3",
+            "casa": {
+              "name": "Esposito / Bosco bis",
+              "club": "Stazione padel",
+              "abbr": "EB"
+            },
+            "date": "2026-05-06",
+            "tbTarget": null,
+            "girone": "C",
+            "id": 1777655708847,
+            "ospite": {
+              "name": "Caltabiano / Formica",
+              "club": "Seven Padel",
+              "abbr": "CF"
+            },
+            "played": true,
+            "sets": [
+              "4-6",
+              "4-6",
+              "4-6"
+            ]
+          },
+          {
+            "casa": {
+              "abbr": "LL",
+              "club": "Stazione Padel",
+              "name": "Lopez / Lopez"
+            },
+            "ora": "18:30",
+            "score": "2-1",
+            "date": "2026-05-07",
+            "tbTarget": null,
+            "girone": "B",
+            "id": 1777557109959,
+            "ospite": {
+              "club": "Seven Padel",
+              "name": "Raudino / Nieli",
+              "abbr": "RN"
+            },
+            "played": true,
+            "sets": [
+              "6-2",
+              "6-3",
+              "3-6"
+            ]
+          },
+          {
+            "tbTarget": null,
+            "girone": "B",
+            "date": "2026-05-12",
+            "ora": "17:30",
+            "score": "3-0",
+            "casa": {
+              "name": "Lopez / Lopez",
+              "club": "Stazione Padel",
+              "abbr": "LL"
+            },
+            "played": true,
+            "ospite": {
+              "abbr": "FP",
+              "club": "Seven Padel",
+              "name": "Faraci / Prado"
+            },
+            "sets": [
+              "6-2",
+              "6-4",
+              "7-6"
+            ],
+            "id": 1778077973651
+          },
+          {
+            "ospite": {
+              "abbr": "AB",
+              "club": "Seven Padel",
+              "name": "Amato G. / Bordonaro"
+            },
+            "played": true,
+            "sets": [
+              "6-2",
+              "6-2",
+              "6-2"
+            ],
+            "id": 1778670919493,
+            "date": "2026-05-19",
+            "tbTarget": null,
+            "girone": "A",
+            "ora": "16:30",
+            "casa": {
+              "name": "Ragusa / Risuglia",
+              "club": "Stazione Padel",
+              "abbr": "RR"
+            },
+            "score": "3-0"
+          },
+          {
+            "id": 1778251522819,
+            "sets": [
+              "6-0",
+              "6-0",
+              "6-0"
+            ],
+            "ospite": {
+              "name": "Abate / Burgio",
+              "club": "Stazione Padel",
+              "abbr": "AB"
+            },
+            "played": true,
+            "ora": "19:00",
+            "score": "3-0",
+            "casa": {
+              "abbr": "CF",
+              "club": "Seven Padel",
+              "name": "Caltabiano / Formica"
+            },
+            "date": "2026-05-20",
+            "girone": "C",
+            "tbTarget": null
+          },
+          {
+            "id": 1778613098581,
+            "played": true,
+            "ospite": {
+              "club": "Seven Padel",
+              "name": "Amato P. / Maganuco",
+              "abbr": "AM"
+            },
+            "sets": [
+              "6-2",
+              "7-6",
+              "3-6"
+            ],
+            "casa": {
+              "club": "Seven Padel",
+              "name": "Raudino / Nieli",
+              "abbr": "RN"
+            },
+            "score": "2-1",
+            "ora": "18:30",
+            "girone": "B",
+            "tbTarget": null,
+            "date": "2026-05-21"
+          },
+          {
+            "id": 1778684895002,
+            "sets": [
+              "7-6",
+              "6-1",
+              "7-6"
+            ],
+            "played": true,
+            "ospite": {
+              "abbr": "AC",
+              "club": "Stazione Padel",
+              "name": "Aliano / Campisi"
+            },
+            "ora": "18:00",
+            "score": "3-0",
+            "casa": {
+              "abbr": "AB",
+              "name": "Abate / Burgio",
+              "club": "Stazione Padel"
+            },
+            "girone": "C",
+            "tbTarget": null,
+            "date": "2026-05-22"
+          }
+        ]
+      },
+      "bracket": {
+        "size": 12,
+        "active": true,
+        "rounds": [
+          {
+            "matches": [
+              {
+                "sets": [
+                  "6-4",
+                  "6-3"
+                ],
+                "ospite": {
+                  "name": "Aliano / Campisi",
+                  "seedLabel": "3°C",
+                  "club": "Stazione Padel",
+                  "seed": null,
+                  "abbr": "AC"
+                },
+                "played": true,
+                "circolo": "STAZIONE PADEL",
+                "winner": "casa",
+                "date": "2026-05-26",
+                "time": "16:00",
+                "casa": {
+                  "abbr": "AB",
+                  "seed": null,
+                  "seedLabel": "3°A",
+                  "name": "Amato G. / Bordonaro",
+                  "club": "Seven Padel"
+                },
+                "score": "2-0"
+              },
+              {
+                "date": "2026-05-28",
+                "time": "18:30",
+                "score": "2-0",
+                "casa": {
+                  "abbr": "RN",
+                  "seed": null,
+                  "club": "Seven Padel",
+                  "seedLabel": "2°B",
+                  "name": "Raudino / Nieli"
+                },
+                "ospite": {
+                  "abbr": "EB",
+                  "seed": null,
+                  "name": "Esposito / Bosco bis",
+                  "seedLabel": "4°C",
+                  "club": "Stazione padel"
+                },
+                "circolo": "STAZIONE PADEL",
+                "played": true,
+                "sets": [
+                  "6-2",
+                  "6-2"
+                ],
+                "winner": "casa"
+              },
+              {
+                "played": true,
+                "circolo": "STAZIONE PADEL",
+                "ospite": {
+                  "seed": null,
+                  "abbr": "VI",
+                  "club": "Stazione Padel",
+                  "seedLabel": "4°A",
+                  "name": "Vinci / Izzo"
+                },
+                "sets": [
+                  "6-1",
+                  "4-6",
+                  "3-6"
+                ],
+                "winner": "ospite",
+                "date": "2026-06-01",
+                "casa": {
+                  "seed": null,
+                  "abbr": "AM",
+                  "club": "Seven Padel",
+                  "name": "Amato P. / Maganuco",
+                  "seedLabel": "3°B"
+                },
+                "score": "1-2",
+                "time": "16:00"
+              },
+              {
+                "date": "2026-05-27",
+                "score": "2-1",
+                "casa": {
+                  "club": "Stazione Padel",
+                  "seedLabel": "2°C",
+                  "name": "Abate / Burgio",
+                  "abbr": "AB",
+                  "seed": null
+                },
+                "time": "18:30",
+                "sets": [
+                  "3-6",
+                  "6-4",
+                  "6-3"
+                ],
+                "circolo": "SEVEN PADEL",
+                "played": true,
+                "ospite": {
+                  "club": "Seven Padel",
+                  "name": "Faraci / Prado",
+                  "seedLabel": "4°B",
+                  "seed": null,
+                  "abbr": "FP"
+                },
+                "winner": "casa"
+              }
+            ]
+          },
+          {
+            "matches": [
+              {
+                "time": "19:00",
+                "casa": {
+                  "seed": null,
+                  "abbr": "LL",
+                  "name": "Lopez / Lopez",
+                  "seedLabel": "1°B",
+                  "club": "Stazione Padel"
+                },
+                "score": "2-1",
+                "date": "2026-06-03",
+                "winner": "casa",
+                "sets": [
+                  "6-3",
+                  "4-6",
+                  "6-3"
+                ],
+                "ospite": {
+                  "seed": null,
+                  "abbr": "AB",
+                  "name": "Amato G. / Bordonaro",
+                  "seedLabel": "3°A",
+                  "club": "Seven Padel"
+                },
+                "circolo": "STAZIONE PADEL",
+                "played": true
+              },
+              {
+                "date": "2026-06-09",
+                "time": "18:30",
+                "casa": {
+                  "abbr": "RR",
+                  "seed": null,
+                  "seedLabel": "2°A",
+                  "name": "Ragusa / Risuglia",
+                  "club": "Stazione Padel"
+                },
+                "score": "0-2",
+                "ospite": {
+                  "club": "Seven Padel",
+                  "seedLabel": "2°B",
+                  "name": "Raudino / Nieli",
+                  "abbr": "RN",
+                  "seed": null
+                },
+                "circolo": "STAZIONE PADEL",
+                "played": true,
+                "sets": [
+                  "3-6",
+                  "4-6"
+                ],
+                "winner": "ospite"
+              },
+              {
+                "date": "2026-06-10",
+                "casa": {
+                  "seed": null,
+                  "abbr": "CF",
+                  "name": "Caltabiano / Formica",
+                  "seedLabel": "1°C",
+                  "club": "Seven Padel"
+                },
+                "score": "2-0",
+                "time": "16:30",
+                "played": true,
+                "circolo": "STAZIONE PADEL",
+                "ospite": {
+                  "name": "Vinci / Izzo",
+                  "seedLabel": "4°A",
+                  "club": "Stazione Padel",
+                  "abbr": "VI",
+                  "seed": null
+                },
+                "sets": [
+                  "7-5",
+                  "7-6"
+                ],
+                "winner": "casa"
+              },
+              {
+                "winner": "casa",
+                "sets": [
+                  "2-6",
+                  "6-4",
+                  "6-1"
+                ],
+                "circolo": "STAZIONE PADEL",
+                "played": true,
+                "ospite": {
+                  "seed": null,
+                  "abbr": "AB",
+                  "name": "Abate / Burgio",
+                  "seedLabel": "2°C",
+                  "club": "Stazione Padel"
+                },
+                "score": "2-1",
+                "casa": {
+                  "seedLabel": "1°A",
+                  "name": "Bosco / Calvo",
+                  "club": "Seven Padel",
+                  "abbr": "BC",
+                  "seed": null
+                },
+                "time": "18:30",
+                "date": "2026-06-10"
+              }
+            ]
+          },
+          {
+            "matches": [
+              {
+                "sets": [
+                  "6-3",
+                  "1-6",
+                  "5-7"
+                ],
+                "played": true,
+                "circolo": "STAZIONE PADEL",
+                "ospite": {
+                  "seed": null,
+                  "abbr": "RN",
+                  "name": "Raudino / Nieli",
+                  "seedLabel": "2°B",
+                  "club": "Seven Padel"
+                },
+                "winner": "ospite",
+                "date": "2026-06-22",
+                "score": "1-2",
+                "casa": {
+                  "club": "Stazione Padel",
+                  "seedLabel": "1°B",
+                  "name": "Lopez / Lopez",
+                  "abbr": "LL",
+                  "seed": null
+                },
+                "time": "19:00"
+              },
+              {
+                "time": "18:30",
+                "score": "2-0",
+                "casa": {
+                  "seed": null,
+                  "abbr": "CF",
+                  "club": "Seven Padel",
+                  "name": "Caltabiano / Formica",
+                  "seedLabel": "1°C"
+                },
+                "date": "2026-06-17",
+                "winner": "casa",
+                "ospite": {
+                  "seedLabel": "1°A",
+                  "name": "Bosco / Calvo",
+                  "club": "Seven Padel",
+                  "seed": null,
+                  "abbr": "BC"
+                },
+                "played": true,
+                "circolo": "STAZIONE PADEL",
+                "sets": [
+                  "6-2",
+                  "6-3"
+                ]
+              }
+            ]
+          },
+          {
+            "matches": [
+              {
+                "played": true,
+                "circolo": "STAZIONE PADEL",
+                "ospite": {
+                  "seed": null,
+                  "abbr": "CF",
+                  "club": "Seven Padel",
+                  "name": "Caltabiano / Formica",
+                  "seedLabel": "1°C"
+                },
+                "sets": [
+                  "2-6",
+                  "6-4",
+                  "10-4"
+                ],
+                "winner": "casa",
+                "date": "2026-06-30",
+                "score": "2-1",
+                "casa": {
+                  "seed": null,
+                  "abbr": "RN",
+                  "club": "Seven Padel",
+                  "name": "Raudino / Nieli",
+                  "seedLabel": "2°B"
+                },
+                "time": "19:00"
+              }
+            ]
+          }
+        ]
+      },
+      "gallery": {
+        "list": [
+          {
+            "publicId": "jwswhi5oczx1i2mfr7d4",
+            "caption": "Livello A - RAGUSA/RISUGLIA vs CALVO/BOSCO",
+            "id": "jwswhi5oczx1i2mfr7d4",
+            "url": "https://res.cloudinary.com/dzvwpvixz/image/upload/v1777578509/jwswhi5oczx1i2mfr7d4.jpg",
+            "uploadedAt": 1777578509588
+          },
+          {
+            "publicId": "hq9nlg0tzl3wicye8khg",
+            "caption": "Livello A - BORDONARO/AMATO vs VINCI/IZZO",
+            "id": "hq9nlg0tzl3wicye8khg",
+            "url": "https://res.cloudinary.com/dzvwpvixz/image/upload/v1777578560/hq9nlg0tzl3wicye8khg.jpg",
+            "uploadedAt": 1777578561368
+          },
+          {
+            "url": "https://res.cloudinary.com/dzvwpvixz/image/upload/v1779212083/kq6oqoggbjysrg4yx7he.jpg",
+            "id": "kq6oqoggbjysrg4yx7he",
+            "caption": "RAGUSA RISUGLIA vs AMATO BORDONARO",
+            "publicId": "kq6oqoggbjysrg4yx7he",
+            "uploadedAt": 1779212084188
+          },
+          {
+            "uploadedAt": 1779470255986,
+            "caption": "L'armata Brancaleone 🤣💪",
+            "publicId": "yqfeyxnphgjrf4mnuz2h",
+            "url": "https://res.cloudinary.com/dzvwpvixz/image/upload/v1779470255/yqfeyxnphgjrf4mnuz2h.jpg",
+            "id": "yqfeyxnphgjrf4mnuz2h"
+          },
+          {
+            "id": "rsud4wbpecrmifer2oko",
+            "url": "https://res.cloudinary.com/dzvwpvixz/image/upload/v1779810301/rsud4wbpecrmifer2oko.jpg",
+            "publicId": "rsud4wbpecrmifer2oko",
+            "caption": "AMATO BORDONARO vs ALIANO CAMPISI",
+            "uploadedAt": 1779810302763
+          },
+          {
+            "uploadedAt": 1779810343078,
+            "caption": "Dicono che andranno in Finale.. ci credono 🤣",
+            "publicId": "qadp1iaejnzstiayipbq",
+            "url": "https://res.cloudinary.com/dzvwpvixz/image/upload/v1779810341/qadp1iaejnzstiayipbq.jpg",
+            "id": "qadp1iaejnzstiayipbq"
+          },
+          {
+            "uploadedAt": 1779823409278,
+            "caption": "",
+            "publicId": "umxp2rtexnqrlbc0yph2",
+            "url": "https://res.cloudinary.com/dzvwpvixz/image/upload/v1779823408/umxp2rtexnqrlbc0yph2.jpg",
+            "id": "umxp2rtexnqrlbc0yph2"
+          },
+          {
+            "caption": "Giocatori Top - RAUDINO NIELI 🥎",
+            "publicId": "kek6y9egikvqcjblzmzf",
+            "url": "https://res.cloudinary.com/dzvwpvixz/image/upload/v1780163190/kek6y9egikvqcjblzmzf.jpg",
+            "id": "kek6y9egikvqcjblzmzf",
+            "uploadedAt": 1780163192695
+          },
+          {
+            "uploadedAt": 1780518663439,
+            "url": "https://res.cloudinary.com/dzvwpvixz/image/upload/v1780518663/y08nv06cfbcrqvsyw1cd.jpg",
+            "id": "y08nv06cfbcrqvsyw1cd",
+            "caption": "partita meravigliosa 🥎💪 grz a tutti",
+            "publicId": "y08nv06cfbcrqvsyw1cd"
+          }
+        ]
+      }
+    },
+    "tournament_B": {
+      "teams": {
+        "F": [
+          {
+            "abbr": "VL",
+            "name": "VINCI G. / LATINA",
+            "club": "RG padel"
+          },
+          {
+            "abbr": "MB",
+            "club": "Seven padel",
+            "name": "MIDOLO / BONGIORNO C."
+          },
+          {
+            "abbr": "RM",
+            "name": "RIZZA / MELLUZZO",
+            "club": "Stazione padel"
+          },
+          {
+            "abbr": "ST",
+            "club": "RG padel",
+            "name": "SAPIENZA / TINE'"
+          }
+        ],
+        "A": [
+          {
+            "name": "ARCURI / POLACCO",
+            "club": "Seven Padel",
+            "abbr": "AP"
+          },
+          {
+            "club": "Sun Club",
+            "name": "BLANDINI / GENOVESE",
+            "abbr": "BG"
+          },
+          {
+            "abbr": "VV",
+            "club": "Cittadella",
+            "name": "VESPUCCI / VESPUCCI"
+          },
+          {
+            "abbr": "GL",
+            "club": "Farina Padel",
+            "name": "GAMBUZZA / LEANTI"
+          }
+        ],
+        "C": [
+          {
+            "abbr": "MR",
+            "name": "MICELI / RAPPA",
+            "club": "Seven Padel"
+          },
+          {
+            "name": "PITRUZZELLO / ARESCO",
+            "club": "Seven padel",
+            "abbr": "PA"
+          },
+          {
+            "abbr": "BC",
+            "club": "Stazione padel",
+            "name": "BOTTARO / CASTELLI"
+          },
+          {
+            "name": "GIARRATANA / GALLO",
+            "club": "RG Padel",
+            "abbr": "GG2"
+          }
+        ],
+        "E": [
+          {
+            "abbr": "CD",
+            "name": "CALPITANO / DI PIETRO",
+            "club": "Stazione padel"
+          },
+          {
+            "name": "PIGNATA / ADORNO",
+            "club": "Pizzuta padel",
+            "abbr": "PA2"
+          },
+          {
+            "abbr": "DR",
+            "name": "DELL'ARTE / RUSSO",
+            "club": "RG padel"
+          },
+          {
+            "club": "RG Padel",
+            "name": "CAMPISI  G. / MAZZOLA",
+            "abbr": "CM"
+          }
+        ],
+        "D": [
+          {
+            "name": "GRECO / LI PUMA",
+            "club": "Stazione padel",
+            "abbr": "GL2"
+          },
+          {
+            "abbr": "RB",
+            "club": "Pizzuta padel",
+            "name": "RUSSO / BATTAGLIA"
+          },
+          {
+            "club": "Porto padel",
+            "name": "AMALDI / RANDAZZO",
+            "abbr": "AR"
+          },
+          {
+            "club": "Seven padel",
+            "name": "RESTUCCIA / SANTANGELO",
+            "abbr": "RS"
+          }
+        ],
+        "B": [
+          {
+            "abbr": "GG",
+            "club": "Stazione padel",
+            "name": "GIARDINA / GRANA"
+          },
+          {
+            "name": "GIRMENA / AMENTA",
+            "club": "Pizzuta Padel",
+            "abbr": "GA"
+          },
+          {
+            "abbr": "LD",
+            "club": "RG Padel",
+            "name": "LANTIERI / DI VINCENZO"
+          },
+          {
+            "club": "Seven Padel",
+            "name": "BONGIORNO S. / SANTO",
+            "abbr": "BS"
+          }
+        ]
+      },
+      "matches": {
+        "list": [
+          {
+            "ospite": {
+              "abbr": "VV",
+              "name": "VESPUCCI / VESPUCCI",
+              "club": "Cittadella"
+            },
+            "played": true,
+            "sets": [
+              "6-1",
+              "3-6",
+              "6-0"
+            ],
+            "id": 1776517598819,
+            "date": "2026-04-07",
+            "tbTarget": null,
+            "girone": "A",
+            "casa": {
+              "club": "Seven Padel",
+              "name": "ARCURI / POLACCO",
+              "abbr": "AP"
+            },
+            "ora": "18:30",
+            "score": "2-1"
+          },
+          {
+            "casa": {
+              "abbr": "GL",
+              "club": "Farina Padel",
+              "name": "GAMBUZZA / LEANTI"
+            },
+            "ora": "20:00",
+            "score": "0-3",
+            "date": "2026-04-07",
+            "tbTarget": null,
+            "girone": "A",
+            "id": 1776517666420,
+            "ospite": {
+              "abbr": "BG",
+              "name": "BLANDINI / GENOVESE",
+              "club": "Sun Club"
+            },
+            "played": true,
+            "sets": [
+              "3-6",
+              "4-6",
+              "3-6"
+            ]
+          },
+          {
+            "ospite": {
+              "abbr": "GL2",
+              "name": "GRECO / LI PUMA",
+              "club": "Stazione padel"
+            },
+            "played": true,
+            "sets": [
+              "1-6",
+              "6-4",
+              "7-5"
+            ],
+            "id": 1776519062412,
+            "date": "2026-04-07",
+            "tbTarget": null,
+            "girone": "D",
+            "score": "2-1",
+            "ora": "20:00",
+            "casa": {
+              "club": "Seven padel",
+              "name": "RESTUCCIA / SANTANGELO",
+              "abbr": "RS"
+            }
+          },
+          {
+            "id": 1776518192234,
+            "sets": [
+              "6-1",
+              "6-1",
+              "6-0"
+            ],
+            "played": true,
+            "ospite": {
+              "club": "RG Padel",
+              "name": "LANTIERI / DI VINCENZO",
+              "abbr": "LD"
+            },
+            "casa": {
+              "abbr": "GG",
+              "club": "Stazione padel",
+              "name": "GIARDINA / GRANA"
+            },
+            "ora": "16:00",
+            "score": "3-0",
+            "tbTarget": null,
+            "girone": "B",
+            "date": "2026-04-08"
+          },
+          {
+            "id": 1776518287734,
+            "sets": [
+              "5-7",
+              "3-6",
+              "2-6"
+            ],
+            "ospite": {
+              "abbr": "BS",
+              "club": "Seven Padel",
+              "name": "BONGIORNO S. / SANTO"
+            },
+            "played": true,
+            "ora": "19:00",
+            "score": "0-3",
+            "casa": {
+              "abbr": "GA",
+              "club": "Pizzuta Padel",
+              "name": "GIRMENA / AMENTA"
+            },
+            "date": "2026-04-08",
+            "girone": "B",
+            "tbTarget": null
+          },
+          {
+            "ora": "18:00",
+            "score": "1-2",
+            "casa": {
+              "abbr": "MB",
+              "name": "MIDOLO / BONGIORNO C.",
+              "club": "Seven padel"
+            },
+            "date": "2026-04-09",
+            "girone": "F",
+            "tbTarget": null,
+            "id": 1776519363846,
+            "ospite": {
+              "abbr": "VL",
+              "club": "RG padel",
+              "name": "VINCI G. / LATINA"
+            },
+            "played": true,
+            "sets": [
+              "1-6",
+              "7-6",
+              "6-7"
+            ]
+          },
+          {
+            "score": "1-2",
+            "ora": "19:00",
+            "casa": {
+              "abbr": "ST",
+              "club": "RG padel",
+              "name": "SAPIENZA / TINE'"
+            },
+            "girone": "F",
+            "tbTarget": null,
+            "date": "2026-04-09",
+            "id": 1776519453738,
+            "sets": [
+              "3-6",
+              "6-3",
+              "4-6"
+            ],
+            "played": true,
+            "ospite": {
+              "abbr": "RM",
+              "club": "Stazione padel",
+              "name": "RIZZA / MELLUZZO"
+            }
+          },
+          {
+            "girone": "E",
+            "tbTarget": null,
+            "date": "2026-04-10",
+            "score": "3-0",
+            "casa": {
+              "abbr": "PA2",
+              "name": "PIGNATA / ADORNO",
+              "club": "Pizzuta padel"
+            },
+            "ora": "18:00",
+            "played": true,
+            "ospite": {
+              "name": "CAMPISI  G. / MAZZOLA",
+              "club": "RG Padel",
+              "abbr": "CM"
+            },
+            "sets": [
+              "6-1",
+              "6-2",
+              "6-3"
+            ],
+            "id": 1776519229064
+          },
+          {
+            "ora": "19:00",
+            "score": "1-2",
+            "casa": {
+              "abbr": "RS",
+              "name": "RESTUCCIA / SANTANGELO",
+              "club": "Seven padel"
+            },
+            "date": "2026-04-14",
+            "tbTarget": null,
+            "girone": "D",
+            "id": 1776518987678,
+            "ospite": {
+              "club": "Pizzuta padel",
+              "name": "RUSSO / BATTAGLIA",
+              "abbr": "RB"
+            },
+            "played": true,
+            "sets": [
+              "6-3",
+              "6-7",
+              "0-6"
+            ]
+          },
+          {
+            "ora": "18:30",
+            "casa": {
+              "abbr": "BS",
+              "club": "Seven Padel",
+              "name": "BONGIORNO S. / SANTO"
+            },
+            "score": "0-3",
+            "date": "2026-04-15",
+            "girone": "B",
+            "tbTarget": null,
+            "id": 1776518387194,
+            "sets": [
+              "4-6",
+              "2-6",
+              "2-6"
+            ],
+            "ospite": {
+              "club": "Stazione padel",
+              "name": "GIARDINA / GRANA",
+              "abbr": "GG"
+            },
+            "played": true
+          },
+          {
+            "ora": "19:00",
+            "casa": {
+              "club": "Sun Club",
+              "name": "BLANDINI / GENOVESE",
+              "abbr": "BG"
+            },
+            "score": "2-1",
+            "tbTarget": null,
+            "girone": "A",
+            "date": "2026-04-15",
+            "id": 1776517820041,
+            "played": true,
+            "ospite": {
+              "club": "Cittadella",
+              "name": "VESPUCCI / VESPUCCI",
+              "abbr": "VV"
+            },
+            "sets": [
+              "2-6",
+              "6-3",
+              "7-5"
+            ]
+          },
+          {
+            "id": 1776785107033,
+            "played": true,
+            "ospite": {
+              "abbr": "GG2",
+              "name": "GIARRATANA / GALLO",
+              "club": "RG Padel"
+            },
+            "sets": [
+              "6-4",
+              "6-3",
+              "5-3"
+            ],
+            "score": "3-0",
+            "ora": "17:30",
+            "casa": {
+              "name": "BOTTARO / CASTELLI",
+              "club": "Stazione padel",
+              "abbr": "BC"
+            },
+            "girone": "C",
+            "tbTarget": null,
+            "date": "2026-04-16"
+          },
+          {
+            "ora": "18:30",
+            "score": "3-0",
+            "casa": {
+              "club": "Seven Padel",
+              "name": "ARCURI / POLACCO",
+              "abbr": "AP"
+            },
+            "tbTarget": null,
+            "girone": "A",
+            "date": "2026-04-16",
+            "id": 1776517725243,
+            "played": true,
+            "ospite": {
+              "abbr": "GL",
+              "name": "GAMBUZZA / LEANTI",
+              "club": "Farina Padel"
+            },
+            "sets": [
+              "6-2",
+              "6-3",
+              "6-0"
+            ]
+          },
+          {
+            "date": "2026-04-16",
+            "tbTarget": null,
+            "girone": "E",
+            "ora": "19:00",
+            "casa": {
+              "name": "CALPITANO / DI PIETRO",
+              "club": "Stazione padel",
+              "abbr": "CD"
+            },
+            "score": "2-1",
+            "ospite": {
+              "abbr": "DR",
+              "name": "DELL'ARTE / RUSSO",
+              "club": "RG padel"
+            },
+            "played": true,
+            "sets": [
+              "6-3",
+              "3-6",
+              "7-5"
+            ],
+            "id": 1776519163703
+          },
+          {
+            "score": "0-3",
+            "casa": {
+              "name": "SAPIENZA / TINE'",
+              "club": "RG padel",
+              "abbr": "ST"
+            },
+            "ora": "18:00",
+            "tbTarget": null,
+            "girone": "F",
+            "date": "2026-04-17",
+            "id": 1776519589274,
+            "played": true,
+            "ospite": {
+              "abbr": "VL",
+              "name": "VINCI G. / LATINA",
+              "club": "RG padel"
+            },
+            "sets": [
+              "0-6",
+              "1-6",
+              "2-6"
+            ]
+          },
+          {
+            "ospite": {
+              "name": "GRECO / LI PUMA",
+              "club": "Stazione padel",
+              "abbr": "GL2"
+            },
+            "played": true,
+            "sets": [
+              "3-6",
+              "3-6",
+              "4-6"
+            ],
+            "id": 1776518919346,
+            "date": "2026-04-17",
+            "tbTarget": null,
+            "girone": "D",
+            "casa": {
+              "abbr": "AR",
+              "name": "AMALDI / RANDAZZO",
+              "club": "Porto padel"
+            },
+            "ora": "20:00",
+            "score": "0-3"
+          },
+          {
+            "score": "0-3",
+            "casa": {
+              "abbr": "LD",
+              "name": "LANTIERI / DI VINCENZO",
+              "club": "RG Padel"
+            },
+            "ora": "15:00",
+            "date": "2026-04-18",
+            "girone": "B",
+            "tbTarget": null,
+            "id": 1776518492316,
+            "sets": [
+              "3-6",
+              "6-7",
+              "3-6"
+            ],
+            "ospite": {
+              "club": "Pizzuta Padel",
+              "name": "GIRMENA / AMENTA",
+              "abbr": "GA"
+            },
+            "played": true
+          },
+          {
+            "id": 1776519332182,
+            "played": true,
+            "ospite": {
+              "abbr": "PA2",
+              "club": "Pizzuta padel",
+              "name": "PIGNATA / ADORNO"
+            },
+            "sets": [
+              "6-4",
+              "6-3",
+              "7-6"
+            ],
+            "ora": "19:00",
+            "score": "3-0",
+            "casa": {
+              "club": "RG padel",
+              "name": "DELL'ARTE / RUSSO",
+              "abbr": "DR"
+            },
+            "girone": "E",
+            "tbTarget": null,
+            "date": "2026-04-20"
+          },
+          {
+            "girone": "F",
+            "tbTarget": null,
+            "date": "2026-04-21",
+            "ora": "19:00",
+            "casa": {
+              "abbr": "VL",
+              "name": "VINCI G. / LATINA",
+              "club": "RG padel"
+            },
+            "score": "3-0",
+            "sets": [
+              "6-0",
+              "6-1",
+              "6-1"
+            ],
+            "played": true,
+            "ospite": {
+              "abbr": "RM",
+              "club": "Stazione padel",
+              "name": "RIZZA / MELLUZZO"
+            },
+            "id": 1776519515530
+          },
+          {
+            "id": 1776517886892,
+            "ospite": {
+              "club": "Seven Padel",
+              "name": "ARCURI / POLACCO",
+              "abbr": "AP"
+            },
+            "played": true,
+            "sets": [
+              "2-6",
+              "5-7",
+              "6-2"
+            ],
+            "score": "1-2",
+            "ora": "19:00",
+            "casa": {
+              "club": "Sun Club",
+              "name": "BLANDINI / GENOVESE",
+              "abbr": "BG"
+            },
+            "date": "2026-04-22",
+            "girone": "A",
+            "tbTarget": null
+          },
+          {
+            "sets": [
+              "6-4",
+              "0-6",
+              "6-0"
+            ],
+            "played": true,
+            "ospite": {
+              "club": "Stazione padel",
+              "name": "BOTTARO / CASTELLI",
+              "abbr": "BC"
+            },
+            "id": 1776518854545,
+            "girone": "C",
+            "tbTarget": null,
+            "date": "2026-04-23",
+            "score": "2-1",
+            "ora": "19:00",
+            "casa": {
+              "abbr": "MR",
+              "club": "Seven Padel",
+              "name": "MICELI / RAPPA"
+            }
+          },
+          {
+            "ospite": {
+              "abbr": "RS",
+              "name": "RESTUCCIA / SANTANGELO",
+              "club": "Seven padel"
+            },
+            "played": true,
+            "sets": [
+              "5-7",
+              "2-6",
+              "6-4"
+            ],
+            "id": 1776518892336,
+            "date": "2026-04-23",
+            "tbTarget": null,
+            "girone": "D",
+            "ora": "20:00",
+            "score": "1-2",
+            "casa": {
+              "name": "AMALDI / RANDAZZO",
+              "club": "Porto padel",
+              "abbr": "AR"
+            }
+          },
+          {
+            "girone": "C",
+            "tbTarget": null,
+            "date": "2026-04-24",
+            "casa": {
+              "abbr": "PA",
+              "club": "Seven padel",
+              "name": "PITRUZZELLO / ARESCO"
+            },
+            "ora": "18:30",
+            "score": "2-1",
+            "played": true,
+            "ospite": {
+              "club": "RG Padel",
+              "name": "GIARRATANA / GALLO",
+              "abbr": "GG2"
+            },
+            "sets": [
+              "7-6",
+              "6-3",
+              "6-7"
+            ],
+            "id": 1776785168399
+          },
+          {
+            "date": "2026-04-24",
+            "tbTarget": null,
+            "girone": "E",
+            "score": "3-0",
+            "casa": {
+              "abbr": "DR",
+              "club": "RG padel",
+              "name": "DELL'ARTE / RUSSO"
+            },
+            "ora": "19:00",
+            "ospite": {
+              "name": "CAMPISI  G. / MAZZOLA",
+              "club": "RG Padel",
+              "abbr": "CM"
+            },
+            "played": true,
+            "sets": [
+              "7-5",
+              "6-1",
+              "6-0"
+            ],
+            "id": 1776519131483
+          },
+          {
+            "played": true,
+            "ospite": {
+              "abbr": "GL",
+              "name": "GAMBUZZA / LEANTI",
+              "club": "Farina Padel"
+            },
+            "sets": [
+              "4-6",
+              "6-1",
+              "1-6"
+            ],
+            "id": 1777102918247,
+            "tbTarget": null,
+            "girone": "A",
+            "date": "2026-04-27",
+            "score": "1-2",
+            "casa": {
+              "abbr": "VV",
+              "name": "VESPUCCI / VESPUCCI",
+              "club": "Cittadella"
+            },
+            "ora": "18:30"
+          },
+          {
+            "score": "1-2",
+            "casa": {
+              "abbr": "ST",
+              "club": "RG padel",
+              "name": "SAPIENZA / TINE'"
+            },
+            "ora": "18:00",
+            "girone": "F",
+            "tbTarget": null,
+            "date": "2026-04-29",
+            "id": 1776881152508,
+            "played": true,
+            "ospite": {
+              "abbr": "MB",
+              "club": "Seven padel",
+              "name": "MIDOLO / BONGIORNO C."
+            },
+            "sets": [
+              "6-3",
+              "1-6",
+              "2-6"
+            ]
+          },
+          {
+            "date": "2026-04-29",
+            "tbTarget": null,
+            "girone": "E",
+            "score": "3-0",
+            "ora": "18:30",
+            "casa": {
+              "abbr": "CM",
+              "club": "RG Padel",
+              "name": "CAMPISI  G. / MAZZOLA"
+            },
+            "sets": [
+              "6-3",
+              "6-2",
+              "6-1"
+            ],
+            "ospite": {
+              "abbr": "CD",
+              "name": "CALPITANO / DI PIETRO",
+              "club": "Stazione padel"
+            },
+            "played": true,
+            "id": 1776519284376
+          },
+          {
+            "id": 1776929812707,
+            "sets": [
+              "5-7",
+              "6-2",
+              "5-7"
+            ],
+            "played": true,
+            "ospite": {
+              "abbr": "GG",
+              "name": "GIARDINA / GRANA",
+              "club": "Stazione padel"
+            },
+            "score": "1-2",
+            "casa": {
+              "abbr": "GA",
+              "name": "GIRMENA / AMENTA",
+              "club": "Pizzuta Padel"
+            },
+            "ora": "19:00",
+            "girone": "B",
+            "tbTarget": null,
+            "date": "2026-04-29"
+          },
+          {
+            "id": 1777190139053,
+            "sets": [
+              "6-2",
+              "6-1",
+              "6-2"
+            ],
+            "played": true,
+            "ospite": {
+              "club": "Porto padel",
+              "name": "AMALDI / RANDAZZO",
+              "abbr": "AR"
+            },
+            "ora": "20:30",
+            "score": "3-0",
+            "casa": {
+              "name": "RUSSO / BATTAGLIA",
+              "club": "Pizzuta padel",
+              "abbr": "RB"
+            },
+            "girone": "D",
+            "tbTarget": null,
+            "date": "2026-04-29"
+          },
+          {
+            "ora": "19:00",
+            "score": "1-2",
+            "casa": {
+              "abbr": "BC",
+              "club": "Stazione padel",
+              "name": "BOTTARO / CASTELLI"
+            },
+            "date": "2026-04-30",
+            "tbTarget": null,
+            "girone": "C",
+            "id": 1776880716678,
+            "sets": [
+              "0-6",
+              "7-5",
+              "2-6"
+            ],
+            "ospite": {
+              "name": "PITRUZZELLO / ARESCO",
+              "club": "Seven padel",
+              "abbr": "PA"
+            },
+            "played": true
+          },
+          {
+            "score": "1-2",
+            "ora": "19:30",
+            "casa": {
+              "name": "GIARRATANA / GALLO",
+              "club": "RG Padel",
+              "abbr": "GG2"
+            },
+            "girone": "C",
+            "tbTarget": null,
+            "date": "2026-04-30",
+            "id": 1776964492620,
+            "played": true,
+            "ospite": {
+              "abbr": "MR",
+              "club": "Seven Padel",
+              "name": "MICELI / RAPPA"
+            },
+            "sets": [
+              "0-6",
+              "6-4",
+              "1-6"
+            ]
+          },
+          {
+            "date": "2026-05-02",
+            "girone": "D",
+            "tbTarget": null,
+            "score": "3-0",
+            "ora": "16:30",
+            "casa": {
+              "club": "Stazione padel",
+              "name": "GRECO / LI PUMA",
+              "abbr": "GL2"
+            },
+            "ospite": {
+              "abbr": "RB",
+              "club": "Pizzuta padel",
+              "name": "RUSSO / BATTAGLIA"
+            },
+            "played": true,
+            "sets": [
+              "6-4",
+              "6-3",
+              "6-0"
+            ],
+            "id": 1777190320721
+          },
+          {
+            "girone": "F",
+            "tbTarget": null,
+            "date": "2026-05-04",
+            "casa": {
+              "name": "MIDOLO / BONGIORNO C.",
+              "club": "Seven padel",
+              "abbr": "MB"
+            },
+            "score": "2-1",
+            "ora": "19:00",
+            "sets": [
+              "6-0",
+              "3-6",
+              "6-3"
+            ],
+            "played": true,
+            "ospite": {
+              "name": "RIZZA / MELLUZZO",
+              "club": "Stazione padel",
+              "abbr": "RM"
+            },
+            "id": 1777499721981
+          },
+          {
+            "sets": [
+              "7-6",
+              "3-6",
+              "4-6"
+            ],
+            "played": true,
+            "ospite": {
+              "abbr": "PA2",
+              "name": "PIGNATA / ADORNO",
+              "club": "Pizzuta padel"
+            },
+            "id": 1777449283203,
+            "girone": "E",
+            "tbTarget": null,
+            "date": "2026-05-05",
+            "score": "1-2",
+            "ora": "19:00",
+            "casa": {
+              "club": "Stazione padel",
+              "name": "CALPITANO / DI PIETRO",
+              "abbr": "CD"
+            }
+          },
+          {
+            "ora": "19:30",
+            "casa": {
+              "club": "Seven Padel",
+              "name": "MICELI / RAPPA",
+              "abbr": "MR"
+            },
+            "score": "3-0",
+            "date": "2026-05-06",
+            "girone": "C",
+            "tbTarget": null,
+            "id": 1777899753923,
+            "ospite": {
+              "club": "Seven padel",
+              "name": "PITRUZZELLO / ARESCO",
+              "abbr": "PA"
+            },
+            "played": true,
+            "sets": [
+              "6-3",
+              "6-2",
+              "6-4"
+            ]
+          },
+          {
+            "date": "2026-05-07",
+            "tbTarget": null,
+            "girone": "B",
+            "ora": "18:30",
+            "score": "3-0",
+            "casa": {
+              "name": "BONGIORNO S. / SANTO",
+              "club": "Seven Padel",
+              "abbr": "BS"
+            },
+            "sets": [
+              "6-2",
+              "6-2",
+              "6-2"
+            ],
+            "ospite": {
+              "abbr": "LD",
+              "name": "LANTIERI / DI VINCENZO",
+              "club": "RG Padel"
+            },
+            "played": true,
+            "id": 1777551331818
+          }
+        ]
+      },
+      "bracket": {
+        "rounds": [
+          {
+            "matches": [
+              {
+                "ospite": {
+                  "name": "GAMBUZZA / LEANTI",
+                  "seedLabel": "4°A",
+                  "club": "Farina Padel",
+                  "abbr": "GL",
+                  "seed": null
+                },
+                "circolo": "STAZIONE PADEL",
+                "played": true,
+                "sets": [
+                  "6-3",
+                  "6-4"
+                ],
+                "winner": "casa",
+                "date": "2026-05-20",
+                "time": "19:00",
+                "score": "2-0",
+                "casa": {
+                  "abbr": "RS",
+                  "seed": null,
+                  "name": "RESTUCCIA / SANTANGELO",
+                  "seedLabel": "3°D",
+                  "club": "Seven padel"
+                }
+              },
+              {
+                "time": "18:30",
+                "score": "2-0",
+                "casa": {
+                  "club": "Seven padel",
+                  "seedLabel": "2°F",
+                  "name": "MIDOLO / BONGIORNO C.",
+                  "seed": null,
+                  "abbr": "MB"
+                },
+                "date": "2026-05-19",
+                "winner": "casa",
+                "sets": [
+                  "6-3",
+                  "6-1"
+                ],
+                "ospite": {
+                  "seed": null,
+                  "abbr": "CD",
+                  "club": "Stazione padel",
+                  "seedLabel": "4°E",
+                  "name": "CALPITANO / DI PIETRO"
+                },
+                "played": true,
+                "circolo": "PIZZUTA PADEL"
+              },
+              {
+                "date": "2026-05-16",
+                "score": "2-1",
+                "casa": {
+                  "seedLabel": "2°C",
+                  "name": "BOTTARO / CASTELLI",
+                  "club": "Stazione padel",
+                  "abbr": "BC",
+                  "seed": null
+                },
+                "time": "16:00",
+                "circolo": "STAZIONE PADEL",
+                "played": true,
+                "ospite": {
+                  "abbr": "AR",
+                  "seed": null,
+                  "club": "Porto padel",
+                  "name": "AMALDI / RANDAZZO",
+                  "seedLabel": "4°D"
+                },
+                "sets": [
+                  "5-7",
+                  "6-4",
+                  "6-2"
+                ],
+                "winner": "casa"
+              },
+              {
+                "date": "2026-05-21",
+                "time": "19:00",
+                "casa": {
+                  "seedLabel": "2°D",
+                  "name": "RUSSO / BATTAGLIA",
+                  "club": "Pizzuta padel",
+                  "seed": null,
+                  "abbr": "RB"
+                },
+                "score": "2-0",
+                "ospite": {
+                  "club": "RG Padel",
+                  "name": "LANTIERI / DI VINCENZO",
+                  "seedLabel": "4°B",
+                  "abbr": "LD",
+                  "seed": null
+                },
+                "circolo": "SEVEN PADEL",
+                "played": true,
+                "sets": [
+                  "6-3",
+                  "6-3"
+                ],
+                "winner": "casa"
+              },
+              {
+                "played": true,
+                "ospite": {
+                  "seed": null,
+                  "abbr": "GG2",
+                  "name": "GIARRATANA / GALLO",
+                  "seedLabel": "4°C",
+                  "club": "RG Padel"
+                },
+                "sets": [
+                  "6-3",
+                  "3-6",
+                  "6-2"
+                ],
+                "casa": {
+                  "name": "GIRMENA / AMENTA",
+                  "seedLabel": "3°B",
+                  "club": "Pizzuta Padel",
+                  "abbr": "GA",
+                  "seed": null
+                },
+                "score": "2-1",
+                "winner": "casa"
+              },
+              {
+                "date": "2026-05-15",
+                "casa": {
+                  "name": "PIGNATA / ADORNO",
+                  "seedLabel": "2°E",
+                  "club": "Pizzuta padel",
+                  "abbr": "PA2",
+                  "seed": null
+                },
+                "score": "2-0",
+                "time": "18:00",
+                "played": true,
+                "circolo": "STAZIONE PADEL",
+                "ospite": {
+                  "seed": null,
+                  "abbr": "ST",
+                  "club": "RG padel",
+                  "seedLabel": "4°F",
+                  "name": "SAPIENZA / TINE'"
+                },
+                "sets": [
+                  "6-0",
+                  "6-3"
+                ],
+                "winner": "casa"
+              },
+              {
+                "winner": "casa",
+                "sets": [
+                  "6-2",
+                  "4-6",
+                  "6-1"
+                ],
+                "ospite": {
+                  "seed": null,
+                  "abbr": "PA",
+                  "club": "Seven padel",
+                  "name": "PITRUZZELLO / ARESCO",
+                  "seedLabel": "3°C"
+                },
+                "played": true,
+                "circolo": "RG PADEL",
+                "time": "17:00",
+                "score": "2-1",
+                "casa": {
+                  "seedLabel": "3°A",
+                  "name": "VESPUCCI / VESPUCCI",
+                  "club": "Cittadella",
+                  "seed": null,
+                  "abbr": "VV"
+                },
+                "date": "2026-05-19"
+              },
+              {
+                "date": "2026-05-15",
+                "time": "19:00",
+                "score": "2-1",
+                "casa": {
+                  "abbr": "CM",
+                  "seed": null,
+                  "name": "CAMPISI  G. / MAZZOLA",
+                  "seedLabel": "3°E",
+                  "club": "RG Padel"
+                },
+                "ospite": {
+                  "seedLabel": "3°F",
+                  "name": "RIZZA / MELLUZZO",
+                  "club": "Stazione padel",
+                  "seed": null,
+                  "abbr": "RM"
+                },
+                "circolo": "STAZIONE PADEL",
+                "played": true,
+                "sets": [
+                  "4-6",
+                  "7-6",
+                  "6-1"
+                ],
+                "winner": "casa"
+              }
+            ]
+          },
+          {
+            "matches": [
+              {
+                "date": "2026-05-28",
+                "time": "19:30",
+                "score": "2-0",
+                "casa": {
+                  "seedLabel": "1°F",
+                  "name": "VINCI G. / LATINA",
+                  "club": "RG padel",
+                  "abbr": "VL",
+                  "seed": null
+                },
+                "sets": [
+                  "6-1",
+                  "6-1"
+                ],
+                "ospite": {
+                  "club": "Seven padel",
+                  "name": "RESTUCCIA / SANTANGELO",
+                  "seedLabel": "3°D",
+                  "seed": null,
+                  "abbr": "RS"
+                },
+                "circolo": "PIZZUTA PADEL",
+                "played": true,
+                "winner": "casa"
+              },
+              {
+                "time": "18:00",
+                "casa": {
+                  "club": "Stazione padel",
+                  "seedLabel": "1°D",
+                  "name": "GRECO / LI PUMA",
+                  "seed": null,
+                  "abbr": "GL2"
+                },
+                "score": "0-2",
+                "date": "2026-05-23",
+                "winner": "ospite",
+                "sets": [
+                  "4-6",
+                  "2-6"
+                ],
+                "ospite": {
+                  "club": "Seven padel",
+                  "name": "MIDOLO / BONGIORNO C.",
+                  "seedLabel": "2°F",
+                  "abbr": "MB",
+                  "seed": null
+                },
+                "played": true,
+                "circolo": "STAZIONE PADEL"
+              },
+              {
+                "casa": {
+                  "club": "Seven Padel",
+                  "name": "BONGIORNO S. / SANTO",
+                  "seedLabel": "2°B",
+                  "seed": null,
+                  "abbr": "BS"
+                },
+                "score": "0-2",
+                "time": "18:30",
+                "date": "2026-05-28",
+                "winner": "ospite",
+                "circolo": "SEVEN PADEL",
+                "played": true,
+                "ospite": {
+                  "club": "Stazione padel",
+                  "seedLabel": "2°C",
+                  "name": "BOTTARO / CASTELLI",
+                  "abbr": "BC",
+                  "seed": null
+                },
+                "sets": [
+                  "5-7",
+                  "0-6"
+                ]
+              },
+              {
+                "winner": "casa",
+                "circolo": "SEVEN PADEL",
+                "played": true,
+                "ospite": {
+                  "name": "RUSSO / BATTAGLIA",
+                  "seedLabel": "2°D",
+                  "club": "Pizzuta padel",
+                  "seed": null,
+                  "abbr": "RB"
+                },
+                "sets": [
+                  "6-1",
+                  "6-0"
+                ],
+                "casa": {
+                  "abbr": "AP",
+                  "seed": null,
+                  "club": "Seven Padel",
+                  "seedLabel": "1°A",
+                  "name": "ARCURI / POLACCO"
+                },
+                "score": "2-0",
+                "time": "19:00",
+                "date": "2026-05-26"
+              },
+              {
+                "time": "19:30",
+                "score": "2-0",
+                "casa": {
+                  "club": "RG padel",
+                  "name": "DELL'ARTE / RUSSO",
+                  "seedLabel": "1°E",
+                  "seed": null,
+                  "abbr": "DR"
+                },
+                "date": "2026-05-20",
+                "winner": "casa",
+                "sets": [
+                  "6-3",
+                  "7-5"
+                ],
+                "ospite": {
+                  "abbr": "GA",
+                  "seed": null,
+                  "seedLabel": "3°B",
+                  "name": "GIRMENA / AMENTA",
+                  "club": "Pizzuta Padel"
+                },
+                "played": true,
+                "circolo": "STAZIONE PADEL"
+              },
+              {
+                "casa": {
+                  "seedLabel": "2°A",
+                  "name": "BLANDINI / GENOVESE",
+                  "club": "Sun Club",
+                  "seed": null,
+                  "abbr": "BG"
+                },
+                "score": "2-1",
+                "time": "19:00",
+                "date": "2026-05-28",
+                "winner": "casa",
+                "sets": [
+                  "4-6",
+                  "6-2",
+                  "6-2"
+                ],
+                "played": true,
+                "circolo": "SEVEN PADEL",
+                "ospite": {
+                  "club": "Pizzuta padel",
+                  "seedLabel": "2°E",
+                  "name": "PIGNATA / ADORNO",
+                  "abbr": "PA2",
+                  "seed": null
+                }
+              },
+              {
+                "winner": "casa",
+                "circolo": "RG PADEL",
+                "played": true,
+                "ospite": {
+                  "abbr": "VV",
+                  "seed": null,
+                  "name": "VESPUCCI / VESPUCCI",
+                  "seedLabel": "3°A",
+                  "club": "Cittadella"
+                },
+                "sets": [
+                  "6-2",
+                  "6-2"
+                ],
+                "score": "2-0",
+                "casa": {
+                  "seed": null,
+                  "abbr": "GG",
+                  "club": "Stazione padel",
+                  "seedLabel": "1°B",
+                  "name": "GIARDINA / GRANA"
+                },
+                "time": "17:30",
+                "date": "2026-05-29"
+              },
+              {
+                "time": "19:30",
+                "casa": {
+                  "club": "Seven Padel",
+                  "seedLabel": "1°C",
+                  "name": "MICELI / RAPPA",
+                  "abbr": "MR",
+                  "seed": null
+                },
+                "score": "2-0",
+                "date": "2026-05-27",
+                "winner": "casa",
+                "ospite": {
+                  "club": "RG Padel",
+                  "seedLabel": "3°E",
+                  "name": "CAMPISI  G. / MAZZOLA",
+                  "seed": null,
+                  "abbr": "CM"
+                },
+                "circolo": "STAZIONE PADEL",
+                "played": true,
+                "sets": [
+                  "7-6",
+                  "6-2"
+                ]
+              }
+            ]
+          },
+          {
+            "matches": [
+              {
+                "winner": "casa",
+                "circolo": "RG PADEL",
+                "played": true,
+                "ospite": {
+                  "name": "MIDOLO / BONGIORNO C.",
+                  "seedLabel": "2°F",
+                  "club": "Seven padel",
+                  "abbr": "MB",
+                  "seed": null
+                },
+                "sets": [
+                  "6-3",
+                  "3-6",
+                  "7-2"
+                ],
+                "casa": {
+                  "seed": null,
+                  "abbr": "VL",
+                  "club": "RG padel",
+                  "seedLabel": "1°F",
+                  "name": "VINCI G. / LATINA"
+                },
+                "score": "2-1",
+                "time": "19:00",
+                "date": "2026-06-08"
+              },
+              {
+                "sets": [
+                  "0-6",
+                  "2-6"
+                ],
+                "ospite": {
+                  "seedLabel": "1°A",
+                  "name": "ARCURI / POLACCO",
+                  "club": "Seven Padel",
+                  "seed": null,
+                  "abbr": "AP"
+                },
+                "played": true,
+                "circolo": "SEVEN PADEL",
+                "winner": "ospite",
+                "date": "2026-06-01",
+                "time": "18:30",
+                "casa": {
+                  "club": "Stazione padel",
+                  "name": "BOTTARO / CASTELLI",
+                  "seedLabel": "2°C",
+                  "seed": null,
+                  "abbr": "BC"
+                },
+                "score": "0-2"
+              },
+              {
+                "winner": "ospite",
+                "sets": [
+                  "4-6",
+                  "3-6"
+                ],
+                "ospite": {
+                  "seedLabel": "2°A",
+                  "name": "BLANDINI / GENOVESE",
+                  "club": "Sun Club",
+                  "abbr": "BG",
+                  "seed": null
+                },
+                "played": true,
+                "circolo": "STAZIONE PADEL",
+                "time": "19:30",
+                "score": "0-2",
+                "casa": {
+                  "name": "DELL'ARTE / RUSSO",
+                  "seedLabel": "1°E",
+                  "club": "RG padel",
+                  "abbr": "DR",
+                  "seed": null
+                },
+                "date": "2026-06-03"
+              },
+              {
+                "date": "2026-06-03",
+                "time": "14:00",
+                "score": "2-1",
+                "casa": {
+                  "name": "GIARDINA / GRANA",
+                  "seedLabel": "1°B",
+                  "club": "Stazione padel",
+                  "seed": null,
+                  "abbr": "GG"
+                },
+                "sets": [
+                  "6-7",
+                  "6-3",
+                  "6-3"
+                ],
+                "ospite": {
+                  "club": "Seven Padel",
+                  "seedLabel": "1°C",
+                  "name": "MICELI / RAPPA",
+                  "abbr": "MR",
+                  "seed": null
+                },
+                "circolo": "SEVEN PADEL",
+                "played": true,
+                "winner": "casa"
+              }
+            ]
+          },
+          {
+            "matches": [
+              {
+                "time": "18:00",
+                "score": "1-2",
+                "casa": {
+                  "seedLabel": "1°F",
+                  "name": "VINCI G. / LATINA",
+                  "club": "RG padel",
+                  "seed": null,
+                  "abbr": "VL"
+                },
+                "date": "2026-06-15",
+                "winner": "ospite",
+                "ospite": {
+                  "seed": null,
+                  "abbr": "AP",
+                  "seedLabel": "1°A",
+                  "name": "ARCURI / POLACCO",
+                  "club": "Seven Padel"
+                },
+                "played": true,
+                "circolo": "STAZIONE PADEL",
+                "sets": [
+                  "2-6",
+                  "7-6",
+                  "8-10"
+                ]
+              },
+              {
+                "winner": "casa",
+                "ospite": {
+                  "club": "Stazione padel",
+                  "name": "GIARDINA / GRANA",
+                  "seedLabel": "1°B",
+                  "abbr": "GG",
+                  "seed": null
+                },
+                "circolo": "STAZIONE PADEL",
+                "played": true,
+                "sets": [
+                  "7-6",
+                  "6-0"
+                ],
+                "time": "19:00",
+                "score": "2-0",
+                "casa": {
+                  "seed": null,
+                  "abbr": "BG",
+                  "club": "Sun Club",
+                  "seedLabel": "2°A",
+                  "name": "BLANDINI / GENOVESE"
+                },
+                "date": "2026-06-10"
+              }
+            ]
+          },
+          {
+            "matches": [
+              {
+                "sets": [
+                  "4-6",
+                  "4-6"
+                ],
+                "ospite": {
+                  "name": "BLANDINI / GENOVESE",
+                  "seedLabel": "2°A",
+                  "club": "Sun Club",
+                  "seed": null,
+                  "abbr": "BG"
+                },
+                "played": true,
+                "circolo": "STAZIONE PADEL",
+                "winner": "ospite",
+                "date": "2026-06-24",
+                "time": "19:00",
+                "score": "0-2",
+                "casa": {
+                  "name": "ARCURI / POLACCO",
+                  "seedLabel": "1°A",
+                  "club": "Seven Padel",
+                  "abbr": "AP",
+                  "seed": null
+                }
+              }
+            ]
+          }
+        ],
+        "size": 24,
+        "active": true
+      },
+      "gallery": {
+        "list": [
+          {
+            "uploadedAt": 1777524688170,
+            "id": "v7fnmnkosltg9e6pdvaf",
+            "url": "https://res.cloudinary.com/dzvwpvixz/image/upload/v1777524687/v7fnmnkosltg9e6pdvaf.jpg",
+            "publicId": "v7fnmnkosltg9e6pdvaf",
+            "caption": "Livello B - RUSSO/BATTAGLIA vs AMALDI/RANDAZZO"
+          },
+          {
+            "uploadedAt": 1777527989544,
+            "url": "https://res.cloudinary.com/dzvwpvixz/image/upload/v1777527989/zcpubfnlrztjgqfllxcp.jpg",
+            "id": "zcpubfnlrztjgqfllxcp",
+            "caption": "Livello B - MAZZOLA/CAMPISI vs CALPITANO/DI PIETRO",
+            "publicId": "zcpubfnlrztjgqfllxcp"
+          },
+          {
+            "uploadedAt": 1777578324040,
+            "id": "z4mwaccjbnzq9g4ydzpi",
+            "url": "https://res.cloudinary.com/dzvwpvixz/image/upload/v1777578323/z4mwaccjbnzq9g4ydzpi.jpg",
+            "publicId": "z4mwaccjbnzq9g4ydzpi",
+            "caption": "Livello B - PITRUZZELLO/ARESCO vs BOTTARO/CASTELLI"
+          },
+          {
+            "uploadedAt": 1777741909902,
+            "caption": "Livello B - GRECO/LI PUMA vs RUSSO/BATTAGLIA",
+            "publicId": "sows20zycaqctjsno0s6",
+            "url": "https://res.cloudinary.com/dzvwpvixz/image/upload/v1777741909/sows20zycaqctjsno0s6.jpg",
+            "id": "sows20zycaqctjsno0s6"
+          },
+          {
+            "caption": "Livello B - MIDOLO/BONGIORNO  vs RIZZA/MELLUZZO",
+            "publicId": "bvuafo5m9exwmsrqhiss",
+            "url": "https://res.cloudinary.com/dzvwpvixz/image/upload/v1777922243/bvuafo5m9exwmsrqhiss.jpg",
+            "id": "bvuafo5m9exwmsrqhiss",
+            "uploadedAt": 1777922245405
+          },
+          {
+            "publicId": "b624jkgmry89kieufrio",
+            "caption": "Livello B - MICELI/ RAPPA vs PITRUZZELLO/ARESCO",
+            "id": "b624jkgmry89kieufrio",
+            "url": "https://res.cloudinary.com/dzvwpvixz/image/upload/v1778100551/b624jkgmry89kieufrio.jpg",
+            "uploadedAt": 1778100552546
+          },
+          {
+            "uploadedAt": 1778528498874,
+            "id": "qslzg7itieui83u9y0ta",
+            "url": "https://res.cloudinary.com/dzvwpvixz/image/upload/v1778528497/qslzg7itieui83u9y0ta.jpg",
+            "publicId": "qslzg7itieui83u9y0ta",
+            "caption": "gara tabellone B - GIRMENA AMENTA vs GIARRATANA GALLO"
+          },
+          {
+            "url": "https://res.cloudinary.com/dzvwpvixz/image/upload/v1778532473/sqnruswcrabb05vgonjr.jpg",
+            "id": "sqnruswcrabb05vgonjr",
+            "caption": "",
+            "publicId": "sqnruswcrabb05vgonjr",
+            "uploadedAt": 1778532474736
+          },
+          {
+            "publicId": "cwc2oege2s9czewjm7qf",
+            "caption": "RESTUCCIA SANTANGELO vs LEANTI GAMBUZZA",
+            "id": "cwc2oege2s9czewjm7qf",
+            "url": "https://res.cloudinary.com/dzvwpvixz/image/upload/v1779309920/cwc2oege2s9czewjm7qf.jpg",
+            "uploadedAt": 1779309921637
+          },
+          {
+            "uploadedAt": 1779309953219,
+            "caption": "ARETUSA League",
+            "publicId": "c8dwg5ftajrzyjkqnbft",
+            "url": "https://res.cloudinary.com/dzvwpvixz/image/upload/v1779309952/c8dwg5ftajrzyjkqnbft.jpg",
+            "id": "c8dwg5ftajrzyjkqnbft"
+          },
+          {
+            "publicId": "n2zumko3hlx6ggjucuqt",
+            "caption": "ARETUSA League",
+            "id": "n2zumko3hlx6ggjucuqt",
+            "url": "https://res.cloudinary.com/dzvwpvixz/image/upload/v1779309984/n2zumko3hlx6ggjucuqt.jpg",
+            "uploadedAt": 1779309985333
+          },
+          {
+            "url": "https://res.cloudinary.com/dzvwpvixz/image/upload/v1779823370/n1txz7ogpsl2uqdixovb.jpg",
+            "id": "n1txz7ogpsl2uqdixovb",
+            "caption": "ARCURI POLACCO vs RUSSO BATTAGLIA",
+            "publicId": "n1txz7ogpsl2uqdixovb",
+            "uploadedAt": 1779823371058
+          },
+          {
+            "uploadedAt": 1779996581229,
+            "caption": "BOTTARO CASTELLI vs BONGIORNO SANTO",
+            "publicId": "tuk8mpyyme3ynkkcaj5a",
+            "url": "https://res.cloudinary.com/dzvwpvixz/image/upload/v1779996580/tuk8mpyyme3ynkkcaj5a.jpg",
+            "id": "tuk8mpyyme3ynkkcaj5a"
+          },
+          {
+            "publicId": "lz7xld0jito1ultznb1r",
+            "caption": "BLANDINI GENOVESE vs DELL'ARTE RUSSO",
+            "id": "lz7xld0jito1ultznb1r",
+            "url": "https://res.cloudinary.com/dzvwpvixz/image/upload/v1780518086/lz7xld0jito1ultznb1r.jpg",
+            "uploadedAt": 1780518087605
+          },
+          {
+            "uploadedAt": 1780957350735,
+            "url": "https://res.cloudinary.com/dzvwpvixz/image/upload/v1780957350/v1ffutwpwt9f996wbvn3.jpg",
+            "id": "v1ffutwpwt9f996wbvn3",
+            "caption": "VINCI LATINA .. raggiungono la semifinale",
+            "publicId": "v1ffutwpwt9f996wbvn3"
+          },
+          {
+            "uploadedAt": 1781555473521,
+            "id": "xkzlcbzehdbw916zgkj2",
+            "url": "https://res.cloudinary.com/dzvwpvixz/image/upload/v1781555472/xkzlcbzehdbw916zgkj2.jpg",
+            "publicId": "xkzlcbzehdbw916zgkj2",
+            "caption": "Come una vera Finale   VINCI LATINA vs ARCURI POLACCO"
+          },
+          {
+            "uploadedAt": 1782337162068,
+            "publicId": "m72ktah5jm2goibkefsp",
+            "caption": "Premiazione 1° / 2°",
+            "id": "m72ktah5jm2goibkefsp",
+            "url": "https://res.cloudinary.com/dzvwpvixz/image/upload/v1782337161/m72ktah5jm2goibkefsp.jpg"
+          },
+          {
+            "caption": "2° classificati - ARCURI POLACCO",
+            "publicId": "nxo5ihoqxw4u3zn5vls0",
+            "url": "https://res.cloudinary.com/dzvwpvixz/image/upload/v1782337205/nxo5ihoqxw4u3zn5vls0.jpg",
+            "id": "nxo5ihoqxw4u3zn5vls0",
+            "uploadedAt": 1782337206428
+          },
+          {
+            "id": "eblhagfwfhbgokcdp3x1",
+            "url": "https://res.cloudinary.com/dzvwpvixz/image/upload/v1782337256/eblhagfwfhbgokcdp3x1.jpg",
+            "publicId": "eblhagfwfhbgokcdp3x1",
+            "caption": "1° classificati - GENOVESE BLANDINI",
+            "uploadedAt": 1782337257794
+          }
+        ]
+      }
+    },
+    "tournament_C": {
+      "teams": {
+        "A": [
+          {
+            "abbr": "RP",
+            "club": "RG Padel",
+            "name": "RESTIVO / PINO"
+          },
+          {
+            "abbr": "GM",
+            "club": "Seven Padel",
+            "name": "GRANDE / MASSARA"
+          },
+          {
+            "abbr": "TZ",
+            "name": "TRIPOLINO / ZAGARELLA",
+            "club": "Pizzuta Padel"
+          },
+          {
+            "abbr": "ZC",
+            "club": "RG Padel",
+            "name": "ZOCCO / CASSIA"
+          }
+        ],
+        "B": [
+          {
+            "abbr": "CA",
+            "club": "Pizzuta Padel",
+            "name": "CAMPISI / ANASTASI"
+          },
+          {
+            "name": "LOMBARDO / CASTROGIOVANNI",
+            "club": "Seven Padel",
+            "abbr": "LC"
+          },
+          {
+            "abbr": "DZ",
+            "club": "RG Padel",
+            "name": "DEL GRECO / ZAMMITTI"
+          },
+          {
+            "name": "CARUSO / CIANCI",
+            "club": "RG Padel",
+            "abbr": "CC"
+          }
+        ],
+        "C": [
+          {
+            "club": "Epipoli padel",
+            "name": "CAVARRA / BONFIGLIO",
+            "abbr": "CB"
+          },
+          {
+            "abbr": "VG",
+            "club": "RG Padel",
+            "name": "VASQUEZ / GURCIULLO"
+          },
+          {
+            "abbr": "NF",
+            "club": "Cittadella",
+            "name": "NICASTRO / FORTUNA"
+          },
+          {
+            "club": "RG Padel",
+            "name": "DI VINCENZO / PONZO",
+            "abbr": "DP"
+          }
+        ]
+      },
+      "matches": {
+        "list": [
+          {
+            "casa": {
+              "abbr": "TZ",
+              "name": "TRIPOLINO / ZAGARELLA",
+              "club": "Pizzuta Padel"
+            },
+            "score": "3-0",
+            "ora": "19:30",
+            "date": "2026-04-15",
+            "tbTarget": null,
+            "girone": "A",
+            "id": 1776840751286,
+            "ospite": {
+              "abbr": "ZC",
+              "club": "RG Padel",
+              "name": "ZOCCO / CASSIA"
+            },
+            "played": true,
+            "sets": [
+              "6-1",
+              "6-2",
+              "7-5"
+            ]
+          },
+          {
+            "ora": "20:00",
+            "casa": {
+              "abbr": "DZ",
+              "club": "RG Padel",
+              "name": "DEL GRECO / ZAMMITTI"
+            },
+            "score": "0-3",
+            "date": "2026-04-15",
+            "girone": "B",
+            "tbTarget": null,
+            "id": 1776840910998,
+            "sets": [
+              "5-7",
+              "4-6",
+              "5-7"
+            ],
+            "ospite": {
+              "club": "Pizzuta Padel",
+              "name": "CAMPISI / ANASTASI",
+              "abbr": "CA"
+            },
+            "played": true
+          },
+          {
+            "tbTarget": null,
+            "girone": "C",
+            "date": "2026-04-15",
+            "score": "3-0",
+            "casa": {
+              "name": "NICASTRO / FORTUNA",
+              "club": "Cittadella",
+              "abbr": "NF"
+            },
+            "ora": "20:00",
+            "played": true,
+            "ospite": {
+              "name": "CAVARRA / BONFIGLIO",
+              "club": "Epipoli padel",
+              "abbr": "CB"
+            },
+            "sets": [
+              "7-6",
+              "6-3",
+              "7-6"
+            ],
+            "id": 1776841251582
+          },
+          {
+            "id": 1776841332086,
+            "sets": [
+              "7-5",
+              "6-3",
+              "1-6"
+            ],
+            "ospite": {
+              "abbr": "DP",
+              "club": "RG Padel",
+              "name": "DI VINCENZO / PONZO"
+            },
+            "played": true,
+            "ora": "17:30",
+            "casa": {
+              "abbr": "VG",
+              "name": "VASQUEZ / GURCIULLO",
+              "club": "RG Padel"
+            },
+            "score": "2-1",
+            "date": "2026-04-16",
+            "girone": "C",
+            "tbTarget": null
+          },
+          {
+            "ospite": {
+              "abbr": "CC",
+              "club": "RG Padel",
+              "name": "CARUSO / CIANCI"
+            },
+            "played": true,
+            "sets": [
+              "3-6",
+              "2-6",
+              "6-3"
+            ],
+            "id": 1776841029180,
+            "date": "2026-04-21",
+            "girone": "B",
+            "tbTarget": null,
+            "score": "1-2",
+            "ora": "19:00",
+            "casa": {
+              "abbr": "CA",
+              "club": "Pizzuta Padel",
+              "name": "CAMPISI / ANASTASI"
+            }
+          },
+          {
+            "tbTarget": null,
+            "girone": "C",
+            "date": "2026-04-23",
+            "ora": "18:00",
+            "casa": {
+              "abbr": "DP",
+              "name": "DI VINCENZO / PONZO",
+              "club": "RG Padel"
+            },
+            "score": "2-1",
+            "played": true,
+            "ospite": {
+              "abbr": "NF",
+              "club": "Cittadella",
+              "name": "NICASTRO / FORTUNA"
+            },
+            "sets": [
+              "3-6",
+              "6-1",
+              "7-6"
+            ],
+            "id": 1776841221159
+          },
+          {
+            "casa": {
+              "abbr": "DZ",
+              "club": "RG Padel",
+              "name": "DEL GRECO / ZAMMITTI"
+            },
+            "score": "3-0",
+            "ora": "19:30",
+            "girone": "B",
+            "tbTarget": null,
+            "date": "2026-04-23",
+            "id": 1776841173697,
+            "sets": [
+              "6-1",
+              "6-2",
+              "6-3"
+            ],
+            "played": true,
+            "ospite": {
+              "club": "Seven Padel",
+              "name": "LOMBARDO / CASTROGIOVANNI",
+              "abbr": "LC"
+            }
+          },
+          {
+            "ora": "18:30",
+            "casa": {
+              "name": "RESTIVO / PINO",
+              "club": "RG Padel",
+              "abbr": "RP"
+            },
+            "score": "2-1",
+            "tbTarget": null,
+            "girone": "A",
+            "date": "2026-04-24",
+            "id": 1776840868409,
+            "played": true,
+            "ospite": {
+              "abbr": "TZ",
+              "club": "Pizzuta Padel",
+              "name": "TRIPOLINO / ZAGARELLA"
+            },
+            "sets": [
+              "6-4",
+              "6-0",
+              "6-7"
+            ]
+          },
+          {
+            "score": "0-3",
+            "casa": {
+              "club": "Epipoli padel",
+              "name": "CAVARRA / BONFIGLIO",
+              "abbr": "CB"
+            },
+            "ora": "20:00",
+            "girone": "C",
+            "tbTarget": null,
+            "date": "2026-04-27",
+            "id": 1776852630343,
+            "played": true,
+            "ospite": {
+              "name": "VASQUEZ / GURCIULLO",
+              "club": "RG Padel",
+              "abbr": "VG"
+            },
+            "sets": [
+              "3-6",
+              "1-6",
+              "2-6"
+            ]
+          },
+          {
+            "tbTarget": null,
+            "girone": "B",
+            "date": "2026-04-27",
+            "casa": {
+              "abbr": "DZ",
+              "club": "RG Padel",
+              "name": "DEL GRECO / ZAMMITTI"
+            },
+            "score": "1-2",
+            "ora": "20:30",
+            "sets": [
+              "3-6",
+              "2-6",
+              "6-4"
+            ],
+            "played": true,
+            "ospite": {
+              "abbr": "CC",
+              "name": "CARUSO / CIANCI",
+              "club": "RG Padel"
+            },
+            "id": 1777067799616
+          },
+          {
+            "score": "0-3",
+            "ora": "19:00",
+            "casa": {
+              "abbr": "LC",
+              "club": "Seven Padel",
+              "name": "LOMBARDO / CASTROGIOVANNI"
+            },
+            "date": "2026-04-28",
+            "tbTarget": null,
+            "girone": "B",
+            "id": 1777292848890,
+            "ospite": {
+              "abbr": "CA",
+              "name": "CAMPISI / ANASTASI",
+              "club": "Pizzuta Padel"
+            },
+            "played": true,
+            "sets": [
+              "1-6",
+              "3-6",
+              "2-6"
+            ]
+          },
+          {
+            "casa": {
+              "club": "RG Padel",
+              "name": "VASQUEZ / GURCIULLO",
+              "abbr": "VG"
+            },
+            "ora": "17:30",
+            "score": "1-2",
+            "date": "2026-05-07",
+            "girone": "C",
+            "tbTarget": null,
+            "id": 1777452758786,
+            "sets": [
+              "3-6",
+              "6-7",
+              "6-3"
+            ],
+            "ospite": {
+              "abbr": "NF",
+              "club": "Cittadella",
+              "name": "NICASTRO / FORTUNA"
+            },
+            "played": true
+          },
+          {
+            "date": "2026-05-07",
+            "girone": "A",
+            "tbTarget": null,
+            "ora": "19:00",
+            "casa": {
+              "name": "ZOCCO / CASSIA",
+              "club": "RG Padel",
+              "abbr": "ZC"
+            },
+            "score": "1-2",
+            "ospite": {
+              "club": "RG Padel",
+              "name": "RESTIVO / PINO",
+              "abbr": "RP"
+            },
+            "played": true,
+            "sets": [
+              "7-5",
+              "2-6",
+              "3-6"
+            ],
+            "id": 1777489210095
+          },
+          {
+            "id": 1777889393086,
+            "played": true,
+            "ospite": {
+              "name": "CAVARRA / BONFIGLIO",
+              "club": "Epipoli padel",
+              "abbr": "CB"
+            },
+            "sets": [
+              "7-6",
+              "7-5",
+              "7-1"
+            ],
+            "ora": "20:00",
+            "casa": {
+              "name": "DI VINCENZO / PONZO",
+              "club": "RG Padel",
+              "abbr": "DP"
+            },
+            "score": "3-0",
+            "girone": "C",
+            "tbTarget": null,
+            "date": "2026-05-12"
+          },
+          {
+            "date": "2026-05-15",
+            "girone": "B",
+            "tbTarget": null,
+            "score": "3-0",
+            "casa": {
+              "name": "CARUSO / CIANCI",
+              "club": "RG Padel",
+              "abbr": "CC"
+            },
+            "ora": "18:30",
+            "ospite": {
+              "abbr": "LC",
+              "club": "Seven Padel",
+              "name": "LOMBARDO / CASTROGIOVANNI"
+            },
+            "played": true,
+            "sets": [
+              "6-0",
+              "6-0",
+              "6-4"
+            ],
+            "id": 1778245746554
+          }
+        ]
+      },
+      "bracket": {
+        "size": 12,
+        "active": true,
+        "rounds": [
+          {
+            "matches": [
+              {
+                "winner": "casa",
+                "played": true,
+                "circolo": "PIZZUTA PADEL",
+                "ospite": {
+                  "seed": null,
+                  "abbr": "ZC",
+                  "name": "ZOCCO / CASSIA",
+                  "seedLabel": "3°A",
+                  "club": "RG Padel"
+                },
+                "sets": [
+                  "6-4",
+                  "6-3"
+                ],
+                "casa": {
+                  "club": "RG Padel",
+                  "name": "DEL GRECO / ZAMMITTI",
+                  "seedLabel": "3°B",
+                  "seed": null,
+                  "abbr": "DZ"
+                },
+                "score": "2-0",
+                "time": "20:00",
+                "date": "2026-05-20"
+              },
+              {
+                "winner": "casa",
+                "score": "2-0",
+                "casa": {
+                  "seed": null,
+                  "abbr": "VG",
+                  "seedLabel": "3°C",
+                  "name": "VASQUEZ / GURCIULLO",
+                  "club": "RG Padel"
+                },
+                "sets": [
+                  "6-0",
+                  "6-0"
+                ],
+                "ospite": {
+                  "abbr": "GM",
+                  "seed": null,
+                  "name": "GRANDE / MASSARA",
+                  "seedLabel": "4°A",
+                  "club": "Seven Padel"
+                },
+                "played": true
+              },
+              {
+                "sets": [
+                  "6-1",
+                  "6-1"
+                ],
+                "played": true,
+                "circolo": "RG PADEL",
+                "ospite": {
+                  "name": "LOMBARDO / CASTROGIOVANNI",
+                  "seedLabel": "4°B",
+                  "club": "Seven Padel",
+                  "abbr": "LC",
+                  "seed": null
+                },
+                "winner": "casa",
+                "date": "2026-05-30",
+                "score": "2-0",
+                "casa": {
+                  "name": "NICASTRO / FORTUNA",
+                  "seedLabel": "2°C",
+                  "club": "Cittadella",
+                  "abbr": "NF",
+                  "seed": null
+                },
+                "time": "10:00"
+              },
+              {
+                "winner": "casa",
+                "ospite": {
+                  "seedLabel": "4°C",
+                  "name": "CAVARRA / BONFIGLIO",
+                  "club": "Epipoli padel",
+                  "abbr": "CB",
+                  "seed": null
+                },
+                "circolo": "STAZIONE PADEL",
+                "played": true,
+                "sets": [
+                  "6-2",
+                  "6-3"
+                ],
+                "time": "20:00",
+                "casa": {
+                  "abbr": "TZ",
+                  "seed": null,
+                  "seedLabel": "2°A",
+                  "name": "TRIPOLINO / ZAGARELLA",
+                  "club": "Pizzuta Padel"
+                },
+                "score": "2-0",
+                "date": "2026-05-20"
+              }
+            ]
+          },
+          {
+            "matches": [
+              {
+                "date": "2026-05-28",
+                "time": "20:00",
+                "score": "2-1",
+                "casa": {
+                  "abbr": "DP",
+                  "seed": null,
+                  "club": "RG Padel",
+                  "name": "DI VINCENZO / PONZO",
+                  "seedLabel": "1°C"
+                },
+                "ospite": {
+                  "abbr": "DZ",
+                  "seed": null,
+                  "club": "RG Padel",
+                  "name": "DEL GRECO / ZAMMITTI",
+                  "seedLabel": "3°B"
+                },
+                "circolo": "RG PADEL",
+                "played": true,
+                "sets": [
+                  "4-6",
+                  "6-0",
+                  "6-3"
+                ],
+                "winner": "casa"
+              },
+              {
+                "date": "2026-05-29",
+                "score": "1-2",
+                "casa": {
+                  "club": "Pizzuta Padel",
+                  "name": "CAMPISI / ANASTASI",
+                  "seedLabel": "2°B",
+                  "seed": null,
+                  "abbr": "CA"
+                },
+                "time": "20:00",
+                "played": true,
+                "circolo": "RG PADEL",
+                "ospite": {
+                  "name": "VASQUEZ / GURCIULLO",
+                  "seedLabel": "3°C",
+                  "club": "RG Padel",
+                  "abbr": "VG",
+                  "seed": null
+                },
+                "sets": [
+                  "6-1",
+                  "2-6",
+                  "3-6"
+                ],
+                "winner": "ospite"
+              },
+              {
+                "ospite": {
+                  "club": "Cittadella",
+                  "seedLabel": "2°C",
+                  "name": "NICASTRO / FORTUNA",
+                  "abbr": "NF",
+                  "seed": null
+                },
+                "circolo": "RG PADEL",
+                "played": true,
+                "sets": [
+                  "7-5",
+                  "6-1"
+                ],
+                "winner": "casa",
+                "date": "2026-06-03",
+                "time": "18:30",
+                "casa": {
+                  "club": "RG Padel",
+                  "seedLabel": "1°A",
+                  "name": "RESTIVO / PINO",
+                  "seed": null,
+                  "abbr": "RP"
+                },
+                "score": "2-0"
+              },
+              {
+                "winner": "ospite",
+                "sets": [
+                  "7-6",
+                  "1-6",
+                  "2-6"
+                ],
+                "circolo": "STAZIONE PADEL",
+                "played": true,
+                "ospite": {
+                  "abbr": "TZ",
+                  "seed": null,
+                  "club": "Pizzuta Padel",
+                  "seedLabel": "2°A",
+                  "name": "TRIPOLINO / ZAGARELLA"
+                },
+                "casa": {
+                  "seedLabel": "1°B",
+                  "name": "CARUSO / CIANCI",
+                  "club": "RG Padel",
+                  "seed": null,
+                  "abbr": "CC"
+                },
+                "score": "1-2",
+                "time": "20:00",
+                "date": "2026-06-04"
+              }
+            ]
+          },
+          {
+            "matches": [
+              {
+                "sets": [
+                  "4-6",
+                  "6-4",
+                  "10-4"
+                ],
+                "ospite": {
+                  "club": "RG Padel",
+                  "name": "VASQUEZ / GURCIULLO",
+                  "seedLabel": "3°C",
+                  "seed": null,
+                  "abbr": "VG"
+                },
+                "circolo": "RG PADEL",
+                "played": true,
+                "winner": "casa",
+                "date": "2026-06-10",
+                "time": "19:00",
+                "score": "2-1",
+                "casa": {
+                  "abbr": "DP",
+                  "seed": null,
+                  "name": "DI VINCENZO / PONZO",
+                  "seedLabel": "1°C",
+                  "club": "RG Padel"
+                }
+              },
+              {
+                "score": "1-2",
+                "casa": {
+                  "club": "RG Padel",
+                  "seedLabel": "1°A",
+                  "name": "RESTIVO / PINO",
+                  "abbr": "RP",
+                  "seed": null
+                },
+                "time": "19:00",
+                "date": "2026-06-10",
+                "winner": "ospite",
+                "played": true,
+                "circolo": "RG PADEL",
+                "ospite": {
+                  "club": "Pizzuta Padel",
+                  "seedLabel": "2°A",
+                  "name": "TRIPOLINO / ZAGARELLA",
+                  "seed": null,
+                  "abbr": "TZ"
+                },
+                "sets": [
+                  "6-7",
+                  "6-3",
+                  "8-10"
+                ]
+              }
+            ]
+          },
+          {
+            "matches": [
+              {
+                "circolo": "RG PADEL",
+                "played": true,
+                "ospite": {
+                  "abbr": "TZ",
+                  "seed": null,
+                  "club": "Pizzuta Padel",
+                  "name": "TRIPOLINO / ZAGARELLA",
+                  "seedLabel": "2°A"
+                },
+                "sets": [
+                  "2-6",
+                  "2-6"
+                ],
+                "winner": "ospite",
+                "date": "2026-06-22",
+                "casa": {
+                  "seed": null,
+                  "abbr": "DP",
+                  "name": "DI VINCENZO / PONZO",
+                  "seedLabel": "1°C",
+                  "club": "RG Padel"
+                },
+                "score": "0-2",
+                "time": "19:00"
+              }
+            ]
+          }
+        ]
+      },
+      "gallery": {
+        "list": [
+          {
+            "uploadedAt": 1778175374062,
+            "caption": "Livello C - VASQUEZ/GURCIULLO vs NICASTRO/FORTUNA",
+            "publicId": "v816bteaxeszyswhrxrg",
+            "url": "https://res.cloudinary.com/dzvwpvixz/image/upload/v1778175373/v816bteaxeszyswhrxrg.jpg",
+            "id": "v816bteaxeszyswhrxrg"
+          },
+          {
+            "publicId": "engp4jhh9jgtadk1qowi",
+            "caption": "Livello C - Di Vincenzo Ponzo",
+            "id": "engp4jhh9jgtadk1qowi",
+            "url": "https://res.cloudinary.com/dzvwpvixz/image/upload/v1778620860/engp4jhh9jgtadk1qowi.jpg",
+            "uploadedAt": 1778620860968
+          },
+          {
+            "uploadedAt": 1780518124195,
+            "id": "b50azdmndqrqtiekrlve",
+            "url": "https://res.cloudinary.com/dzvwpvixz/image/upload/v1780518123/b50azdmndqrqtiekrlve.jpg",
+            "publicId": "b50azdmndqrqtiekrlve",
+            "caption": "Grandiiii 💪🥎"
+          },
+          {
+            "uploadedAt": 1780612109811,
+            "caption": "Quarto di Finale TRIPOLINO ZAGARELLA vs CIANCI CARUSO",
+            "publicId": "ltqw7dmdgl31lqouwhmd",
+            "url": "https://res.cloudinary.com/dzvwpvixz/image/upload/v1780612109/ltqw7dmdgl31lqouwhmd.jpg",
+            "id": "ltqw7dmdgl31lqouwhmd"
+          },
+          {
+            "publicId": "cwue9owjmkn0rqib0jgd",
+            "caption": "Finale 3° / 4°  PINO RESTIVO vs VASQUEZ GURCIULLO   2/1",
+            "id": "cwue9owjmkn0rqib0jgd",
+            "url": "https://res.cloudinary.com/dzvwpvixz/image/upload/v1781905583/cwue9owjmkn0rqib0jgd.jpg",
+            "uploadedAt": 1781905584422
+          },
+          {
+            "uploadedAt": 1781905630396,
+            "publicId": "tc8dtob7rbwrtha965k6",
+            "caption": "Premiazione 3° posto",
+            "id": "tc8dtob7rbwrtha965k6",
+            "url": "https://res.cloudinary.com/dzvwpvixz/image/upload/v1781905629/tc8dtob7rbwrtha965k6.jpg"
+          },
+          {
+            "caption": "Premiazione 4° posto",
+            "publicId": "oiqbdsoqs2c8iivegh8e",
+            "url": "https://res.cloudinary.com/dzvwpvixz/image/upload/v1781905660/oiqbdsoqs2c8iivegh8e.jpg",
+            "id": "oiqbdsoqs2c8iivegh8e",
+            "uploadedAt": 1781905661369
+          },
+          {
+            "id": "zqipfh7vmvekilwuy8bx",
+            "url": "https://res.cloudinary.com/dzvwpvixz/image/upload/v1782201846/zqipfh7vmvekilwuy8bx.jpg",
+            "publicId": "zqipfh7vmvekilwuy8bx",
+            "caption": "2° Classificati - Livello C - DI VINCENZO PONZO",
+            "uploadedAt": 1782201847216
+          },
+          {
+            "publicId": "ehrhbxtzi9kej8c45qe2",
+            "caption": "ZAGARELLA TRIPOLINO",
+            "id": "ehrhbxtzi9kej8c45qe2",
+            "url": "https://res.cloudinary.com/dzvwpvixz/image/upload/v1782201885/ehrhbxtzi9kej8c45qe2.jpg",
+            "uploadedAt": 1782201886139
+          },
+          {
+            "id": "ejqfuion38rbffpifvn6",
+            "url": "https://res.cloudinary.com/dzvwpvixz/image/upload/v1782201930/ejqfuion38rbffpifvn6.jpg",
+            "publicId": "ejqfuion38rbffpifvn6",
+            "caption": "Premiazioni livello C",
+            "uploadedAt": 1782201931147
+          }
+        ]
+      }
+    },
+    "tournament_F": {
+      "teams": {
+        "A": [
+          {
+            "name": "COPPOLA / MIDOLO",
+            "club": "Pizzuta Padel",
+            "abbr": "CM"
+          },
+          {
+            "name": "ORLANDO / FARACI",
+            "club": "Stazione Padel",
+            "abbr": "OF"
+          },
+          {
+            "club": "RG Padel",
+            "name": "TODARO / GIANCHINO",
+            "abbr": "TG"
+          },
+          {
+            "abbr": "TI",
+            "club": "RG Padel",
+            "name": "TUCCITTO / IANNELLO"
+          },
+          {
+            "club": "Pizzuta Padel",
+            "name": "CAPITANI / BARRESI",
+            "abbr": "CB"
+          }
+        ],
+        "B": [
+          {
+            "abbr": "CS",
+            "name": "CRISTAUDO / SIRINGO",
+            "club": "Pizzuta Padel"
+          },
+          {
+            "name": "CALABRESE / GRANDE",
+            "club": "Stazione padel",
+            "abbr": "CG"
+          },
+          {
+            "name": "BENVENUTO / LO MONACO",
+            "club": "Seven padel",
+            "abbr": "BL"
+          },
+          {
+            "name": "NIGRO / CAMMARATA",
+            "club": "RG Padel",
+            "abbr": "NC"
+          },
+          {
+            "name": "PINO / GIONFRIDA",
+            "club": "RG Padel",
+            "abbr": "PG"
+          }
+        ]
+      },
+      "matches": {
+        "list": [
+          {
+            "played": true,
+            "ospite": {
+              "abbr": "CG",
+              "club": "Stazione padel",
+              "name": "CALABRESE / GRANDE"
+            },
+            "sets": [
+              "6-0",
+              "1-6",
+              "6-7"
+            ],
+            "id": 1776858366750,
+            "tbTarget": null,
+            "girone": "B",
+            "date": "2026-04-28",
+            "ora": "18:30",
+            "casa": {
+              "club": "Pizzuta Padel",
+              "name": "CRISTAUDO / SIRINGO",
+              "abbr": "CS"
+            },
+            "score": "1-2"
+          },
+          {
+            "casa": {
+              "name": "COPPOLA / MIDOLO",
+              "club": "Pizzuta Padel",
+              "abbr": "CM"
+            },
+            "ora": "18:30",
+            "score": "1-2",
+            "girone": "A",
+            "tbTarget": null,
+            "date": "2026-04-30",
+            "id": 1776841929318,
+            "sets": [
+              "4-6",
+              "4-6",
+              "6-3"
+            ],
+            "played": true,
+            "ospite": {
+              "abbr": "TI",
+              "name": "TUCCITTO / IANNELLO",
+              "club": "RG Padel"
+            }
+          },
+          {
+            "date": "2026-04-30",
+            "tbTarget": null,
+            "girone": "B",
+            "ora": "19:30",
+            "score": "0-3",
+            "casa": {
+              "abbr": "BL",
+              "name": "BENVENUTO / LO MONACO",
+              "club": "Seven padel"
+            },
+            "ospite": {
+              "club": "RG Padel",
+              "name": "NIGRO / CAMMARATA",
+              "abbr": "NC"
+            },
+            "played": true,
+            "sets": [
+              "3-6",
+              "3-6",
+              "3-6"
+            ],
+            "id": 1776841868755
+          },
+          {
+            "id": 1777712527617,
+            "sets": [
+              "7-5",
+              "6-7",
+              "7-6"
+            ],
+            "played": true,
+            "ospite": {
+              "abbr": "TI",
+              "name": "TUCCITTO / IANNELLO",
+              "club": "RG Padel"
+            },
+            "score": "2-1",
+            "ora": "18:30",
+            "casa": {
+              "club": "Pizzuta Padel",
+              "name": "CAPITANI / BARRESI",
+              "abbr": "CB"
+            },
+            "girone": "A",
+            "tbTarget": null,
+            "date": "2026-05-07"
+          },
+          {
+            "score": "3-0",
+            "casa": {
+              "club": "RG Padel",
+              "name": "TODARO / GIANCHINO",
+              "abbr": "TG"
+            },
+            "ora": "18:30",
+            "date": "2026-05-08",
+            "tbTarget": null,
+            "girone": "A",
+            "id": 1777558470346,
+            "sets": [
+              "6-2",
+              "6-3",
+              "6-4"
+            ],
+            "ospite": {
+              "name": "ORLANDO / FARACI",
+              "club": "Stazione Padel",
+              "abbr": "OF"
+            },
+            "played": true
+          },
+          {
+            "id": 1777567593958,
+            "sets": [
+              "6-2",
+              "6-2",
+              "6-2"
+            ],
+            "ospite": {
+              "name": "NIGRO / CAMMARATA",
+              "club": "RG Padel",
+              "abbr": "NC"
+            },
+            "played": true,
+            "casa": {
+              "name": "CALABRESE / GRANDE",
+              "club": "Stazione padel",
+              "abbr": "CG"
+            },
+            "ora": "18:30",
+            "score": "3-0",
+            "date": "2026-05-09",
+            "tbTarget": null,
+            "girone": "B"
+          },
+          {
+            "sets": [
+              "7-6",
+              "4-6",
+              "6-7"
+            ],
+            "ospite": {
+              "abbr": "TI",
+              "club": "RG Padel",
+              "name": "TUCCITTO / IANNELLO"
+            },
+            "played": true,
+            "id": 1777985122574,
+            "date": "2026-05-12",
+            "tbTarget": null,
+            "girone": "A",
+            "score": "1-2",
+            "ora": "18:30",
+            "casa": {
+              "abbr": "TG",
+              "club": "RG Padel",
+              "name": "TODARO / GIANCHINO"
+            }
+          },
+          {
+            "date": "2026-05-12",
+            "tbTarget": null,
+            "girone": "B",
+            "ora": "19:30",
+            "casa": {
+              "abbr": "NC",
+              "club": "RG Padel",
+              "name": "NIGRO / CAMMARATA"
+            },
+            "score": "0-3",
+            "sets": [
+              "2-6",
+              "3-6",
+              "0-6"
+            ],
+            "ospite": {
+              "abbr": "PG",
+              "club": "RG Padel",
+              "name": "PINO / GIONFRIDA"
+            },
+            "played": true,
+            "id": 1777985143432
+          },
+          {
+            "played": true,
+            "ospite": {
+              "abbr": "CG",
+              "name": "CALABRESE / GRANDE",
+              "club": "Stazione padel"
+            },
+            "sets": [
+              "0-6",
+              "1-6",
+              "0-6"
+            ],
+            "id": 1778012080316,
+            "girone": "B",
+            "tbTarget": null,
+            "date": "2026-05-14",
+            "casa": {
+              "abbr": "BL",
+              "name": "BENVENUTO / LO MONACO",
+              "club": "Seven padel"
+            },
+            "ora": "18:30",
+            "score": "0-3"
+          },
+          {
+            "ora": "19:30",
+            "casa": {
+              "abbr": "NC",
+              "club": "RG Padel",
+              "name": "NIGRO / CAMMARATA"
+            },
+            "score": "2-1",
+            "girone": "B",
+            "tbTarget": null,
+            "date": "2026-05-15",
+            "id": 1777988130861,
+            "sets": [
+              "4-6",
+              "6-4",
+              "7-6"
+            ],
+            "played": true,
+            "ospite": {
+              "abbr": "CS",
+              "name": "CRISTAUDO / SIRINGO",
+              "club": "Pizzuta Padel"
+            }
+          },
+          {
+            "casa": {
+              "abbr": "TG",
+              "name": "TODARO / GIANCHINO",
+              "club": "RG Padel"
+            },
+            "score": "2-1",
+            "ora": "19:30",
+            "girone": "A",
+            "tbTarget": null,
+            "date": "2026-05-20",
+            "id": 1778328248243,
+            "played": true,
+            "ospite": {
+              "name": "COPPOLA / MIDOLO",
+              "club": "Pizzuta Padel",
+              "abbr": "CM"
+            },
+            "sets": [
+              "6-4",
+              "4-6",
+              "6-4"
+            ]
+          },
+          {
+            "id": 1778848951257,
+            "sets": [
+              "5-7",
+              "6-2",
+              "7-6"
+            ],
+            "played": true,
+            "ospite": {
+              "abbr": "CB",
+              "name": "CAPITANI / BARRESI",
+              "club": "Pizzuta Padel"
+            },
+            "ora": "17:00",
+            "score": "2-1",
+            "casa": {
+              "abbr": "TG",
+              "name": "TODARO / GIANCHINO",
+              "club": "RG Padel"
+            },
+            "tbTarget": null,
+            "girone": "A",
+            "date": "2026-05-21"
+          },
+          {
+            "id": 1778700904303,
+            "sets": [
+              "6-3",
+              "3-6",
+              "6-3"
+            ],
+            "played": true,
+            "ospite": {
+              "abbr": "PG",
+              "club": "RG Padel",
+              "name": "PINO / GIONFRIDA"
+            },
+            "casa": {
+              "club": "Stazione padel",
+              "name": "CALABRESE / GRANDE",
+              "abbr": "CG"
+            },
+            "score": "2-1",
+            "ora": "19:30",
+            "girone": "B",
+            "tbTarget": null,
+            "date": "2026-05-21"
+          },
+          {
+            "ora": "17:30",
+            "casa": {
+              "abbr": "CS",
+              "name": "CRISTAUDO / SIRINGO",
+              "club": "Pizzuta Padel"
+            },
+            "score": "3-0",
+            "tbTarget": null,
+            "girone": "B",
+            "date": "2026-05-23",
+            "id": 1778688879151,
+            "played": true,
+            "ospite": {
+              "club": "Seven padel",
+              "name": "BENVENUTO / LO MONACO",
+              "abbr": "BL"
+            },
+            "sets": [
+              "6-2",
+              "6-0",
+              "6-3"
+            ]
+          },
+          {
+            "score": "3-0",
+            "ora": "18:00",
+            "casa": {
+              "name": "CAPITANI / BARRESI",
+              "club": "Pizzuta Padel",
+              "abbr": "CB"
+            },
+            "date": "2026-05-28",
+            "tbTarget": null,
+            "girone": "A",
+            "id": 1779535478067,
+            "ospite": {
+              "club": "Pizzuta Padel",
+              "name": "COPPOLA / MIDOLO",
+              "abbr": "CM"
+            },
+            "played": true,
+            "sets": [
+              "6-1",
+              "7-5",
+              "6-4"
+            ]
+          },
+          {
+            "id": 1779215344913,
+            "ospite": {
+              "abbr": "OF",
+              "club": "Stazione Padel",
+              "name": "ORLANDO / FARACI"
+            },
+            "played": true,
+            "sets": [
+              "6-1",
+              "6-2",
+              "6-1"
+            ],
+            "score": "3-0",
+            "casa": {
+              "abbr": "TI",
+              "name": "TUCCITTO / IANNELLO",
+              "club": "RG Padel"
+            },
+            "ora": "18:30",
+            "date": "2026-05-28",
+            "girone": "A",
+            "tbTarget": null
+          },
+          {
+            "sets": [
+              "6-2",
+              "6-3",
+              "6-2"
+            ],
+            "ospite": {
+              "abbr": "CS",
+              "name": "CRISTAUDO / SIRINGO",
+              "club": "Pizzuta Padel"
+            },
+            "played": true,
+            "id": 1779374252496,
+            "date": "2026-05-30",
+            "tbTarget": null,
+            "girone": "B",
+            "score": "3-0",
+            "casa": {
+              "name": "PINO / GIONFRIDA",
+              "club": "RG Padel",
+              "abbr": "PG"
+            },
+            "ora": "16:30"
+          },
+          {
+            "played": true,
+            "ospite": {
+              "abbr": "CB",
+              "name": "CAPITANI / BARRESI",
+              "club": "Pizzuta Padel"
+            },
+            "sets": [
+              "0-6",
+              "1-6",
+              "0-6"
+            ],
+            "id": 1779897389998,
+            "girone": "A",
+            "tbTarget": null,
+            "date": "2026-06-03",
+            "casa": {
+              "abbr": "OF",
+              "name": "ORLANDO / FARACI",
+              "club": "Stazione Padel"
+            },
+            "score": "0-3",
+            "ora": "18:00"
+          },
+          {
+            "sets": [
+              "6-0",
+              "6-4",
+              "6-2"
+            ],
+            "ospite": {
+              "abbr": "BL",
+              "name": "BENVENUTO / LO MONACO",
+              "club": "Seven padel"
+            },
+            "played": true,
+            "id": 1779911732588,
+            "date": "2026-06-04",
+            "tbTarget": null,
+            "girone": "B",
+            "ora": "19:30",
+            "casa": {
+              "name": "PINO / GIONFRIDA",
+              "club": "RG Padel",
+              "abbr": "PG"
+            },
+            "score": "3-0"
+          },
+          {
+            "sets": [
+              "6-4",
+              "2-6",
+              "4-6"
+            ],
+            "played": true,
+            "ospite": {
+              "abbr": "CM",
+              "name": "COPPOLA / MIDOLO",
+              "club": "Pizzuta Padel"
+            },
+            "id": 1780913811025,
+            "tbTarget": null,
+            "girone": "A",
+            "date": "2026-06-05",
+            "casa": {
+              "abbr": "OF",
+              "club": "Stazione Padel",
+              "name": "ORLANDO / FARACI"
+            },
+            "score": "1-2",
+            "ora": "19:30"
+          }
+        ]
+      },
+      "bracket": {
+        "rounds": [
+          {
+            "matches": [
+              {
+                "sets": [
+                  "6-1",
+                  "6-2"
+                ],
+                "ospite": {
+                  "seedLabel": "4°B",
+                  "name": "CRISTAUDO / SIRINGO",
+                  "club": "Pizzuta Padel",
+                  "seed": null,
+                  "abbr": "CS"
+                },
+                "circolo": "RG PADEL",
+                "played": true,
+                "winner": "casa",
+                "date": "2026-06-13",
+                "time": "16:30",
+                "score": "2-0",
+                "casa": {
+                  "club": "RG Padel",
+                  "seedLabel": "2°A",
+                  "name": "TUCCITTO / IANNELLO",
+                  "seed": null,
+                  "abbr": "TI"
+                }
+              },
+              {
+                "date": "2026-06-10",
+                "score": "2-0",
+                "casa": {
+                  "seedLabel": "3°A",
+                  "name": "TODARO / GIANCHINO",
+                  "club": "RG Padel",
+                  "abbr": "TG",
+                  "seed": null
+                },
+                "time": "18:00",
+                "sets": [
+                  "6-0",
+                  "6-2"
+                ],
+                "circolo": "RG PADEL",
+                "played": true,
+                "ospite": {
+                  "seedLabel": "5°B",
+                  "name": "BENVENUTO / LO MONACO",
+                  "club": "Seven padel",
+                  "abbr": "BL",
+                  "seed": null
+                },
+                "winner": "casa"
+              },
+              {
+                "winner": "casa",
+                "sets": [
+                  "6-2",
+                  "6-1"
+                ],
+                "ospite": {
+                  "seedLabel": "4°A",
+                  "name": "COPPOLA / MIDOLO",
+                  "club": "Pizzuta Padel",
+                  "seed": null,
+                  "abbr": "CM"
+                },
+                "circolo": "RG PADEL",
+                "played": true,
+                "time": "19:30",
+                "casa": {
+                  "abbr": "PG",
+                  "seed": null,
+                  "seedLabel": "2°B",
+                  "name": "PINO / GIONFRIDA",
+                  "club": "RG Padel"
+                },
+                "score": "2-0",
+                "date": "2026-06-15"
+              },
+              {
+                "ospite": {
+                  "seed": null,
+                  "abbr": "OF",
+                  "club": "Stazione Padel",
+                  "seedLabel": "5°A",
+                  "name": "ORLANDO / FARACI"
+                },
+                "circolo": "RG PADEL",
+                "played": true,
+                "sets": [
+                  "6-1",
+                  "6-2"
+                ],
+                "winner": "casa",
+                "date": "2026-06-17",
+                "time": "19:30",
+                "casa": {
+                  "club": "RG Padel",
+                  "seedLabel": "3°B",
+                  "name": "NIGRO / CAMMARATA",
+                  "seed": null,
+                  "abbr": "NC"
+                },
+                "score": "2-0"
+              }
+            ]
+          },
+          {
+            "matches": [
+              {
+                "winner": "ospite",
+                "played": true,
+                "circolo": "RG PADEL",
+                "ospite": {
+                  "abbr": "TG",
+                  "seed": null,
+                  "club": "RG Padel",
+                  "seedLabel": "3°A",
+                  "name": "TODARO / GIANCHINO"
+                },
+                "sets": [
+                  "1-6",
+                  "1-6"
+                ],
+                "casa": {
+                  "abbr": "TI",
+                  "seed": null,
+                  "club": "RG Padel",
+                  "seedLabel": "2°A",
+                  "name": "TUCCITTO / IANNELLO"
+                },
+                "score": "0-2",
+                "time": "18:00",
+                "tbTarget": null,
+                "date": "2026-06-15"
+              },
+              {
+                "ospite": {
+                  "abbr": "NC",
+                  "seed": null,
+                  "name": "NIGRO / CAMMARATA",
+                  "seedLabel": "3°B",
+                  "club": "RG Padel"
+                },
+                "played": true,
+                "circolo": "RG PADEL",
+                "sets": [
+                  "6-2",
+                  "6-1"
+                ],
+                "winner": "casa",
+                "date": "2026-06-23",
+                "time": "19:30",
+                "casa": {
+                  "club": "RG Padel",
+                  "seedLabel": "2°B",
+                  "name": "PINO / GIONFRIDA",
+                  "seed": null,
+                  "abbr": "PG"
+                },
+                "score": "2-0"
+              }
+            ]
+          },
+          {
+            "matches": [
+              {
+                "played": true,
+                "circolo": "RG PADEL",
+                "ospite": {
+                  "seedLabel": "3°A",
+                  "name": "TODARO / GIANCHINO",
+                  "club": "RG Padel",
+                  "seed": null,
+                  "abbr": "TG"
+                },
+                "sets": [
+                  "1-6",
+                  "3-6"
+                ],
+                "winner": "ospite",
+                "date": "2026-06-24",
+                "score": "0-2",
+                "casa": {
+                  "seed": null,
+                  "abbr": "CG",
+                  "name": "CALABRESE / GRANDE",
+                  "seedLabel": "1°B",
+                  "club": "Stazione padel"
+                },
+                "time": "19:00"
+              },
+              {
+                "time": "19:00",
+                "casa": {
+                  "name": "CAPITANI / BARRESI",
+                  "seedLabel": "1°A",
+                  "club": "Pizzuta Padel",
+                  "seed": null,
+                  "abbr": "CB"
+                },
+                "score": "0-2",
+                "date": "2026-06-24",
+                "winner": "ospite",
+                "ospite": {
+                  "name": "PINO / GIONFRIDA",
+                  "seedLabel": "2°B",
+                  "club": "RG Padel",
+                  "abbr": "PG",
+                  "seed": null
+                },
+                "played": true,
+                "circolo": "RG PADEL",
+                "sets": [
+                  "4-6",
+                  "2-6"
+                ]
+              }
+            ]
+          },
+          {
+            "matches": [
+              {
+                "winner": "ospite",
+                "score": "1-2",
+                "casa": {
+                  "seed": null,
+                  "abbr": "TG",
+                  "club": "RG Padel",
+                  "seedLabel": "3°A",
+                  "name": "TODARO / GIANCHINO"
+                },
+                "sets": [
+                  "4-6",
+                  "6-4",
+                  "14-16"
+                ],
+                "played": true,
+                "ospite": {
+                  "abbr": "PG",
+                  "seed": null,
+                  "name": "PINO / GIONFRIDA",
+                  "seedLabel": "2°B",
+                  "club": "RG Padel"
+                }
+              }
+            ]
+          }
+        ],
+        "active": true,
+        "size": 10
+      },
+      "gallery": {
+        "list": [
+          {
+            "id": "nh69xgur13bw8fshpy3f",
+            "url": "https://res.cloudinary.com/dzvwpvixz/image/upload/v1778177492/nh69xgur13bw8fshpy3f.jpg",
+            "publicId": "nh69xgur13bw8fshpy3f",
+            "caption": "CAPITANI BARRESI vs TUCCITTO IANNELLO",
+            "uploadedAt": 1778177493979
+          },
+          {
+            "uploadedAt": 1778269624894,
+            "id": "th1ni7vvrmjoqwh3nz3w",
+            "url": "https://res.cloudinary.com/dzvwpvixz/image/upload/v1778269624/th1ni7vvrmjoqwh3nz3w.jpg",
+            "publicId": "th1ni7vvrmjoqwh3nz3w",
+            "caption": "TODARO GIANCHINO vs ORLANDO FARACI"
+          },
+          {
+            "url": "https://res.cloudinary.com/dzvwpvixz/image/upload/v1778611986/eqh30jwqvz4s5xhgczsz.jpg",
+            "id": "eqh30jwqvz4s5xhgczsz",
+            "caption": "Derby RG Padel - TODARO GIANCHINO vs TUCCITTO IANNELLO",
+            "publicId": "eqh30jwqvz4s5xhgczsz",
+            "uploadedAt": 1778611986968
+          },
+          {
+            "uploadedAt": 1778614874802,
+            "caption": "Derby RG Padel - PINO GIONFRIDA vs NIGRO CAMMARATA",
+            "publicId": "dfd2akfre0wajkkrqemf",
+            "url": "https://res.cloudinary.com/dzvwpvixz/image/upload/v1778614874/dfd2akfre0wajkkrqemf.jpg",
+            "id": "dfd2akfre0wajkkrqemf"
+          },
+          {
+            "uploadedAt": 1778866762805,
+            "url": "https://res.cloudinary.com/dzvwpvixz/image/upload/v1778866761/lw2ycyziafe0dnxns5ci.jpg",
+            "id": "lw2ycyziafe0dnxns5ci",
+            "caption": "Top",
+            "publicId": "lw2ycyziafe0dnxns5ci"
+          },
+          {
+            "uploadedAt": 1778880141813,
+            "caption": "Nigro Cammarata vs Calabrese Grande",
+            "publicId": "pw2ktzufg1pceyyyidhy",
+            "url": "https://res.cloudinary.com/dzvwpvixz/image/upload/v1778880140/pw2ktzufg1pceyyyidhy.jpg",
+            "id": "pw2ktzufg1pceyyyidhy"
+          },
+          {
+            "uploadedAt": 1779393978282,
+            "id": "hqm3ggntjjbwyw6mj7f4",
+            "url": "https://res.cloudinary.com/dzvwpvixz/image/upload/v1779393977/hqm3ggntjjbwyw6mj7f4.jpg",
+            "publicId": "hqm3ggntjjbwyw6mj7f4",
+            "caption": "CALABRESE GRANDE vs PINO GIONFRIDA"
+          },
+          {
+            "uploadedAt": 1779555278635,
+            "publicId": "ecc8vivv8falfyq5vkse",
+            "caption": "Le facce dicono tutto 🤣💪",
+            "id": "ecc8vivv8falfyq5vkse",
+            "url": "https://res.cloudinary.com/dzvwpvixz/image/upload/v1779555277/ecc8vivv8falfyq5vkse.jpg"
+          },
+          {
+            "uploadedAt": 1779989213233,
+            "id": "v77jgw5eydhvyipsan34",
+            "url": "https://res.cloudinary.com/dzvwpvixz/image/upload/v1779989212/v77jgw5eydhvyipsan34.jpg",
+            "publicId": "v77jgw5eydhvyipsan34",
+            "caption": "CAPITANI BARRESI vs COPPOLA MIDOLO"
+          },
+          {
+            "caption": "PINO GIONFRIDA vs CRISTAUDO SIRINGO",
+            "publicId": "rmd10nydon8yywll86k2",
+            "url": "https://res.cloudinary.com/dzvwpvixz/image/upload/v1780163246/rmd10nydon8yywll86k2.jpg",
+            "id": "rmd10nydon8yywll86k2",
+            "uploadedAt": 1780163247589
+          },
+          {
+            "uploadedAt": 1781515261350,
+            "id": "mwe6fqclajlkkyei3osm",
+            "url": "https://res.cloudinary.com/dzvwpvixz/image/upload/v1781515260/mwe6fqclajlkkyei3osm.jpg",
+            "publicId": "mwe6fqclajlkkyei3osm",
+            "caption": "Ottavi Finale   TUCCITTO IANNELLO vs SIRINGO CRISTAUDO"
+          },
+          {
+            "url": "https://res.cloudinary.com/dzvwpvixz/image/upload/v1781551143/cmmhpmm4jfozt9npzig9.jpg",
+            "id": "cmmhpmm4jfozt9npzig9",
+            "caption": "TUCCITTO IANNELLO vs TODARO GIANCHINO",
+            "publicId": "cmmhpmm4jfozt9npzig9",
+            "uploadedAt": 1781551144304
+          },
+          {
+            "caption": "Fase 1 - NIGRO CAMMARATA vs ORLANDO FARACI",
+            "publicId": "gg6nswnmqh3sfplszuid",
+            "url": "https://res.cloudinary.com/dzvwpvixz/image/upload/v1781728926/gg6nswnmqh3sfplszuid.jpg",
+            "id": "gg6nswnmqh3sfplszuid",
+            "uploadedAt": 1781728927723
+          },
+          {
+            "caption": "Premiazione 1° / 2°/ 3°/4° classificate",
+            "publicId": "eejg4kyetemm71ttvqxq",
+            "url": "https://res.cloudinary.com/dzvwpvixz/image/upload/v1782337411/eejg4kyetemm71ttvqxq.jpg",
+            "id": "eejg4kyetemm71ttvqxq",
+            "uploadedAt": 1782337416304
+          },
+          {
+            "url": "https://res.cloudinary.com/dzvwpvixz/image/upload/v1782337456/dbtdl3zhhg0jndhwexwl.jpg",
+            "id": "dbtdl3zhhg0jndhwexwl",
+            "caption": "4° - BARRESI CAPITANI",
+            "publicId": "dbtdl3zhhg0jndhwexwl",
+            "uploadedAt": 1782337458694
+          },
+          {
+            "id": "weuxwxwqpug1oql4xkwo",
+            "url": "https://res.cloudinary.com/dzvwpvixz/image/upload/v1782337483/weuxwxwqpug1oql4xkwo.jpg",
+            "publicId": "weuxwxwqpug1oql4xkwo",
+            "caption": "3° - CALABRESE GRANDE",
+            "uploadedAt": 1782337485353
+          },
+          {
+            "publicId": "wp75smvnakdccm2f6cz9",
+            "caption": "2° - TODARO GIANCHINO",
+            "id": "wp75smvnakdccm2f6cz9",
+            "url": "https://res.cloudinary.com/dzvwpvixz/image/upload/v1782337527/wp75smvnakdccm2f6cz9.jpg",
+            "uploadedAt": 1782337531448
+          },
+          {
+            "uploadedAt": 1782337583426,
+            "caption": "Campionesse - PINO GIONFRIDA",
+            "publicId": "qiyzmdih8jak0umxuph6",
+            "url": "https://res.cloudinary.com/dzvwpvixz/image/upload/v1782337581/qiyzmdih8jak0umxuph6.jpg",
+            "id": "qiyzmdih8jak0umxuph6"
+          },
+          {
+            "publicId": "fvpig1on1peetkkuajfb",
+            "caption": "Le Campionesse",
+            "id": "fvpig1on1peetkkuajfb",
+            "url": "https://res.cloudinary.com/dzvwpvixz/image/upload/v1782337740/fvpig1on1peetkkuajfb.jpg",
+            "uploadedAt": 1782337741462
+          },
+          {
+            "uploadedAt": 1782337782283,
+            "id": "q1atfjt07fnkp8mb6zw1",
+            "url": "https://res.cloudinary.com/dzvwpvixz/image/upload/v1782337781/q1atfjt07fnkp8mb6zw1.jpg",
+            "publicId": "q1atfjt07fnkp8mb6zw1",
+            "caption": "Quelli della serata al Kukua"
+          }
+        ]
+      }
+    }
+  }
+}
