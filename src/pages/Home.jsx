@@ -49,17 +49,19 @@ export default function Home({ matches, teams, isAdmin, bracketActive, level, se
                 { src: '/genovese2.png', alt: 'Genovese Umberto', url: null },
                 { src: '/La-Lisca-logo-bianco-1920w.png', alt: 'La Lisca', url: 'https://www.laliscacucinaebottega.com/' },
                 { src: '/t2padel.jpg', alt: 'T2 Padel', url: 'https://www.facebook.com/time2padelsr/' },
+                { src: '/sudest-bianco.png', alt: 'Sudest', url: null, square: true },
                 { src: '/genovese2.png', alt: 'Genovese Umberto', url: null },
                 { src: '/La-Lisca-logo-bianco-1920w.png', alt: 'La Lisca', url: 'https://www.laliscacucinaebottega.com/' },
                 { src: '/t2padel.jpg', alt: 'T2 Padel', url: 'https://www.facebook.com/time2padelsr/' },
+                { src: '/sudest-bianco.png', alt: 'Sudest', url: null, square: true },
               ].map((logo, i) => (
                 logo.url ? (
                   <a key={i} href={logo.url} target="_blank" rel="noopener noreferrer" className="sponsor-item">
-                    <img src={logo.src} alt={logo.alt} loading="lazy" />
+                    <img src={logo.src} alt={logo.alt} loading="lazy" className={logo.square ? 'sponsor-logo-square' : undefined} />
                   </a>
                 ) : (
                   <div key={i} className="sponsor-item">
-                    <img src={logo.src} alt={logo.alt} loading="lazy" />
+                    <img src={logo.src} alt={logo.alt} loading="lazy" className={logo.square ? 'sponsor-logo-square' : undefined} />
                   </div>
                 )
               ))}
